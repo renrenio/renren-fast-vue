@@ -5,66 +5,16 @@
         <el-button type="primary" @click="addOrUpdateHandle()">新增</el-button>
       </el-form-item>
     </el-form>
-    <tree-table
-      :columns="treeTableColumns"
+    <el-tree
       :data="dataList"
-      highlight-current-row
-      border
-      style="width: 100%;">
-      <el-table-column
-        prop="name"
-        header-align="center"
-        align="center"
-        label="菜单名称">
-      </el-table-column>
-      <el-table-column
-        prop="parentName"
-        header-align="center"
-        align="center"
-        label="上级菜单">
-      </el-table-column>
-      <el-table-column
-        prop="icon"
-        header-align="center"
-        align="center"
-        label="图标">
-      </el-table-column>
-      <el-table-column
-        prop="type"
-        header-align="center"
-        align="center"
-        label="类型">
-      </el-table-column>
-      <el-table-column
-        prop="orderNum"
-        header-align="center"
-        align="center"
-        label="排序号">
-      </el-table-column>
-      <el-table-column
-        prop="url"
-        header-align="center"
-        align="center"
-        label="菜单URL">
-      </el-table-column>
-      <el-table-column
-        prop="perms"
-        header-align="center"
-        align="center"
-        label="授权标识">
-      </el-table-column>
-      <el-table-column
-        fixed="right"
-        header-align="center"
-        align="center"
-        width="200"
-        label="操作">
-        <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
-        </template>
-      </el-table-column>
-    </tree-table>
+      :props="dataListTreeProps"
+      :highlight-current="true"
+      node-key="menuId"
+      :default-expand-all="true"
+      :expand-on-click-node="false"
+      @mouseleave.native="dataListTreeActiveNodeId = 0"
+      :render-content="dataListTreeRenderContent">
+    </el-tree>
     <!-- 弹窗, 新增 / 修改 -->
     <el-dialog
       :title="!addOrUpdateForm.userId ? '新增' : '修改'"
@@ -88,7 +38,7 @@
         </el-form-item>
         <el-form-item label="角色" size="mini" prop="roleIdList">
           <el-checkbox-group v-model="addOrUpdateForm.roleIdList">
-            <el-checkbox v-for="role in roleList" :key="role.roleId" :label="role.roleId">{{ role.roleName }}</el-checkbox>
+            <!-- <el-checkbox v-for="role in roleList" :key="role.roleId" :label="role.roleId">{{ role.roleName }}</el-checkbox> -->
           </el-checkbox-group>
         </el-form-item>
         <el-form-item label="状态" size="mini" prop="status">
@@ -107,7 +57,6 @@
 </template>
 
 <script>
-  import TreeTable from '@/components/tree-table'
   import API from '@/api'
   import { treeDataTranslate } from '@/utils'
   import { isEmail, isMobile } from '@/utils/validate'
@@ -144,22 +93,14 @@
         }
       }
       return {
-        dataForm: {
-          userName: ''
+        dataForm: {},
+        dataListTreeProps: {
+          label: 'name',
+          children: 'children'
         },
-        treeTableColumns: [
-          {
-            text: 'ID',
-            value: 'menuId'
-          }
-        ],
+        dataListTreeHandlebarVisible: false,
+        dataListTreeActiveNodeId: 0,
         dataList: [],
-        pageIndex: 1,
-        pageSize: 10,
-        totalPage: 0,
-        dataListLoading: false,
-        dataListSelections: [],
-        roleList: [],
         addOrUpdateDialogVisible: false,
         addOrUpdateForm: {
           userId: 0,
@@ -192,9 +133,6 @@
         }
       }
     },
-    components: {
-      TreeTable
-    },
     activated () {
       this.getDataList()
     },
@@ -207,9 +145,25 @@
           this.dataListLoading = false
         })
       },
-      // 多选
-      selectionChangeHandle (val) {
-        this.dataListSelections = val
+      // 树形数据列表, 呈现内容
+      dataListTreeRenderContent (h, { node, data, store }) {
+        return (
+          <div on-mouseenter={ () => this.dataListTreeMouseenterHandle(node) } class="tree-handlebar">
+            <span>{ data.menuId + '. ' + node.label }</span>
+            {
+              this.dataListTreeActiveNodeId === node.id
+              ? <span class="tree-handlebar__btns">
+                <el-button type="text" on-click={ () => this.append(data) }>修改</el-button>
+                <el-button type="text" on-click={ () => this.remove(node, data) }>删除</el-button>
+              </span>
+              : ''
+            }
+          </div>
+        )
+      },
+      // 树形数据列表, 数据进入处理
+      dataListTreeMouseenterHandle (node) {
+        this.dataListTreeActiveNodeId = node.id
       },
       // 新增 / 修改
       addOrUpdateHandle (id) {
@@ -296,3 +250,19 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .mod-menu {
+    .tree-handlebar {
+      width: 100%;
+    }
+    .tree-handlebar__btns {
+      margin-left: 15px;
+      > .el-button {
+        padding: 0;
+        font-size: 12px;
+      }
+    }
+  }
+</style>
+
