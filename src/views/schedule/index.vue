@@ -6,12 +6,12 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
-        <el-button type="danger" @click="pauseHandle()" :disabled="dataListSelections.length <= 0">批量暂停</el-button>
-        <el-button type="danger" @click="resumeHandle()" :disabled="dataListSelections.length <= 0">批量恢复</el-button>
-        <el-button type="danger" @click="runHandle()" :disabled="dataListSelections.length <= 0">批量立即执行</el-button>
-        <el-button type="success" @click="logDialogVisible = true">日志列表</el-button>
+        <el-button v-if="isAuth('sys:schedule:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('sys:schedule:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button v-if="isAuth('sys:schedule:pause')" type="danger" @click="pauseHandle()" :disabled="dataListSelections.length <= 0">批量暂停</el-button>
+        <el-button v-if="isAuth('sys:schedule:resume')" type="danger" @click="resumeHandle()" :disabled="dataListSelections.length <= 0">批量恢复</el-button>
+        <el-button v-if="isAuth('sys:schedule:run')" type="danger" @click="runHandle()" :disabled="dataListSelections.length <= 0">批量立即执行</el-button>
+        <el-button v-if="isAuth('sys:schedule:log')" type="success" @click="logDialogVisible = true">日志列表</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -80,11 +80,11 @@
         width="200"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.jobId)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.jobId)">删除</el-button>
-          <el-button type="text" size="small" @click="pauseHandle(scope.row.jobId)">暂停</el-button>
-          <el-button type="text" size="small" @click="resumeHandle(scope.row.jobId)">恢复</el-button>
-          <el-button type="text" size="small" @click="runHandle(scope.row.jobId)">立即执行</el-button>
+          <el-button v-if="isAuth('sys:schedule:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.jobId)">修改</el-button>
+          <el-button v-if="isAuth('sys:schedule:delete')" type="text" size="small" @click="deleteHandle(scope.row.jobId)">删除</el-button>
+          <el-button v-if="isAuth('sys:schedule:pause')" type="text" size="small" @click="pauseHandle(scope.row.jobId)">暂停</el-button>
+          <el-button v-if="isAuth('sys:schedule:resume')" type="text" size="small" @click="resumeHandle(scope.row.jobId)">恢复</el-button>
+          <el-button v-if="isAuth('sys:schedule:run')" type="text" size="small" @click="runHandle(scope.row.jobId)">立即执行</el-button>
         </template>
       </el-table-column>
     </el-table>

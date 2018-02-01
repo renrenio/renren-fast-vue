@@ -8,10 +8,13 @@ import VueCookie from 'vue-cookie'  // api: https://github.com/alfhen/vue-cookie
 import '@/element-ui'               // api: https://github.com/ElemeFE/element
 import '@/iconfont'                 // api: http://www.iconfont.cn/
 import '@/assets/scss/index.scss'
+import { isAuth } from '@/utils'
 
 Vue.config.productionTip = false
 
 Vue.use(VueCookie)
+
+Vue.prototype.isAuth = isAuth // 挂载权限方法
 
 /* eslint-disable no-new */
 new Vue({

@@ -3,7 +3,7 @@ import requestUrl from '../requestUrl'
 import requestParam from '../requestParam'
 import isInteger from 'lodash/isInteger'
 
-// 获取导航菜单列表
+// 获取导航菜单列表 / 权限
 export function nav () {
   return request({
     url: requestUrl('/sys/menu/nav'),

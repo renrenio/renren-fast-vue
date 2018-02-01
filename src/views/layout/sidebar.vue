@@ -82,10 +82,16 @@
         })
         this.menuNavActive = menuNav.menuId + ''
       },
-      // 获取菜单导航列表
+      // 获取菜单导航列表 / 权限
       getMenuNavList () {
         return API.menu.nav().then(({data}) => {
-          this.UPDATE_MENU_NAV_LIST(data && data.code === 0 ? data.menuList : [])
+          if (data && data.code === 0) {
+            this.UPDATE_MENU_NAV_LIST(data.menuList)
+            sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
+          } else {
+            this.UPDATE_MENU_NAV_LIST([])
+            sessionStorage.setItem('permissions', '[]')
+          }
         })
       },
       // 获取菜单导航, 根据路由名称
