@@ -20,7 +20,7 @@
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-vue-jsx": "^3.5.1",
     "babel-polyfill": "6.26.0",
-    "element-ui": "2.0.7",
+    "element-ui": "2.1.0",
     "vue": "2.5.2",
     "vue-cookie": "1.1.4",
     "vue-router": "3.0.1",

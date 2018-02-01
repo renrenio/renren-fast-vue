@@ -1,11 +1,8 @@
 <template>
   <aside class="site-sidebar">
     <div class="site-sidebar__inner">
-      <!--  -->
       <el-menu
-        ref="menuNav"
         :default-active="menuNavActive"
-        :default-openeds="menuNavOpeneds"
         :collapse="$store.state.sidebarCollapse"
         class="site-sidebar__menu"
         background-color="#545c64"
@@ -34,20 +31,14 @@
   export default {
     data () {
       return {
-        menuNavActive: '1-1',
-        menuNavOpeneds: ['1']
+        menuNavActive: '1-1'
       }
     },
     components: {
       SubMenuNav
     },
     watch: {
-      $route: 'routeHandle',
-      '$store.state.sidebarCollapse': function (val) {
-        if (!val) {
-          this.$refs.menuNav.open(this.menuNavOpeneds[0])
-        }
-      }
+      $route: 'routeHandle'
     },
     created () {
       this.routeHandle(this.$route, true)
