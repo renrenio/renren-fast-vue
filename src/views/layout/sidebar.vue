@@ -1,7 +1,9 @@
 <template>
   <aside class="site-sidebar">
     <div class="site-sidebar__inner">
+      <!--  -->
       <el-menu
+        ref="menuNav"
         :default-active="menuNavActive"
         :default-openeds="menuNavOpeneds"
         :collapse="$store.state.sidebarCollapse"
@@ -33,15 +35,19 @@
     data () {
       return {
         menuNavActive: '1-1',
-        menuNavOpeneds: ['1'],
-        isCollapse: false
+        menuNavOpeneds: ['1']
       }
     },
     components: {
       SubMenuNav
     },
     watch: {
-      $route: 'routeHandle'
+      $route: 'routeHandle',
+      '$store.state.sidebarCollapse': function (val) {
+        if (!val) {
+          this.$refs.menuNav.open(this.menuNavOpeneds[0])
+        }
+      }
     },
     created () {
       this.routeHandle(this.$route, true)
@@ -63,7 +69,6 @@
             }
           } else {
             this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name: route.name })
-            this.menuNavActive = tab[0].id + ''
           }
         } else {
           if (isInit) {
@@ -108,32 +113,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  .site-sidebar {
-    position: fixed;
-    top: 50px;
-    left: 0;
-    bottom: 0;
-    z-index: 1020;
-    width: 230px;
-    background-color: #545c64;
-    overflow: hidden;
-  }
-  .site-sidebar__inner {
-    position: relative;
-    z-index: 1;
-    width: 250px;
-    height: 100%;
-    padding-bottom: 15px;
-    overflow-y: scroll;
-  }
-  .el-menu.site-sidebar__menu {
-    width: 230px;
-    border-right: 0;
-  }
-  .site-sidebar__menu-icon {
-    margin-right: 5px;
-    font-size: 18px;
-  }
-</style>

@@ -20,6 +20,8 @@ const state = {
     activeName: '',
     tabList: []
   },
+  // 菜单导航iframe嵌套地址
+  menuNavIframeUrl: '//demo.open.renren.io/renren-fast/',
   // 菜单导航类型映射表, module: vue重构(默认), iframe: iframe方式嵌套
   menuNavTypeMap: {
     'sql': 'iframe'

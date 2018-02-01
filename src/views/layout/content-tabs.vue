@@ -13,7 +13,7 @@
           <el-card :body-style="contentViewHeight(item)">
             <iframe
               v-if="item.type === 'iframe'"
-              :src="iframePath + item.url"
+              :src="$store.state.menuNavIframeUrl + item.url"
               width="100%" height="100%" frameborder="0" scrolling="yes">
             </iframe>
             <keep-alive v-else>
@@ -31,7 +31,6 @@
   export default {
     data () {
       return {
-        iframePath: '//demo.open.renren.io/renren-fast/'
       }
     },
     computed: {
@@ -83,41 +82,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  .site-content--tabs {
-    padding: 55px 0 0;
-
-    > .el-tabs {
-      .el-tabs__header {
-        position: fixed;
-        top: 50px;
-        left: 230px;
-        right: 0;
-        z-index: 930;
-        padding: 0 15px;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
-        background-color: #fff;
-      }
-      .el-tabs__nav-wrap {
-        margin-bottom: 0;
-        &:after {
-          display: none;
-        }
-      }
-      .el-tabs__content {
-        padding: 0 15px 15px;
-      }
-      .el-pagination {
-        margin-top: 15px;
-        text-align: right;
-      }
-      .el-breadcrumb {
-        padding: 0 0 15px;
-        margin-bottom: 22px;
-        border-bottom: 1px solid #ebeef5;
-      }
-    }
-  }
-</style>
-
