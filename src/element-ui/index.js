@@ -20,7 +20,7 @@ import {
   MenuItem,
   MenuItemGroup,
   Input,
-  // InputNumber,
+  InputNumber,
   Radio,
   RadioGroup,
   // RadioButton,
@@ -89,7 +89,7 @@ Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
 Vue.use(Input)
-// Vue.use(InputNumber)
+Vue.use(InputNumber)
 Vue.use(Radio)
 Vue.use(RadioGroup)
 // Vue.use(RadioButton)

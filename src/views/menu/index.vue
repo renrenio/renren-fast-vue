@@ -5,60 +5,85 @@
         <el-button type="primary" @click="addOrUpdateHandle()">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-tree
+    <tree-table
+      :columns="treeTableColumns"
       :data="dataList"
-      :props="dataListTreeProps"
-      :highlight-current="true"
-      node-key="menuId"
-      :default-expand-all="true"
-      :expand-on-click-node="false"
-      @mouseleave.native="dataListTreeActiveNodeId = 0"
-      :render-content="dataListTreeRenderContent">
-    </el-tree>
+      highlight-current-row
+      border
+      style="width: 100%;">
+      <el-table-column
+        prop="name"
+        header-align="center"
+        align="center"
+        label="菜单名称">
+      </el-table-column>
+      <el-table-column
+        prop="parentName"
+        header-align="center"
+        align="center"
+        label="上级菜单">
+      </el-table-column>
+      <el-table-column
+        prop="icon"
+        header-align="center"
+        align="center"
+        label="图标">
+      </el-table-column>
+      <el-table-column
+        prop="type"
+        header-align="center"
+        align="center"
+        label="类型">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.type === 0" size="small">目录</el-tag>
+          <el-tag v-else-if="scope.row.type === 1" size="small" type="success">菜单</el-tag>
+          <el-tag v-else-if="scope.row.type === 2" size="small" type="info">按钮</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="orderNum"
+        header-align="center"
+        align="center"
+        label="排序号">
+      </el-table-column>
+      <el-table-column
+        prop="url"
+        header-align="center"
+        align="center"
+        width="150"
+        :show-overflow-tooltip="true"
+        label="菜单URL">
+      </el-table-column>
+      <el-table-column
+        prop="perms"
+        header-align="center"
+        align="center"
+        width="150"
+        :show-overflow-tooltip="true"
+        label="授权标识">
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        header-align="center"
+        align="center"
+        width="200"
+        label="操作">
+        <template slot-scope="scope">
+          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
+          <el-button type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+        </template>
+      </el-table-column>
+    </tree-table>
     <!-- 弹窗, 新增 / 修改 -->
-    <el-dialog
-      :title="!addOrUpdateForm.userId ? '新增' : '修改'"
-      :close-on-click-modal="false"
-      :visible.sync="addOrUpdateDialogVisible">
-      <el-form :model="addOrUpdateForm" :rules="addOrUpdateRule" ref="addOrUpdateForm" label-width="80px">
-        <el-form-item label="用户名" prop="userName">
-          <el-input v-model="addOrUpdateForm.userName" placeholder="登录帐号"></el-input>
-        </el-form-item>
-        <el-form-item label="密码" prop="password" :class="{ 'is-required': !addOrUpdateForm.userId }">
-          <el-input v-model="addOrUpdateForm.password" type="password" placeholder="密码"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="comfirmPassword" :class="{ 'is-required': !addOrUpdateForm.userId }">
-          <el-input v-model="addOrUpdateForm.comfirmPassword" type="password" placeholder="确认密码"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="addOrUpdateForm.email" placeholder="邮箱"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号" prop="mobile">
-          <el-input v-model="addOrUpdateForm.mobile" placeholder="手机号"></el-input>
-        </el-form-item>
-        <el-form-item label="角色" size="mini" prop="roleIdList">
-          <el-checkbox-group v-model="addOrUpdateForm.roleIdList">
-            <!-- <el-checkbox v-for="role in roleList" :key="role.roleId" :label="role.roleId">{{ role.roleName }}</el-checkbox> -->
-          </el-checkbox-group>
-        </el-form-item>
-        <el-form-item label="状态" size="mini" prop="status">
-          <el-radio-group v-model="addOrUpdateForm.status">
-            <el-radio :label="0">禁用</el-radio>
-            <el-radio :label="1">正常</el-radio>
-          </el-radio-group>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addOrUpdateDialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="addOrUpdateFormSubmit()">确定</el-button>
-      </span>
-    </el-dialog>
+    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate"></add-or-update>
   </div>
 </template>
 
 <script>
+  import TreeTable from '@/components/tree-table'
   import API from '@/api'
   import { treeDataTranslate } from '@/utils'
+  import AddOrUpdate from './add-or-update'
   import { isEmail, isMobile } from '@/utils/validate'
   export default {
     data () {
@@ -93,15 +118,24 @@
         }
       }
       return {
-        dataForm: {},
-        dataListTreeProps: {
-          label: 'name',
-          children: 'children'
+        dataForm: {
+          userName: ''
         },
-        dataListTreeHandlebarVisible: false,
-        dataListTreeActiveNodeId: 0,
+        treeTableColumns: [
+          {
+            text: 'ID',
+            value: 'menuId',
+            width: '120'
+          }
+        ],
         dataList: [],
-        addOrUpdateDialogVisible: false,
+        pageIndex: 1,
+        pageSize: 10,
+        totalPage: 0,
+        dataListLoading: false,
+        dataListSelections: [],
+        roleList: [],
+        addOrUpdateVisible: false,
         addOrUpdateForm: {
           userId: 0,
           userName: '',
@@ -133,6 +167,10 @@
         }
       }
     },
+    components: {
+      TreeTable,
+      AddOrUpdate
+    },
     activated () {
       this.getDataList()
     },
@@ -145,49 +183,37 @@
           this.dataListLoading = false
         })
       },
-      // 树形数据列表, 呈现内容
-      dataListTreeRenderContent (h, { node, data, store }) {
-        return (
-          <div on-mouseenter={ () => this.dataListTreeMouseenterHandle(node) } class="tree-handlebar">
-            <span>{ data.menuId + '. ' + node.label }</span>
-            {
-              this.dataListTreeActiveNodeId === node.id
-              ? <span class="tree-handlebar__btns">
-                <el-button type="text" on-click={ () => this.append(data) }>修改</el-button>
-                <el-button type="text" on-click={ () => this.remove(node, data) }>删除</el-button>
-              </span>
-              : ''
-            }
-          </div>
-        )
-      },
-      // 树形数据列表, 数据进入处理
-      dataListTreeMouseenterHandle (node) {
-        this.dataListTreeActiveNodeId = node.id
+      // 多选
+      selectionChangeHandle (val) {
+        this.dataListSelections = val
       },
       // 新增 / 修改
       addOrUpdateHandle (id) {
-        this.addOrUpdateForm.userId = id || 0
-        API.role.listByUser().then(({data}) => {
-          this.roleList = data && data.code === 0 ? data.list : []
-        }).then(() => {
-          this.addOrUpdateDialogVisible = true
-          this.$nextTick(() => {
-            this.$refs['addOrUpdateForm'].resetFields()
-          })
-        }).then(() => {
-          if (this.addOrUpdateForm.userId) {
-            API.user.info(this.addOrUpdateForm.userId).then(({data}) => {
-              if (data && data.code === 0) {
-                this.addOrUpdateForm.userName = data.user.username
-                this.addOrUpdateForm.email = data.user.email
-                this.addOrUpdateForm.mobile = data.user.mobile
-                this.addOrUpdateForm.roleIdList = data.user.roleIdList
-                this.addOrUpdateForm.status = data.user.status
-              }
-            })
-          }
+        this.addOrUpdateVisible = true
+        this.$nextTick(() => {
+          this.$refs.addOrUpdate.init(id)
         })
+        // this.addOrUpdateForm.userId = id || 0
+        // API.role.listByUser().then(({data}) => {
+        //   this.roleList = data && data.code === 0 ? data.list : []
+        // }).then(() => {
+        //   this.addOrUpdateVisible = true
+        //   this.$nextTick(() => {
+        //     this.$refs['addOrUpdateForm'].resetFields()
+        //   })
+        // }).then(() => {
+        //   if (this.addOrUpdateForm.userId) {
+        //     API.user.info(this.addOrUpdateForm.userId).then(({data}) => {
+        //       if (data && data.code === 0) {
+        //         this.addOrUpdateForm.userName = data.user.username
+        //         this.addOrUpdateForm.email = data.user.email
+        //         this.addOrUpdateForm.mobile = data.user.mobile
+        //         this.addOrUpdateForm.roleIdList = data.user.roleIdList
+        //         this.addOrUpdateForm.status = data.user.status
+        //       }
+        //     })
+        //   }
+        // })
       },
       // 新增 / 修改, 提交
       addOrUpdateFormSubmit () {
@@ -210,7 +236,7 @@
                   type: 'success',
                   duration: 1500,
                   onClose: () => {
-                    this.addOrUpdateDialogVisible = false
+                    this.addOrUpdateVisible = false
                     this.getDataList()
                   }
                 })
@@ -250,19 +276,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  .mod-menu {
-    .tree-handlebar {
-      width: 100%;
-    }
-    .tree-handlebar__btns {
-      margin-left: 15px;
-      > .el-button {
-        padding: 0;
-        font-size: 12px;
-      }
-    }
-  }
-</style>
-

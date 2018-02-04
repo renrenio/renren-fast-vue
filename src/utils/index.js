@@ -13,18 +13,22 @@ export function isAuth (key) {
  * @param {*} pid
  */
 export function treeDataTranslate (data, id, pid) {
+  var res = []
+  var temp = {}
   for (var i = 0; i < data.length; i++) {
-    for (var j = 0; j < data.length; j++) {
-      if (data[j][id] === data[i][pid]) {
-        data[j]['children'] = data[j]['children'] || []
-        data[j]['children'].push(data[i])
-        data.splice(i, 1)
-        i--
-        break
+    temp[data[i][id]] = data[i]
+  }
+  for (var k = 0; k < data.length; k++) {
+    if (temp[data[k][pid]] && data[k][id] !== data[k][pid]) {
+      if (!temp[data[k][pid]]['children']) {
+        temp[data[k][pid]]['children'] = []
       }
+      temp[data[k][pid]]['children'].push(data[k])
+    } else {
+      res.push(data[k])
     }
   }
-  return data
+  return res
 }
 
 /**
