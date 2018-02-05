@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="!dataForm.userId ? '新增' : '修改'"
+    :title="!dataForm.id ? '新增' : '修改'"
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" label-width="80px">
@@ -15,15 +15,21 @@
         <el-input v-model="dataForm.name" placeholder="菜单名称或按钮名称"></el-input>
       </el-form-item>
       <el-form-item label="上级菜单" prop="parentName">
-        <el-input v-model="dataForm.parentName" placeholder="一级菜单"></el-input>
-        <el-tree
-          :data="menuList"
-          :props="menuListTreeProps"
-          node-key="menuId"
-          ref="menuListTree"
-          :default-expand-all="true"
-          show-checkbox>
-        </el-tree>
+        <el-popover
+          ref="menuListPopover"
+          placement="bottom-end"
+          trigger="click">
+          <el-tree
+            :data="menuList"
+            :props="menuListTreeProps"
+            node-key="menuId"
+            ref="menuListTree"
+            @current-change="menuListTreeCurrentChangeHandle"
+            :default-expand-all="true"
+            :expand-on-click-node="false">
+          </el-tree>
+        </el-popover>
+        <el-input v-model="dataForm.parentName" v-popover:menuListPopover :readonly="true" placeholder="点击选择上级菜单" class="menu-list__input"></el-input>
       </el-form-item>
       <el-form-item label="菜单URL" prop="url">
         <el-input v-model="dataForm.url" placeholder="菜单URL"></el-input>
@@ -35,10 +41,21 @@
         <el-input-number v-model="dataForm.orderNum" :min="1" :max="10" label="排序号"></el-input-number>
       </el-form-item>
       <el-form-item label="菜单图标" prop="icon">
-        <el-input v-model="dataForm.icon" placeholder="菜单图标"></el-input>
-      </el-form-item>
-      <el-form-item label="" size="mini">
-        <span>获取图标方法: <a href="http://element-cn.eleme.io/#/zh-CN/component/icon" target="_blank">http://element-cn.eleme.io/#/zh-CN/component/icon</a></span>
+        <el-row>
+          <el-col :span="22">
+            <el-input v-model="dataForm.icon" placeholder="菜单图标"></el-input>
+          </el-col>
+          <el-col :span="2" class="icon-tips">
+            <el-tooltip placement="top" effect="light">
+              <div slot="content">
+                <span>获取图标: </span><br/>
+                1. 暂时兼容旧版引入使用 <a href="//fontawesome.io/icons/" target="_blank">fontawesome</a><br/>
+                2. 之后统一全站修改使用 <a href="//github.com/daxiongYang/vue-cli-basic/blob/master/src/iconfont/index.js" target="_blank">iconfont</a>
+              </div>
+              <i class="el-icon-warning"></i>
+            </el-tooltip>
+          </el-col>
+        </el-row>
       </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -51,6 +68,7 @@
 <script>
   import API from '@/api'
   import { treeDataTranslate } from '@/utils'
+  import isFinite from 'lodash/isFinite'
   export default {
     data () {
       var validateUrl = (rule, value, callback) => {
@@ -63,9 +81,10 @@
       return {
         visible: false,
         dataForm: {
-          id: 0,
-          type: '',
+          id: null,
+          type: 1,
           name: '',
+          parentId: null,
           parentName: '',
           url: '',
           perms: '',
@@ -75,6 +94,9 @@
         dataRule: {
           name: [
             { required: true, message: '菜单名称不能为空', trigger: 'blur' }
+          ],
+          parentName: [
+            { required: true, message: '上级菜单不能为空', trigger: 'change' }
           ],
           url: [
             { validator: validateUrl, trigger: 'blur' }
@@ -89,12 +111,23 @@
     },
     methods: {
       init (id) {
-        this.dataForm.id = id || 0
+        this.dataForm.id = isFinite(id) ? id : null
         API.menu.select().then(({data}) => {
-          this.menuList = treeDataTranslate(data.menuList, 'menuId', 'parentId') || []
-          console.log(this.menuList)
+          this.menuList = treeDataTranslate(data.menuList, 'menuId')
+        }).then(() => {
+          this.visible = true
+          this.$nextTick(() => {
+            this.$refs['dataForm'].resetFields()
+          })
+        }).then(() => {
+          if (isFinite(this.dataForm.id)) {
+          }
         })
-        this.visible = true
+      },
+      // 菜单树选中
+      menuListTreeCurrentChangeHandle (data, node) {
+        this.dataForm.parentId = data.menuId
+        this.dataForm.parentName = data.name
       },
       dataFormSubmit () {
         this.$refs['dataForm'].validate((valid) => {
@@ -130,3 +163,20 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .mod-menu {
+    .menu-list__input {
+       > .el-input__inner {
+        cursor: pointer;
+      }
+    }
+    .icon-tips {
+      font-size: 18px;
+      text-align: center;
+      color: #e6a23c;
+      cursor: pointer;
+    }
+  }
+</style>
+

@@ -12,7 +12,7 @@ export function isAuth (key) {
  * @param {*} id
  * @param {*} pid
  */
-export function treeDataTranslate (data, id, pid) {
+export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
   var res = []
   var temp = {}
   for (var i = 0; i < data.length; i++) {

@@ -175,7 +175,7 @@
       addOrUpdateHandle (id) {
         this.addOrUpdateForm.roleId = id || 0
         API.menu.list().then(({data}) => {
-          this.menuList = treeDataTranslate(data, 'menuId', 'parentId') || []
+          this.menuList = treeDataTranslate(data, 'menuId')
         }).then(() => {
           this.addOrUpdateDialogVisible = true
           this.$nextTick(() => {

@@ -2,13 +2,12 @@
   <div class="mod-menu">
     <el-form :inline="true" :model="dataForm">
       <el-form-item>
-        <el-button type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
       </el-form-item>
     </el-form>
     <tree-table
       :columns="treeTableColumns"
       :data="dataList"
-      highlight-current-row
       border
       style="width: 100%;">
       <el-table-column
@@ -28,6 +27,9 @@
         header-align="center"
         align="center"
         label="图标">
+        <template slot-scope="scope">
+          <i :class="['fa-lg', scope.row.icon]"></i>
+        </template>
       </el-table-column>
       <el-table-column
         prop="type"
@@ -69,8 +71,8 @@
         width="200"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+          <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.menuId)">修改</el-button>
+          <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.menuId)">删除</el-button>
         </template>
       </el-table-column>
     </tree-table>
@@ -81,46 +83,13 @@
 
 <script>
   import TreeTable from '@/components/tree-table'
+  import AddOrUpdate from './add-or-update'
   import API from '@/api'
   import { treeDataTranslate } from '@/utils'
-  import AddOrUpdate from './add-or-update'
-  import { isEmail, isMobile } from '@/utils/validate'
   export default {
     data () {
-      var validatePassword = (rule, value, callback) => {
-        if (!this.addOrUpdateForm.userId && !/\S/.test(value)) {
-          callback(new Error('密码不能为空'))
-        } else {
-          callback()
-        }
-      }
-      var validateComfirmPassword = (rule, value, callback) => {
-        if (!this.addOrUpdateForm.userId && !/\S/.test(value)) {
-          callback(new Error('确认密码不能为空'))
-        } else if (this.addOrUpdateForm.password !== value) {
-          callback(new Error('确认密码与密码输入不一致'))
-        } else {
-          callback()
-        }
-      }
-      var validateEmail = (rule, value, callback) => {
-        if (!isEmail(value)) {
-          callback(new Error('邮箱格式错误'))
-        } else {
-          callback()
-        }
-      }
-      var validateMobile = (rule, value, callback) => {
-        if (!isMobile(value)) {
-          callback(new Error('手机号格式错误'))
-        } else {
-          callback()
-        }
-      }
       return {
-        dataForm: {
-          userName: ''
-        },
+        dataForm: {},
         treeTableColumns: [
           {
             text: 'ID',
@@ -129,42 +98,8 @@
           }
         ],
         dataList: [],
-        pageIndex: 1,
-        pageSize: 10,
-        totalPage: 0,
         dataListLoading: false,
-        dataListSelections: [],
-        roleList: [],
-        addOrUpdateVisible: false,
-        addOrUpdateForm: {
-          userId: 0,
-          userName: '',
-          password: '',
-          comfirmPassword: '',
-          email: '',
-          mobile: '',
-          roleIdList: [],
-          status: 1
-        },
-        addOrUpdateRule: {
-          userName: [
-            { required: true, message: '用户名不能为空', trigger: 'blur' }
-          ],
-          password: [
-            { validator: validatePassword, trigger: 'blur' }
-          ],
-          comfirmPassword: [
-            { validator: validateComfirmPassword, trigger: 'blur' }
-          ],
-          email: [
-            { required: true, message: '邮箱不能为空', trigger: 'blur' },
-            { validator: validateEmail, trigger: 'blur' }
-          ],
-          mobile: [
-            { required: true, message: '手机号不能为空', trigger: 'blur' },
-            { validator: validateMobile, trigger: 'blur' }
-          ]
-        }
+        addOrUpdateVisible: false
       }
     },
     components: {
@@ -179,13 +114,9 @@
       getDataList () {
         this.dataListLoading = true
         API.menu.list().then(({data}) => {
-          this.dataList = treeDataTranslate(data, 'menuId', 'parentId') || []
+          this.dataList = treeDataTranslate(data, 'menuId')
           this.dataListLoading = false
         })
-      },
-      // 多选
-      selectionChangeHandle (val) {
-        this.dataListSelections = val
       },
       // 新增 / 修改
       addOrUpdateHandle (id) {
@@ -193,71 +124,15 @@
         this.$nextTick(() => {
           this.$refs.addOrUpdate.init(id)
         })
-        // this.addOrUpdateForm.userId = id || 0
-        // API.role.listByUser().then(({data}) => {
-        //   this.roleList = data && data.code === 0 ? data.list : []
-        // }).then(() => {
-        //   this.addOrUpdateVisible = true
-        //   this.$nextTick(() => {
-        //     this.$refs['addOrUpdateForm'].resetFields()
-        //   })
-        // }).then(() => {
-        //   if (this.addOrUpdateForm.userId) {
-        //     API.user.info(this.addOrUpdateForm.userId).then(({data}) => {
-        //       if (data && data.code === 0) {
-        //         this.addOrUpdateForm.userName = data.user.username
-        //         this.addOrUpdateForm.email = data.user.email
-        //         this.addOrUpdateForm.mobile = data.user.mobile
-        //         this.addOrUpdateForm.roleIdList = data.user.roleIdList
-        //         this.addOrUpdateForm.status = data.user.status
-        //       }
-        //     })
-        //   }
-        // })
-      },
-      // 新增 / 修改, 提交
-      addOrUpdateFormSubmit () {
-        this.$refs['addOrUpdateForm'].validate((valid) => {
-          if (valid) {
-            var params = {
-              'userId': this.addOrUpdateForm.userId || undefined,
-              'username': this.addOrUpdateForm.userName,
-              'password': this.addOrUpdateForm.password,
-              'email': this.addOrUpdateForm.email,
-              'mobile': this.addOrUpdateForm.mobile,
-              'status': this.addOrUpdateForm.status,
-              'roleIdList': this.addOrUpdateForm.roleIdList
-            }
-            var tick = this.addOrUpdateForm.userId ? API.user.update(params) : API.user.add(params)
-            tick.then(({data}) => {
-              if (data && data.code === 0) {
-                this.$message({
-                  message: '操作成功',
-                  type: 'success',
-                  duration: 1500,
-                  onClose: () => {
-                    this.addOrUpdateVisible = false
-                    this.getDataList()
-                  }
-                })
-              } else {
-                this.$message.error(data.msg)
-              }
-            })
-          }
-        })
       },
       // 删除
       deleteHandle (id) {
-        var userIds = id ? [id] : this.dataListSelections.map(item => {
-          return item.userId
-        })
-        this.$confirm(`确定对[id=${userIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
+        this.$confirm(`确定对[id=${id}]进行[删除]操作?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          API.user.del(userIds).then(({data}) => {
+          API.menu.del([id]).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: '操作成功',
