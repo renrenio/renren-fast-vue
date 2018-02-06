@@ -31,9 +31,9 @@ export function select () {
 }
 
 // 获取菜单信息
-export function info (menuId) {
+export function info (id) {
   return request({
-    url: requestUrl('/sys/menu/info' + (isInteger(menuId) ? `/${menuId}` : '')),
+    url: requestUrl('/sys/menu/info' + (isInteger(id) ? `/${id}` : '')),
     method: 'get',
     params: requestParam({}, 'get')
   })
@@ -62,6 +62,9 @@ export function del (params) {
   return request({
     url: requestUrl('/sys/menu/delete'),
     method: 'post',
-    data: requestParam(params)
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+    },
+    data: requestParam(params, 'post', false, 'form')
   })
 }

@@ -26,21 +26,22 @@
             ref="menuListTree"
             @current-change="menuListTreeCurrentChangeHandle"
             :default-expand-all="true"
+            :highlight-current="true"
             :expand-on-click-node="false">
           </el-tree>
         </el-popover>
         <el-input v-model="dataForm.parentName" v-popover:menuListPopover :readonly="true" placeholder="点击选择上级菜单" class="menu-list__input"></el-input>
       </el-form-item>
-      <el-form-item label="菜单URL" prop="url">
+      <el-form-item v-if="dataForm.type === 1" label="菜单URL" prop="url">
         <el-input v-model="dataForm.url" placeholder="菜单URL"></el-input>
       </el-form-item>
-      <el-form-item label="授权标识" prop="perms">
+      <el-form-item v-if="dataForm.type !== 0" label="授权标识" prop="perms">
         <el-input v-model="dataForm.perms" placeholder="多个用逗号分隔, 如: user:list,user:create"></el-input>
       </el-form-item>
-      <el-form-item label="排序号" prop="orderNum">
-        <el-input-number v-model="dataForm.orderNum" :min="1" :max="10" label="排序号"></el-input-number>
+      <el-form-item v-if="dataForm.type !== 2" label="排序号" prop="orderNum">
+        <el-input-number v-model="dataForm.orderNum" controls-position="right" :min="0" label="排序号"></el-input-number>
       </el-form-item>
-      <el-form-item label="菜单图标" prop="icon">
+      <el-form-item v-if="dataForm.type !== 2" label="菜单图标" prop="icon">
         <el-row>
           <el-col :span="22">
             <el-input v-model="dataForm.icon" placeholder="菜单图标"></el-input>
@@ -68,7 +69,6 @@
 <script>
   import API from '@/api'
   import { treeDataTranslate } from '@/utils'
-  import isFinite from 'lodash/isFinite'
   export default {
     data () {
       var validateUrl = (rule, value, callback) => {
@@ -81,14 +81,14 @@
       return {
         visible: false,
         dataForm: {
-          id: null,
+          id: 0,
           type: 1,
           name: '',
-          parentId: null,
+          parentId: 0,
           parentName: '',
           url: '',
           perms: '',
-          orderNum: '',
+          orderNum: 0,
           icon: ''
         },
         dataRule: {
@@ -111,7 +111,7 @@
     },
     methods: {
       init (id) {
-        this.dataForm.id = isFinite(id) ? id : null
+        this.dataForm.id = id || 0
         API.menu.select().then(({data}) => {
           this.menuList = treeDataTranslate(data.menuList, 'menuId')
         }).then(() => {
@@ -120,7 +120,22 @@
             this.$refs['dataForm'].resetFields()
           })
         }).then(() => {
-          if (isFinite(this.dataForm.id)) {
+          if (!this.dataForm.id) {
+            // 新增
+            this.menuListTreeSetCurrentNode()
+          } else {
+            // 修改
+            API.menu.info(this.dataForm.id).then(({data}) => {
+              this.dataForm.id = data.menu.menuId
+              this.dataForm.type = data.menu.type
+              this.dataForm.name = data.menu.name
+              this.dataForm.parentId = data.menu.parentId
+              this.dataForm.url = data.menu.url
+              this.dataForm.perms = data.menu.perms
+              this.dataForm.orderNum = data.menu.orderNum
+              this.dataForm.icon = data.menu.icon
+              this.menuListTreeSetCurrentNode()
+            })
           }
         })
       },
@@ -129,19 +144,26 @@
         this.dataForm.parentId = data.menuId
         this.dataForm.parentName = data.name
       },
+      // 菜单树设置当前选中节点
+      menuListTreeSetCurrentNode () {
+        this.$refs.menuListTree.setCurrentKey(this.dataForm.parentId)
+        this.dataForm.parentName = (this.$refs.menuListTree.getCurrentNode() || {})['name']
+      },
+      // 表单提交
       dataFormSubmit () {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             var params = {
-              'userId': this.dataForm.userId || undefined,
-              'username': this.dataForm.userName,
-              'password': this.dataForm.password,
-              'email': this.dataForm.email,
-              'mobile': this.dataForm.mobile,
-              'status': this.dataForm.status,
-              'roleIdList': this.dataForm.roleIdList
+              'menuId': this.dataForm.id || undefined,
+              'type': this.dataForm.type,
+              'name': this.dataForm.name,
+              'parentId': this.dataForm.parentId,
+              'url': this.dataForm.url,
+              'perms': this.dataForm.perms,
+              'orderNum': this.dataForm.orderNum,
+              'icon': this.dataForm.icon
             }
-            var tick = this.dataForm.userId ? API.user.update(params) : API.user.add(params)
+            var tick = !this.dataForm.id ? API.menu.add(params) : API.menu.update(params)
             tick.then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({
@@ -149,8 +171,8 @@
                   type: 'success',
                   duration: 1500,
                   onClose: () => {
-                    this.addOrUpdateVisible = false
-                    this.getDataList()
+                    this.visible = false
+                    this.$emit('refreshDataList')
                   }
                 })
               } else {

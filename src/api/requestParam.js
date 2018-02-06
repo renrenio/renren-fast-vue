@@ -16,6 +16,6 @@ export default function (params, requestType = 'post', openDefultParams = true, 
     't': new Date().getTime()
   }
   params = openDefultParams ? merge(defaults, params) : params
-  params = requestType === 'post' ? (contentType === 'form' ? qs.stringify(params) : JSON.stringify(params)) : params
+  params = requestType === 'post' ? (contentType === 'json' ? JSON.stringify(params) : qs.stringify(params)) : params
   return params
 }

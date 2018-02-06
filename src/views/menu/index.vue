@@ -65,7 +65,6 @@
         label="授权标识">
       </el-table-column>
       <el-table-column
-        fixed="right"
         header-align="center"
         align="center"
         width="200"
@@ -77,7 +76,7 @@
       </el-table-column>
     </tree-table>
     <!-- 弹窗, 新增 / 修改 -->
-    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate"></add-or-update>
+    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
 
@@ -132,7 +131,10 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          API.menu.del([id]).then(({data}) => {
+          var params = {
+            'menuId': id
+          }
+          API.menu.del(params).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: '操作成功',
