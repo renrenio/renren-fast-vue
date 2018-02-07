@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import * as types from './mutation-types'
 
 export default {
@@ -14,11 +13,15 @@ export default {
     state.menuNavList = list
   },
 
+  [types.ADD_CONTENT_TAB] (state, tab) {
+    state.contentTabs.push(tab)
+  },
+
   [types.UPDATE_CONTENT_TABS] (state, tabs) {
     state.contentTabs = tabs
   },
 
   [types.UPDATE_CONTENT_TABS_ACTIVE_NAME] (state, { name }) {
-    Vue.set(state.contentTabs, 'activeName', name)
+    state.contentTabsActiveName = name
   }
 }

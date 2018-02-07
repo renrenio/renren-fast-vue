@@ -25,8 +25,8 @@
 <script>
   import SubMenuNav from '@/components/sub-menu-nav'
   import API from '@/api'
-  import { getRouteNameByUrl } from '@/utils'
   import { mapMutations } from 'vuex'
+  import { getRouteNameByUrl } from '@/utils'
   import isEmpty from 'lodash/isEmpty'
   export default {
     data () {
@@ -41,47 +41,11 @@
       $route: 'routeHandle'
     },
     created () {
-      this.routeHandle(this.$route, true)
+      this.getMenuNavList().then(() => {
+        this.routeHandle(this.$route)
+      })
     },
     methods: {
-      // 路由操作
-      // isInit: 页面第一次加载时, 需先获取菜单导航列表, 再进行其他操作
-      routeHandle (route, isInit) {
-        if (/^\/n\/.*$/.test(route.path)) {
-          // tab不存在添加, 存在选中
-          let tab = this.$store.state.contentTabs.tabList.filter(tab => tab.name === route.name)
-          if (isEmpty(tab)) {
-            if (isInit && isEmpty(this.$store.state.menuNavList)) {
-              this.getMenuNavList().then(() => {
-                this.addContentTab(route.name)
-              })
-            } else {
-              this.addContentTab(route.name)
-            }
-          } else {
-            this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name: route.name })
-          }
-        } else {
-          if (isInit) {
-            this.getMenuNavList()
-          }
-        }
-      },
-      // 添加内容tab项
-      addContentTab (name) {
-        let menuNav = this.getMenuNavByRouteName(name)
-        this.UPDATE_CONTENT_TABS({
-          activeName: name,
-          tabList: this.$store.state.contentTabs.tabList.concat({
-            id: menuNav.menuId,
-            title: menuNav.name,
-            name: name,
-            type: this.$store.state.menuNavTypeMap[name] === 'iframe' ? 'iframe' : 'module',
-            url: menuNav.url
-          })
-        })
-        this.menuNavActive = menuNav.menuId + ''
-      },
       // 获取菜单导航列表 / 权限
       getMenuNavList () {
         return API.menu.nav().then(({data}) => {
@@ -94,8 +58,29 @@
           }
         })
       },
+      // 路由操作
+      routeHandle (route) {
+        if (/^\/n\/.*$/.test(route.path)) {
+          var tab = this.$store.state.contentTabs.filter(item => item.name === route.name)
+          // tab不存在, 先添加
+          if (isEmpty(tab)) {
+            var menuNav = this.getMenuNavByRouteName(route.name, this.$store.state.menuNavList)
+            if (!isEmpty(menuNav)) {
+              this.menuNavActive = menuNav.menuId + ''
+              this.ADD_CONTENT_TAB({
+                id: menuNav.menuId,
+                name: route.name,
+                title: menuNav.name,
+                type: (window.SITE_CONFIG.nestIframeRouteNameList || []).indexOf(route.name) !== -1 ? 'iframe' : 'module',
+                url: menuNav.url
+              })
+            }
+          }
+          this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name: route.name })
+        }
+      },
       // 获取菜单导航, 根据路由名称
-      getMenuNavByRouteName (name, menuNavList = this.$store.state.menuNavList) {
+      getMenuNavByRouteName (name, menuNavList) {
         for (var i = 0; i < menuNavList.length; i++) {
           if (menuNavList[i].list && menuNavList[i].list.length >= 1) {
             return this.getMenuNavByRouteName(name, menuNavList[i].list)
@@ -106,7 +91,7 @@
           }
         }
       },
-      ...mapMutations(['UPDATE_MENU_NAV_LIST', 'UPDATE_CONTENT_TABS', 'UPDATE_CONTENT_TABS_ACTIVE_NAME'])
+      ...mapMutations(['UPDATE_MENU_NAV_LIST', 'ADD_CONTENT_TAB', 'UPDATE_CONTENT_TABS_ACTIVE_NAME'])
     }
   }
 </script>

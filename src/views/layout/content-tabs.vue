@@ -2,18 +2,18 @@
   <div class="site-content site-content--tabs">
     <el-tabs
       v-model="tabActiveName"
-      :closable="$store.state.contentTabs.tabList.length > 1"
+      :closable="$store.state.contentTabs.length > 1"
       @tab-click="selectedTabHandle"
       @tab-remove="removeTabHandle">
         <el-tab-pane
-          v-for="item in $store.state.contentTabs.tabList"
+          v-for="item in $store.state.contentTabs"
           :key="item.name"
           :label="item.title"
           :name="item.name">
           <el-card :body-style="contentViewHeight(item)">
             <iframe
               v-if="item.type === 'iframe'"
-              :src="$store.state.menuNavIframeUrl + item.url"
+              :src="getNestIframeUrl(item.url)"
               width="100%" height="100%" frameborder="0" scrolling="yes">
             </iframe>
             <keep-alive v-else>
@@ -36,7 +36,7 @@
     computed: {
       tabActiveName: {
         get () {
-          return this.$store.state.contentTabs.activeName
+          return this.$store.state.contentTabsActiveName
         },
         set (val) {
           this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name: val })
@@ -55,28 +55,27 @@
         height += 'px'
         return tab.type === 'iframe' ? { height } : { minHeight: height }
       },
+      // 获取iframe嵌套地址
+      getNestIframeUrl (url) {
+        return window.SITE_CONFIG.nestIframeUrl + url
+      },
       // 选中tab
       selectedTabHandle (tab) {
-        tab = this.$store.state.contentTabs.tabList.filter(item => item.name === tab.name)
+        tab = this.$store.state.contentTabs.filter(item => item.name === tab.name)
         if (!isEmpty(tab)) {
           this.$router.push({ name: tab[0].name })
         }
       },
       // 删除tab
       removeTabHandle (tabName) {
-        var newTabList = this.$store.state.contentTabs.tabList.filter(item => item.name !== tabName)
-        if (!isEmpty(newTabList)) {
-          // 当前选中tab被删除
-          if (this.tabActiveName === tabName) {
-            this.$router.push({ name: newTabList[newTabList.length - 1].name }, () => {
-              this.tabActiveName = this.$route.name
-            })
-          }
-          this.UPDATE_CONTENT_TABS({
-            activeName: this.tabActiveName,
-            tabList: newTabList
+        var newTabs = this.$store.state.contentTabs.filter(item => item.name !== tabName)
+        // 当前选中tab被删除
+        if (tabName === this.tabActiveName) {
+          this.$router.push({ name: newTabs[newTabs.length - 1].name }, () => {
+            this.tabActiveName = this.$route.name
           })
         }
+        this.UPDATE_CONTENT_TABS(newTabs)
       },
       ...mapMutations(['UPDATE_CONTENT_TABS', 'UPDATE_CONTENT_TABS_ACTIVE_NAME'])
     }

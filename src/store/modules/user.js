@@ -1,9 +1,8 @@
 import * as types from '../mutation-types'
-import merge from 'lodash/merge'
 
 const state = {
-  userId: '',
-  userName: ''
+  id: 0,
+  name: ''
 }
 
 const getters = {
@@ -13,8 +12,11 @@ const actions = {
 }
 
 const mutations = {
-  [types.UPDATE_USER_INFO] (state, info) {
-    state = merge(state, info)
+  [types.UPDATE_USER_ID] (state, { id }) {
+    state.id = id
+  },
+  [types.UPDATE_USER_NAME] (state, { name }) {
+    state.name = name
   }
 }
 

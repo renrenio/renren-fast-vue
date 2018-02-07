@@ -10,7 +10,7 @@ body {
   color: #333;
   background-color: #f0f0f0;
 }
-:focus {
+*:focus {
   outline: 0;
 }
 a {
@@ -188,10 +188,11 @@ img {
 .site-sidebar__menu.el-menu {
   width: 230px;
   border-right: 0;
-}
-.site-sidebar__menu-icon {
-  margin-right: 5px;
-  font-size: 18px;
+  .site-sidebar__menu-icon {
+    margin-right: 5px;
+    font-size: 16px;
+    color: inherit;
+  }
 }
 /* site-content */
 .site-content__wrapper {

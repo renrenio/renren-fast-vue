@@ -7,6 +7,15 @@ export function isAuth (key) {
 }
 
 /**
+ * 获取路由名称, 根据url地址
+ * @param {*} url
+ */
+export function getRouteNameByUrl (url) {
+  let val = /.*\/(.*)\.html/.exec(url)
+  return val && val.length >= 1 ? val[1] : ''
+}
+
+/**
  * 树形数据转换
  * @param {*} data
  * @param {*} id
@@ -33,15 +42,8 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
 
 /**
  * 获取字符串字节长度
+ * @param {*} s
  */
 export function getStringLength (s) {
   return s.replace(/[\u4e00-\u9fa5\uff00-\uffff]/g, '**').length
-}
-
-/**
- * 获取路由名称, 根据url地址
- */
-export function getRouteNameByUrl (url) {
-  let val = /.*\/(.*)\.html/.exec(url)
-  return val && val.length >= 1 ? val[1] : ''
 }

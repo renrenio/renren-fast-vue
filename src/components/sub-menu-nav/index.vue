@@ -4,7 +4,7 @@
     :data-idx="menuNav.menuId + ''"
     :index="menuNav.menuId + ''">
     <template slot="title">
-      <icon-svg name="xitong" class="site-sidebar__menu-icon" :class="menuNav.icon"></icon-svg>
+      <i :class="['site-sidebar__menu-icon', menuNav.icon ? menuNav.icon : 'fa fa-circle-o']"></i>
       <span>{{ menuNav.name }}</span>
     </template>
     <sub-menu-nav
@@ -17,26 +17,28 @@
     v-else
     :index="menuNav.menuId + ''"
     :data-idx="menuNav.menuId + ''"
-    @click="gotoRouteByMenuNav(menuNav)">
-    {{ menuNav.name }}
+    @click="gotoRouteHandle(menuNav.url)">
+    <i :class="['site-sidebar__menu-icon', menuNav.icon ? menuNav.icon : 'fa fa-circle-o']"></i>
+    <span>{{ menuNav.name }}</span>
   </el-menu-item>
 </template>
 
 <script>
-  import { getRouteNameByUrl } from '@/utils'
   import SubMenuNav from '../sub-menu-nav'
+  import { getRouteNameByUrl } from '@/utils'
   export default {
     name: 'sub-menu-nav',
     props: {
-      menuNav: Object
+      menuNav: Object,
+      required: true
     },
     components: {
       SubMenuNav
     },
     methods: {
       // 跳转到菜单导航对应路由
-      gotoRouteByMenuNav (menuNav) {
-        var routeName = getRouteNameByUrl(menuNav.url)
+      gotoRouteHandle (url) {
+        var routeName = getRouteNameByUrl(url)
         if (/\S/.test(routeName)) {
           this.$router.push({ name: routeName })
         }
