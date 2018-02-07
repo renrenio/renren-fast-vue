@@ -1,6 +1,6 @@
 <template>
   <div class="mod-log">
-    <el-form :inline="true" :model="dataForm">
+    <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
         <el-input v-model="dataForm.key" placeholder="用户名／用户操作" clearable></el-input>
       </el-form-item>

@@ -3,7 +3,7 @@
     title="修改密码"
     :visible.sync="visible"
     :append-to-body="true">
-    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" label-width="80px">
+    <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
       <el-form-item label="账号">
         <span>{{ $store.state.user.name }}</span>
       </el-form-item>
@@ -26,6 +26,7 @@
 
 <script>
   import API from '@/api'
+  import { mapMutations } from 'vuex'
   export default {
     data () {
       var validateConfirmPassword = (rule, value, callback) => {
@@ -81,6 +82,7 @@
                   onClose: () => {
                     this.visible = false
                     this.$nextTick(() => {
+                      this.DELETE_CONTENT_TABS([])
                       this.$cookie.delete('token')
                       this.$router.replace({ name: 'login' })
                     })
@@ -92,7 +94,8 @@
             })
           }
         })
-      }
+      },
+      ...mapMutations(['DELETE_CONTENT_TABS'])
     }
   }
 </script>

@@ -13,9 +13,9 @@ export function list (params) {
 }
 
 // 获取用户信息
-export function info (userId) {
+export function info (id) {
   return request({
-    url: requestUrl('/sys/user/info' + (isInteger(userId) ? `/${userId}` : '')),
+    url: requestUrl('/sys/user/info' + (isInteger(id) ? `/${id}` : '')),
     method: 'get',
     params: requestParam({}, 'get')
   })

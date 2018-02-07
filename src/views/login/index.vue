@@ -8,7 +8,7 @@
         </div>
         <div class="login-main">
           <h3 class="login-title">管理员登录</h3>
-          <el-form :model="dataForm" :rules="dataRule" @keyup.enter.native="dataFormSubmit()" ref="dataForm" status-icon>
+          <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" status-icon>
             <el-form-item prop="userName">
               <el-input v-model="dataForm.userName" placeholder="帐号"></el-input>
             </el-form-item>
@@ -101,7 +101,6 @@
     left: 0;
     background-color: rgba(38, 50, 56, .6);
     overflow: hidden;
-
     &:before {
       position: fixed;
       top: 0;
@@ -113,7 +112,6 @@
       background-image: url(~@/assets/img/login_bg.jpg);
       background-size: cover;
     }
-
     .site-content__wrapper {
       position: absolute;
       top: 0;
@@ -159,7 +157,6 @@
     }
     .login-captcha {
       overflow: hidden;
-
       > img {
         width: 100%;
         cursor: pointer;

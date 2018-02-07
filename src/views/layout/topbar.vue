@@ -1,9 +1,9 @@
 <template>
   <header class="site-topbar">
     <div class="site-topbar__header">
-      <h1 class="site-logo">
-        <a class="site-logo__lg" href="/">Vue-cli-basic</a>
-        <a class="site-logo__mini" href="/">Vue</a>
+      <h1 class="site-logo" @click="$router.push({ name: 'home' })">
+        <a class="site-logo__lg" href="javascript:;">Vue-cli-basic</a>
+        <a class="site-logo__mini" href="javascript:;">Vue</a>
       </h1>
     </div>
     <div class="site-topbar__body clearfix">
@@ -63,14 +63,21 @@
       },
       // 退出
       logoutHandle () {
-        API.common.logout().then(({data}) => {
-          if (data && data.code === 0) {
-            this.$cookie.delete('token')
-            this.$router.replace({ name: 'login' })
-          }
+        this.$confirm(`确定进行[退出]操作?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          API.common.logout().then(({data}) => {
+            if (data && data.code === 0) {
+              this.DELETE_CONTENT_TABS([])
+              this.$cookie.delete('token')
+              this.$router.replace({ name: 'login' })
+            }
+          })
         })
       },
-      ...mapMutations(['SWITCH_SIDEBAR_COLLAPSE'])
+      ...mapMutations(['SWITCH_SIDEBAR_COLLAPSE', 'DELETE_CONTENT_TABS'])
     }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="site-content site-content--home">
-    <el-card :style="contentViewHeight()">
+    <el-card :style="contentViewStyles">
       <h3>项目介绍</h3>
       <ul>
         <li><a href="http://demo.renren.io/renren-fast/" target="_blank">http://demo.renren.io/renren-fast/</a></li>
@@ -34,14 +34,16 @@
       return {
       }
     },
-    methods: {
-      contentViewHeight () {
+    computed: {
+      contentViewStyles () {
         var height = this.$store.state.documentClientHeight
         height -= 50 // site-topbar
         height -= 15 // site-content padding-top
         height -= 15 // site-content padding-bottom
         height += 'px'
-        return { minHeight: height }
+        return [
+          { minHeight: height }
+        ]
       }
     }
   }

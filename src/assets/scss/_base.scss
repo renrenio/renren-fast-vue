@@ -79,11 +79,12 @@ img {
   .el-submenu__title {
     text-align: center;
   }
-  .site-sidebar__menu-icon {
-    margin-right: 0;
-    font-size: 20px;
+  .site-sidebar__menu.el-menu {
+    .site-sidebar__menu-icon {
+      margin-right: 0;
+      font-size: 20px;
+    }
   }
-  .el-menu-item span,
   .el-submenu > .el-submenu__title span {
     display: none;
   }
@@ -106,6 +107,7 @@ img {
   float: left;
   width: 230px;
   height: 50px;
+  transition: width .2s;
 }
 .site-logo {
   display: table-cell;
@@ -116,6 +118,7 @@ img {
   font-size: 20px;
   text-align: center;
   text-transform: uppercase;
+  transition: width .2s;
   &__lg,
   &__mini {
     color: #fff;
@@ -149,6 +152,7 @@ img {
   margin-left: 230px;
   padding-right: 15px;
   background-color: #fff;
+  transition: margin-left .2s;
 }
 .site-topbar__menu {
   float: left;
@@ -176,6 +180,7 @@ img {
   width: 230px;
   background-color: #545c64;
   overflow: hidden;
+  transition: width .2s;
 }
 .site-sidebar__inner {
   position: relative;
@@ -184,10 +189,12 @@ img {
   height: 100%;
   padding-bottom: 15px;
   overflow-y: scroll;
+  transition: width .2s;
 }
 .site-sidebar__menu.el-menu {
   width: 230px;
   border-right: 0;
+  transition: width .2s;
   .site-sidebar__menu-icon {
     margin-right: 5px;
     font-size: 16px;
@@ -200,6 +207,7 @@ img {
   padding-top: 50px;
   margin-left: 230px;
   min-height: 100%;
+  transition: margin-left .2s;
 }
 .site-content {
   position: relative;
@@ -217,6 +225,7 @@ img {
       padding: 0 15px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
       background-color: #fff;
+      transition: left .2s;
     }
     .el-tabs__nav-wrap {
       margin-bottom: 0;

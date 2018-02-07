@@ -9,7 +9,7 @@
         text-color="#fff"
         active-text-color="#ffd04b">
         <el-menu-item index="1-1" @click="$router.push({ name: 'home' })">
-          <icon-svg name="shouye" class="site-sidebar__menu-icon"></icon-svg>
+          <i class="site-sidebar__menu-icon fa fa-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
         <sub-menu-nav

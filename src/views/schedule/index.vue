@@ -1,6 +1,6 @@
 <template>
   <div class="mod-schedule">
-    <el-form :inline="true" :model="dataForm">
+    <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
         <el-input v-model="dataForm.beanName" placeholder="bean名称" clearable></el-input>
       </el-form-item>

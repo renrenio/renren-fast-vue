@@ -13,7 +13,7 @@ export function list (params) {
 }
 
 // 获取角色列表, 根据当前用户
-export function listByUser () {
+export function select () {
   return request({
     url: requestUrl('/sys/role/select'),
     method: 'get',
@@ -22,9 +22,9 @@ export function listByUser () {
 }
 
 // 获取角色信息
-export function info (roleId) {
+export function info (id) {
   return request({
-    url: requestUrl('/sys/role/info' + (isInteger(roleId) ? `/${roleId}` : '')),
+    url: requestUrl('/sys/role/info' + (isInteger(id) ? `/${id}` : '')),
     method: 'get',
     params: requestParam({}, 'get')
   })

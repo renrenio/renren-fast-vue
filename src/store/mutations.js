@@ -21,6 +21,10 @@ export default {
     state.contentTabs = tabs
   },
 
+  [types.DELETE_CONTENT_TABS] (state) {
+    state.contentTabs = []
+  },
+
   [types.UPDATE_CONTENT_TABS_ACTIVE_NAME] (state, { name }) {
     state.contentTabsActiveName = name
   }
