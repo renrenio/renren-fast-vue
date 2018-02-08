@@ -6,10 +6,15 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Vue-cli-basic</title>
   <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <script src="./static/config/index.js?v=<%=new Date().getTime()%>"></script>
 </head>
 <body>
   <div id="app"></div>
-  <!-- built files will be auto injected -->
+  <% if (process.env.NODE_ENV === 'production') { %>
+    <!-- 生产环境 -->
+    <script src="./config/index.js?h=<%=compilation.hash%>"></script>
+  <% }else { %>
+    <!-- 开发环境 -->
+    <script src="./static/config/index.js?h=<%=compilation.hash%>"></script>
+  <% } %>
 </body>
 </html>
