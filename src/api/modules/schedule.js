@@ -13,9 +13,9 @@ export function list (params) {
 }
 
 // 获取定时任务信息
-export function info (jobId) {
+export function info (id) {
   return request({
-    url: requestUrl('/sys/schedule/info' + (isInteger(jobId) ? `/${jobId}` : '')),
+    url: requestUrl('/sys/schedule/info' + (isInteger(id) ? `/${id}` : '')),
     method: 'get',
     params: requestParam({}, 'get')
   })

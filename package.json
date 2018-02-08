@@ -1,7 +1,7 @@
 {
   "name": "vue-cli-basic",
   "version": "1.0.0",
-  "description": "基于Vue.js 2.0+生态圈，构建一套常用／基础的代码结构规范。通过实现人人开源renren-fast轻量级权限管理系统，验证可行性！",
+  "description": "基于Vue.js 2.0+生态圈，构建一套常用／基础的代码结构规范。通过实现renren-fast轻量级权限管理系统，验证可行性！",
   "author": "daxiong.yang <daxiong.yang@qq.com>",
   "private": true,
   "scripts": {

@@ -1,43 +1,30 @@
 webpackJsonp([4],{
 
-/***/ "8HvM":
+/***/ "+GWk":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("acE3")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.site-wrapper.site-page--login {\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  background-color: rgba(38, 50, 56, 0.6);\n  overflow: hidden;\n}\n.site-wrapper.site-page--login:before {\n    position: fixed;\n    top: 0;\n    left: 0;\n    z-index: -1;\n    width: 100%;\n    height: 100%;\n    content: \"\";\n    background-image: url(" + __webpack_require__("npKG") + ");\n    background-size: cover;\n}\n.site-wrapper.site-page--login .site-content__wrapper {\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    padding: 0;\n    margin: 0;\n    overflow-x: hidden;\n    overflow-y: auto;\n}\n.site-wrapper.site-page--login .site-content {\n    min-height: 100%;\n    padding: 30px 500px 30px 30px;\n}\n.site-wrapper.site-page--login .brand-info {\n    margin: 220px 100px 0 90px;\n    color: #fff;\n}\n.site-wrapper.site-page--login .brand-info__text {\n    margin: 0 0 22px 0;\n    font-size: 48px;\n    font-weight: 400;\n    text-transform: uppercase;\n}\n.site-wrapper.site-page--login .brand-info__intro {\n    margin: 10px 0;\n    font-size: 16px;\n    line-height: 1.58;\n    opacity: .6;\n}\n.site-wrapper.site-page--login .login-main {\n    position: absolute;\n    top: 0;\n    right: 0;\n    padding: 150px 60px 180px;\n    width: 470px;\n    min-height: 100%;\n    background-color: #fff;\n}\n.site-wrapper.site-page--login .login-title {\n    font-size: 16px;\n}\n.site-wrapper.site-page--login .login-captcha {\n    overflow: hidden;\n}\n.site-wrapper.site-page--login .login-captcha > img {\n      width: 100%;\n      cursor: pointer;\n}\n.site-wrapper.site-page--login .login-btn-submit {\n    width: 100%;\n    margin-top: 38px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "T+/8":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
-// EXTERNAL MODULE: ./node_modules/.6.26.0@babel-runtime/helpers/extends.js
-var helpers_extends = __webpack_require__("34v0");
-var extends_default = /*#__PURE__*/__webpack_require__.n(helpers_extends);
-
-// EXTERNAL MODULE: ./src/api/index.js + 3 modules
+// EXTERNAL MODULE: ./src/api/index.js + 11 modules
 var api = __webpack_require__("gyMJ");
 
-// EXTERNAL MODULE: ./node_modules/.3.0.1@vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__("EcfS");
-
-// CONCATENATED MODULE: ./node_modules/.7.1.1@babel-loader/lib!./node_modules/.13.3.0@vue-loader/lib/selector.js?type=script&index=0!./src/views/layout/topbar.vue
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.1@babel-loader/lib!./node_modules/_vue-loader@13.3.0@vue-loader/lib/selector.js?type=script&index=0!./src/views/login/index.vue
 //
 //
 //
@@ -78,100 +65,68 @@ var vuex_esm = __webpack_require__("EcfS");
 //
 
 
-
-/* harmony default export */ var topbar = ({
+/* harmony default export */ var login = ({
   data: function data() {
-    var _this = this;
-
-    var validatePassword = function validatePassword(rule, value, callback) {
-      if (!/\S/.test(value)) {
-        callback(new Error('原密码不能为空'));
-      } else {
-        callback();
-      }
-    };
-    var validateNewPassword = function validateNewPassword(rule, value, callback) {
-      if (!/\S/.test(value)) {
-        callback(new Error('新密码不能为空'));
-      } else if (_this.updatePasswordForm.password !== value) {
-        callback(new Error('新原密码不一致'));
-      } else {
-        callback();
-      }
-    };
     return {
-      updatePasswordDialogVisible: false,
-      updatePasswordForm: {
+      dataForm: {
+        userName: '',
         password: '',
-        newPassword: ''
+        captcha: ''
       },
-      updatePasswordRule: {
-        password: [{ validator: validatePassword, trigger: 'blur' }],
-        newPassword: [{ validator: validateNewPassword, trigger: 'blur' }]
-      }
+      dataRule: {
+        userName: [{ required: true, message: '帐号不能为空', trigger: 'blur' }],
+        password: [{ required: true, message: '密码不能为空', trigger: 'blur' }],
+        captcha: [{ required: true, message: '验证码不能为空', trigger: 'blur' }]
+      },
+      captchaPath: ''
     };
   },
+  created: function created() {
+    this.getCaptcha();
+  },
 
-  methods: extends_default()({
-    // 切换侧边栏, 水平折叠收起状态
-    switchSidebarCollapse: function switchSidebarCollapse() {
-      this.SWITCH_SIDEBAR_COLLAPSE({ collapse: !this.$store.state.sidebarCollapse });
-    },
+  methods: {
+    // 提交表单
+    dataFormSubmit: function dataFormSubmit() {
+      var _this = this;
 
-    // 显示修改密码弹窗
-    showUpdatePasswordDialog: function showUpdatePasswordDialog() {
-      var _this2 = this;
-
-      this.updatePasswordDialogVisible = true;
-      this.$nextTick(function () {
-        _this2.$refs['updatePasswordForm'].resetFields();
-      });
-    },
-
-    // 修改密码
-    updatePasswordFormSubmit: function updatePasswordFormSubmit() {
-      var _this3 = this;
-
-      this.$refs['updatePasswordForm'].validate(function (valid) {
+      this.$refs['dataForm'].validate(function (valid) {
         if (valid) {
           var params = {
-            'password': _this3.updatePasswordForm.password,
-            'newPassword': _this3.updatePasswordForm.newPassword
+            'username': _this.dataForm.userName,
+            'password': _this.dataForm.password,
+            'captcha': _this.dataForm.captcha
           };
-          api["o" /* updatePassword */](params).then(function (_ref) {
+          api["a" /* default */].common.login(params).then(function (_ref) {
             var data = _ref.data;
 
             if (data && data.code === 0) {
-              _this3.$message({
-                message: '操作成功',
-                type: 'success'
-              });
+              _this.$cookie.set('token', data.token);
+              _this.$router.replace({ name: 'home' });
             } else {
-              _this3.$message.error(data.msg);
+              _this.$message.error(data.msg);
             }
           });
         }
       });
     },
 
-    // 退出（未提供api回调接口, 暂时统一response拦截302处理）
-    logoutHandle: function logoutHandle() {
-      api["l" /* logout */]().then(function (_ref2) {
-        var data = _ref2.data;
-      });
+    // 获取验证码
+    getCaptcha: function getCaptcha() {
+      this.captchaPath = api["a" /* default */].common.captcha();
     }
-  }, Object(vuex_esm["b" /* mapMutations */])(['SWITCH_SIDEBAR_COLLAPSE']))
+  }
 });
-// CONCATENATED MODULE: ./node_modules/.13.3.0@vue-loader/lib/template-compiler?{"id":"data-v-20bcf8b8","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/.13.3.0@vue-loader/lib/selector.js?type=template&index=0!./src/views/layout/topbar.vue
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('header',{staticClass:"site-topbar"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"site-topbar__body clearfix"},[_c('el-menu',{staticClass:"site-topbar__menu",attrs:{"mode":"horizontal"}},[_c('el-menu-item',{staticClass:"site-topbar__switch",attrs:{"index":"1"},on:{"click":function($event){_vm.switchSidebarCollapse()}}},[_c('icon-svg',{attrs:{"name":"zhedie"}})],1)],1),_vm._v(" "),_c('el-menu',{staticClass:"site-topbar__menu site-topbar__menu--right",attrs:{"mode":"horizontal"}},[_c('el-menu-item',{staticClass:"site-topbar__avatar",attrs:{"index":"2"}},[_c('el-dropdown',{attrs:{"placement":"bottom","hide-on-click":false}},[_c('span',{staticClass:"el-dropdown-link"},[_c('img',{attrs:{"src":__webpack_require__("zQrT"),"alt":_vm.$store.state.userInfo.userName}}),_vm._v("\n            "+_vm._s(_vm.$store.state.userInfo.userName)+"\n          ")]),_vm._v(" "),_c('el-dropdown-menu',{attrs:{"slot":"dropdown"},slot:"dropdown"},[_c('el-dropdown-item',{nativeOn:{"click":function($event){_vm.showUpdatePasswordDialog()}}},[_vm._v("修改密码")]),_vm._v(" "),_c('el-dropdown-item',{nativeOn:{"click":function($event){_vm.logoutHandle()}}},[_vm._v("退出")])],1)],1)],1)],1)],1),_vm._v(" "),_c('el-dialog',{attrs:{"title":"修改密码","visible":_vm.updatePasswordDialogVisible,"width":"550px","append-to-body":true},on:{"update:visible":function($event){_vm.updatePasswordDialogVisible=$event}}},[_c('el-form',{ref:"updatePasswordForm",attrs:{"model":_vm.updatePasswordForm,"rules":_vm.updatePasswordRule,"label-width":"70px"}},[_c('el-form-item',{attrs:{"label":"账号"}},[_c('span',[_vm._v(_vm._s(_vm.$store.state.userInfo.userName))])]),_vm._v(" "),_c('el-form-item',{attrs:{"label":"原密码","prop":"password"}},[_c('el-input',{attrs:{"type":"password"},model:{value:(_vm.updatePasswordForm.password),callback:function ($$v) {_vm.$set(_vm.updatePasswordForm, "password", $$v)},expression:"updatePasswordForm.password"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"label":"新密码","prop":"newPassword"}},[_c('el-input',{attrs:{"type":"password"},model:{value:(_vm.updatePasswordForm.newPassword),callback:function ($$v) {_vm.$set(_vm.updatePasswordForm, "newPassword", $$v)},expression:"updatePasswordForm.newPassword"}})],1)],1),_vm._v(" "),_c('span',{staticClass:"dialog-footer",attrs:{"slot":"footer"},slot:"footer"},[_c('el-button',{on:{"click":function($event){_vm.updatePasswordDialogVisible = false}}},[_vm._v("取消")]),_vm._v(" "),_c('el-button',{attrs:{"type":"primary"},on:{"click":function($event){_vm.updatePasswordFormSubmit()}}},[_vm._v("确定")])],1)],1)],1)}
-var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"site-topbar__header"},[_c('h1',{staticClass:"site-logo"},[_c('a',{staticClass:"site-logo__lg",attrs:{"href":"/"}},[_vm._v("Vue-cli-basic")]),_vm._v(" "),_c('a',{staticClass:"site-logo__mini",attrs:{"href":"/"}},[_vm._v("Vue")])])])}]
+// CONCATENATED MODULE: ./node_modules/_vue-loader@13.3.0@vue-loader/lib/template-compiler?{"id":"data-v-274726ed","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/_vue-loader@13.3.0@vue-loader/lib/selector.js?type=template&index=0!./src/views/login/index.vue
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"site-wrapper site-page--login"},[_c('div',{staticClass:"site-content__wrapper"},[_c('div',{staticClass:"site-content"},[_vm._m(0),_vm._v(" "),_c('div',{staticClass:"login-main"},[_c('h3',{staticClass:"login-title"},[_vm._v("管理员登录")]),_vm._v(" "),_c('el-form',{ref:"dataForm",attrs:{"model":_vm.dataForm,"rules":_vm.dataRule,"status-icon":""},nativeOn:{"keyup":function($event){if(!('button' in $event)&&_vm._k($event.keyCode,"enter",13,$event.key)){ return null; }_vm.dataFormSubmit()}}},[_c('el-form-item',{attrs:{"prop":"userName"}},[_c('el-input',{attrs:{"placeholder":"帐号"},model:{value:(_vm.dataForm.userName),callback:function ($$v) {_vm.$set(_vm.dataForm, "userName", $$v)},expression:"dataForm.userName"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"prop":"password"}},[_c('el-input',{attrs:{"type":"password","placeholder":"密码"},model:{value:(_vm.dataForm.password),callback:function ($$v) {_vm.$set(_vm.dataForm, "password", $$v)},expression:"dataForm.password"}})],1),_vm._v(" "),_c('el-form-item',{attrs:{"prop":"captcha"}},[_c('el-row',{attrs:{"gutter":20}},[_c('el-col',{attrs:{"span":14}},[_c('el-input',{attrs:{"placeholder":"验证码"},model:{value:(_vm.dataForm.captcha),callback:function ($$v) {_vm.$set(_vm.dataForm, "captcha", $$v)},expression:"dataForm.captcha"}})],1),_vm._v(" "),_c('el-col',{staticClass:"login-captcha",attrs:{"span":10}},[_c('img',{attrs:{"src":_vm.captchaPath,"alt":""},on:{"click":function($event){_vm.getCaptcha()}}})])],1)],1),_vm._v(" "),_c('el-form-item',[_c('el-button',{staticClass:"login-btn-submit",attrs:{"type":"primary"},on:{"click":function($event){_vm.dataFormSubmit()}}},[_vm._v("登录")])],1)],1)],1)])])])}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"brand-info"},[_c('h2',{staticClass:"brand-info__text"},[_vm._v("Vue-cli-basic")]),_vm._v(" "),_c('p',{staticClass:"brand-info__intro"},[_vm._v("基于Vue.js 2.0+生态圈，构建一套常用／基础的代码结构规范。通过实现人人开源renren-fast轻量级权限管理系统，验证可行性！")])])}]
 var esExports = { render: render, staticRenderFns: staticRenderFns }
-/* harmony default export */ var layout_topbar = (esExports);
-// CONCATENATED MODULE: ./src/views/layout/topbar.vue
+/* harmony default export */ var views_login = (esExports);
+// CONCATENATED MODULE: ./src/views/login/index.vue
 function injectStyle (ssrContext) {
-  __webpack_require__("ptgo")
+  __webpack_require__("U7jb")
 }
-var normalizeComponent = __webpack_require__("mPyB")
+var normalizeComponent = __webpack_require__("46Yf")
 /* script */
 
 /* template */
@@ -185,52 +140,37 @@ var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
-  topbar,
-  layout_topbar,
+  login,
+  views_login,
   __vue_template_functional__,
   __vue_styles__,
   __vue_scopeId__,
   __vue_module_identifier__
 )
 
-/* harmony default export */ var views_layout_topbar = __webpack_exports__["default"] = (Component.exports);
+/* harmony default export */ var src_views_login = __webpack_exports__["default"] = (Component.exports);
 
 
 /***/ }),
 
-/***/ "kWVt":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("WpAN")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n.site-topbar {\n  position: fixed;\n  top: 0;\n  right: 0;\n  left: 0;\n  z-index: 1030;\n  height: 50px;\n  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);\n          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);\n  background-color: #3e8ef7;\n}\n.site-topbar__header {\n  float: left;\n  width: 230px;\n  height: 50px;\n}\n.site-logo {\n  display: table-cell;\n  vertical-align: middle;\n  width: 230px;\n  height: 50px;\n  margin: 0;\n  font-size: 20px;\n  text-align: center;\n  text-transform: uppercase;\n}\n.site-logo__lg, .site-logo__mini {\n    color: #fff;\n}\n.site-logo__lg:focus, .site-logo__lg:hover, .site-logo__mini:focus, .site-logo__mini:hover {\n      color: #fff;\n      text-decoration: none;\n}\n.site-logo__mini {\n    display: none;\n}\n.site-topbar__switch {\n  font-size: 18px;\n  border-bottom: none !important;\n}\n.site-topbar__avatar {\n  border-bottom: none !important;\n}\n.site-topbar__avatar .el-dropdown-link > img {\n    width: 36px;\n    height: auto;\n    margin-right: 5px;\n    border-radius: 100%;\n}\n.site-topbar__body {\n  position: relative;\n  margin-left: 230px;\n  padding-right: 15px;\n  background-color: #fff;\n}\n.site-topbar__menu {\n  float: left;\n  background-color: transparent;\n  border-bottom: 0;\n}\n.site-topbar__menu--right {\n    float: right;\n}\n.site-topbar__menu .el-menu-item,\n  .site-topbar__menu .el-submenu .el-submenu__title {\n    height: 50px;\n    line-height: 50px;\n}\n.site-topbar__menu .el-submenu > .el-menu {\n    top: 55px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "ptgo":
+/***/ "U7jb":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("kWVt");
+var content = __webpack_require__("+GWk");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("wkH5")("b7e6bcb2", content, true);
+var update = __webpack_require__("XkoO")("4928cc62", content, true);
 
 /***/ }),
 
-/***/ "zQrT":
+/***/ "npKG":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/img/avatar.c58e465.png";
+module.exports = __webpack_require__.p + "static/img/login_bg.144e19d.jpg";
 
 /***/ })
 

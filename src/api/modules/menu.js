@@ -58,13 +58,10 @@ export function update (params) {
 }
 
 // 删除菜单
-export function del (params) {
+export function del (id) {
   return request({
-    url: requestUrl('/sys/menu/delete'),
+    url: requestUrl('/sys/menu/delete' + (isInteger(id) ? `/${id}` : '')),
     method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
-    },
-    data: requestParam(params, 'post', false, 'form')
+    data: requestParam()
   })
 }

@@ -22,9 +22,9 @@ export function scheduleList (params) {
 }
 
 // 获取定时任务日志信息
-export function scheduleInfo (logId) {
+export function scheduleInfo (id) {
   return request({
-    url: requestUrl('/sys/scheduleLog/info' + (isInteger(logId) ? `/${logId}` : '')),
+    url: requestUrl('/sys/scheduleLog/info' + (isInteger(id) ? `/${id}` : '')),
     method: 'get',
     params: requestParam({}, 'get')
   })

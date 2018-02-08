@@ -51,6 +51,7 @@ img {
   position: relative;
   min-width: 1180px;
 }
+
 /* site-sidebar-collapse */
 .site-sidebar--collapse {
   .site-topbar__header,
@@ -75,22 +76,25 @@ img {
   .site-sidebar__inner {
     overflow: initial;
   }
-  .el-menu-item,
-  .el-submenu__title {
-    text-align: center;
-  }
-  .site-sidebar__menu.el-menu {
-    .site-sidebar__menu-icon {
-      margin-right: 0;
-      font-size: 20px;
-    }
-  }
-  .el-submenu > .el-submenu__title span {
-    display: none;
+  i.site-sidebar__menu-icon {
+    margin-right: 0;
+    font-size: 20px;
   }
   .site-content--tabs > .el-tabs .el-tabs__header {
     left: 64px;
   }
+}
+/* site-sidebar-collapse animation */
+.site-topbar__header,
+.site-topbar__body,
+.site-logo,
+.site-sidebar,
+.site-sidebar__inner,
+.site-sidebar__menu.el-menu,
+i.site-sidebar__menu-icon,
+.site-content__wrapper,
+.site-content--tabs > .el-tabs .el-tabs__header {
+  transition: left .3s, width .3s, margin-left .3s, font-size .3s;
 }
 /* site-topbar */
 .site-topbar {
@@ -107,7 +111,6 @@ img {
   float: left;
   width: 230px;
   height: 50px;
-  transition: width .2s;
 }
 .site-logo {
   display: table-cell;
@@ -119,7 +122,6 @@ img {
   text-align: center;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: width .2s;
   &__lg,
   &__mini {
     color: #fff;
@@ -153,7 +155,6 @@ img {
   margin-left: 230px;
   padding-right: 15px;
   background-color: #fff;
-  transition: margin-left .2s;
 }
 .site-topbar__menu {
   float: left;
@@ -181,7 +182,6 @@ img {
   width: 230px;
   background-color: #545c64;
   overflow: hidden;
-  transition: width .2s;
 }
 .site-sidebar__inner {
   position: relative;
@@ -190,18 +190,17 @@ img {
   height: 100%;
   padding-bottom: 15px;
   overflow-y: scroll;
-  transition: width .2s;
 }
 .site-sidebar__menu.el-menu {
   width: 230px;
   border-right: 0;
-  transition: width .2s;
-  .site-sidebar__menu-icon {
-    margin-right: 5px;
-    font-size: 16px;
-    color: inherit;
-    transition: all .2s;
-  }
+}
+i.site-sidebar__menu-icon {
+  width: 24px;
+  margin-right: 5px;
+  text-align: center;
+  font-size: 16px;
+  color: inherit;
 }
 /* site-content */
 .site-content__wrapper {
@@ -209,7 +208,6 @@ img {
   padding-top: 50px;
   margin-left: 230px;
   min-height: 100%;
-  transition: margin-left .2s;
 }
 .site-content {
   position: relative;
@@ -227,7 +225,6 @@ img {
       padding: 0 15px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
       background-color: #fff;
-      transition: left .2s;
     }
     .el-tabs__nav-wrap {
       margin-bottom: 0;

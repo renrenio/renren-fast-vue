@@ -131,10 +131,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          var params = {
-            'menuId': id
-          }
-          API.menu.del(params).then(({data}) => {
+          API.menu.del(id).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: '操作成功',

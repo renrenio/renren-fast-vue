@@ -4,7 +4,7 @@
       <div class="site-content">
         <div class="brand-info">
           <h2 class="brand-info__text">Vue-cli-basic</h2>
-          <p class="brand-info__intro">基于Vue.js 2.0+生态圈，构建一套常用／基础的代码结构规范。通过实现人人开源renren-fast轻量级权限管理系统，验证可行性！</p>
+          <p class="brand-info__intro">基于Vue.js 2.0+生态圈，构建一套常用／基础的代码结构规范。通过实现renren-fast轻量级权限管理系统，验证可行性！</p>
         </div>
         <div class="login-main">
           <h3 class="login-title">管理员登录</h3>

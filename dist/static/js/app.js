@@ -1,6 +1,6 @@
-webpackJsonp([19],{
+webpackJsonp([26],{
 
-/***/ "/kji":
+/***/ "/hXL":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -10,13 +10,13 @@ webpackJsonp([19],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__("5XB1");
+__webpack_require__("briU");
 module.exports = __webpack_require__("NHnr");
 
 
 /***/ }),
 
-/***/ "0AzE":
+/***/ "03OU":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -34,10 +34,66 @@ module.exports = function (file) {
 
 /***/ }),
 
-/***/ "1y+L":
-/***/ (function(module, exports) {
+/***/ "0xDb":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = isAuth;
+/* harmony export (immutable) */ __webpack_exports__["a"] = getRouteNameByUrl;
+/* harmony export (immutable) */ __webpack_exports__["c"] = treeDataTranslate;
+/* unused harmony export getStringLength */
+/**
+ * 是否有权限
+ * @param {*} key
+ */
+function isAuth(key) {
+  return JSON.parse(sessionStorage.getItem('permissions') || '[]').indexOf(key) !== -1 || false;
+}
+
+/**
+ * 获取路由名称, 根据url地址
+ * @param {*} url
+ */
+function getRouteNameByUrl(url) {
+  var val = /.*\/(.*)\.html/.exec(url);
+  return val && val.length >= 1 ? val[1] : '';
+}
+
+/**
+ * 树形数据转换
+ * @param {*} data
+ * @param {*} id
+ * @param {*} pid
+ */
+function treeDataTranslate(data) {
+  var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'id';
+  var pid = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'parentId';
+
+  var res = [];
+  var temp = {};
+  for (var i = 0; i < data.length; i++) {
+    temp[data[i][id]] = data[i];
+  }
+  for (var k = 0; k < data.length; k++) {
+    if (temp[data[k][pid]] && data[k][id] !== data[k][pid]) {
+      if (!temp[data[k][pid]]['children']) {
+        temp[data[k][pid]]['children'] = [];
+      }
+      temp[data[k][pid]]['children'].push(data[k]);
+    } else {
+      res.push(data[k]);
+    }
+  }
+  return res;
+}
+
+/**
+ * 获取字符串字节长度
+ * @param {*} s
+ */
+function getStringLength(s) {
+  return s.replace(/[\u4e00-\u9fa5\uff00-\uffff]/g, '**').length;
+}
 
 /***/ }),
 
@@ -100,63 +156,77 @@ module.exports = function (file) {
 
 /***/ }),
 
-/***/ "4cFK":
+/***/ "3mYQ":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "5ykg":
+/***/ "7WzZ":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "6xuc":
+/***/ "8Ehn":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "BcPV":
+/***/ "95lS":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "EAzk":
+/***/ "CV4Z":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "JsC+":
+/***/ "DD0Q":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "LDut":
+/***/ "DmrU":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "LgDJ":
+/***/ "Emjw":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "Lpdk":
+/***/ "FBzL":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "JKhv":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "KGYT":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -168,14 +238,11 @@ module.exports = function (file) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-var getters_namespaceObject = {};
-__webpack_require__.d(getters_namespaceObject, "cartProducts", function() { return cartProducts; });
-__webpack_require__.d(getters_namespaceObject, "siteLayoutMini", function() { return siteLayoutMini; });
 
-// EXTERNAL MODULE: ./node_modules/.2.5.2@vue/dist/vue.esm.js
-var vue_esm = __webpack_require__("KEcs");
+// EXTERNAL MODULE: ./node_modules/_vue@2.5.2@vue/dist/vue.esm.js
+var vue_esm = __webpack_require__("MVSX");
 
-// CONCATENATED MODULE: ./node_modules/.7.1.1@babel-loader/lib!./node_modules/.13.3.0@vue-loader/lib/selector.js?type=script&index=0!./src/App.vue
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.1@babel-loader/lib!./node_modules/_vue-loader@13.3.0@vue-loader/lib/selector.js?type=script&index=0!./src/App.vue
 //
 //
 //
@@ -184,16 +251,13 @@ var vue_esm = __webpack_require__("KEcs");
 //
 
 /* harmony default export */ var App = ({});
-// CONCATENATED MODULE: ./node_modules/.13.3.0@vue-loader/lib/template-compiler?{"id":"data-v-2143fae3","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/.13.3.0@vue-loader/lib/selector.js?type=template&index=0!./src/App.vue
+// CONCATENATED MODULE: ./node_modules/_vue-loader@13.3.0@vue-loader/lib/template-compiler?{"id":"data-v-2143fae3","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/_vue-loader@13.3.0@vue-loader/lib/selector.js?type=template&index=0!./src/App.vue
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('transition',{attrs:{"name":"fade"}},[_c('router-view')],1)}
 var staticRenderFns = []
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ var selectortype_template_index_0_src_App = (esExports);
 // CONCATENATED MODULE: ./src/App.vue
-function injectStyle (ssrContext) {
-  __webpack_require__("4cFK")
-}
-var normalizeComponent = __webpack_require__("mPyB")
+var normalizeComponent = __webpack_require__("46Yf")
 /* script */
 
 /* template */
@@ -201,7 +265,7 @@ var normalizeComponent = __webpack_require__("mPyB")
 /* template functional */
   var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = injectStyle
+var __vue_styles__ = null
 /* scopeId */
 var __vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -220,50 +284,33 @@ var Component = normalizeComponent(
 // EXTERNAL MODULE: ./src/router/index.js
 var router = __webpack_require__("YaEn");
 
-// EXTERNAL MODULE: ./node_modules/.3.0.1@vuex/dist/vuex.esm.js
-var vuex_esm = __webpack_require__("EcfS");
+// EXTERNAL MODULE: ./node_modules/_vuex@3.0.1@vuex/dist/vuex.esm.js
+var vuex_esm = __webpack_require__("9rMa");
 
-// CONCATENATED MODULE: ./src/store/getters.js
-var cartProducts = function cartProducts(state) {
-  return state.cart.added.map(function (_ref) {
-    var id = _ref.id,
-        quantity = _ref.quantity;
+// EXTERNAL MODULE: ./src/store/getters.js
+var getters = __webpack_require__("UjVw");
+var getters_default = /*#__PURE__*/__webpack_require__.n(getters);
 
-    var product = state.products.all.find(function (p) {
-      return p.id === id;
-    });
-    return {
-      title: product.title,
-      price: product.price,
-      quantity: quantity
-    };
-  });
-};
-
-var siteLayoutMini = function siteLayoutMini(state) {
-  return state.siteLayoutMini;
-};
-// EXTERNAL MODULE: ./node_modules/.6.26.0@babel-runtime/helpers/defineProperty.js
-var defineProperty = __webpack_require__("WxFH");
+// EXTERNAL MODULE: ./node_modules/_babel-runtime@6.26.0@babel-runtime/helpers/defineProperty.js
+var defineProperty = __webpack_require__("a3Yh");
 var defineProperty_default = /*#__PURE__*/__webpack_require__.n(defineProperty);
 
 // CONCATENATED MODULE: ./src/store/mutation-types.js
+// 公共
 var SWITCH_SIDEBAR_COLLAPSE = 'SWITCH_SIDEBAR_COLLAPSE';
 var UPDATE_DOCUMENT_CLIENT_HEIGHT = 'UPDATE_DOCUMENT_CLIENT_HEIGHT';
 var UPDATE_MENU_NAV_LIST = 'UPDATE_MENU_NAV_LIST';
+var ADD_CONTENT_TAB = 'ADD_CONTENT_TAB';
 var UPDATE_CONTENT_TABS = 'UPDATE_CONTENT_TABS';
+var DELETE_CONTENT_TABS = 'DELETE_CONTENT_TABS';
 var UPDATE_CONTENT_TABS_ACTIVE_NAME = 'UPDATE_CONTENT_TABS_ACTIVE_NAME';
-var UPDATE_USER_INFO = 'UPDATE_USER_INFO';
-// EXTERNAL MODULE: ./node_modules/.4.17.4@lodash/merge.js
-var merge = __webpack_require__("n/gF");
-var merge_default = /*#__PURE__*/__webpack_require__.n(merge);
-
+// 用户
+var UPDATE_USER_ID = 'UPDATE_USER_ID';
+var UPDATE_USER_NAME = 'UPDATE_USER_NAME';
 // CONCATENATED MODULE: ./src/store/mutations.js
 
 
 var _types$SWITCH_SIDEBAR;
-
-
 
 
 
@@ -277,33 +324,52 @@ var _types$SWITCH_SIDEBAR;
   state.documentClientHeight = height;
 }), defineProperty_default()(_types$SWITCH_SIDEBAR, UPDATE_MENU_NAV_LIST, function (state, list) {
   state.menuNavList = list;
+}), defineProperty_default()(_types$SWITCH_SIDEBAR, ADD_CONTENT_TAB, function (state, tab) {
+  state.contentTabs.push(tab);
 }), defineProperty_default()(_types$SWITCH_SIDEBAR, UPDATE_CONTENT_TABS, function (state, tabs) {
   state.contentTabs = tabs;
+}), defineProperty_default()(_types$SWITCH_SIDEBAR, DELETE_CONTENT_TABS, function (state) {
+  state.contentTabs = [];
 }), defineProperty_default()(_types$SWITCH_SIDEBAR, UPDATE_CONTENT_TABS_ACTIVE_NAME, function (state, _ref3) {
   var name = _ref3.name;
 
-  vue_esm["default"].set(state.contentTabs, 'activeName', name);
-}), defineProperty_default()(_types$SWITCH_SIDEBAR, UPDATE_USER_INFO, function (state, info) {
-  state.userInfo = merge_default()(state.userInfo, info);
+  state.contentTabsActiveName = name;
 }), _types$SWITCH_SIDEBAR);
 // EXTERNAL MODULE: ./src/store/actions.js
 var actions = __webpack_require__("mUbh");
 var actions_default = /*#__PURE__*/__webpack_require__.n(actions);
 
-// CONCATENATED MODULE: ./src/store/modules/home.js
-var home_state = {};
+// CONCATENATED MODULE: ./src/store/modules/user.js
 
-var getters = {};
 
-var home_actions = {};
+var _mutations;
 
-var home_mutations = {};
 
-/* harmony default export */ var home = ({
-  state: home_state,
-  getters: getters,
-  actions: home_actions,
-  mutations: home_mutations
+
+var state = {
+  id: 0,
+  name: ''
+};
+
+var user_getters = {};
+
+var user_actions = {};
+
+var user_mutations = (_mutations = {}, defineProperty_default()(_mutations, UPDATE_USER_ID, function (state, _ref) {
+  var id = _ref.id;
+
+  state.id = id;
+}), defineProperty_default()(_mutations, UPDATE_USER_NAME, function (state, _ref2) {
+  var name = _ref2.name;
+
+  state.name = name;
+}), _mutations);
+
+/* harmony default export */ var user = ({
+  state: state,
+  getters: user_getters,
+  actions: user_actions,
+  mutations: user_mutations
 });
 // CONCATENATED MODULE: ./src/store/index.js
 
@@ -320,296 +386,322 @@ var store_state = {
   sidebarCollapse: false,
   // 页面文档可视高度(随窗口改变大小)
   documentClientHeight: 0,
-  // 菜单导航列表
+  // 菜单导航
   menuNavList: [],
   // 内容区域tabs标签页
-  contentTabs: {
-    activeName: '',
-    tabList: []
-  },
-  // 用户信息
-  userInfo: {
-    userId: '',
-    userName: ''
-  },
-  // 菜单导航类型映射表(module: vue重构, iframe: 原工程iframe方式嵌套)
-  menuNavTypeMap: {
-    'user': 'module',
-    'dept': 'module',
-    'role': 'iframe',
-    'menu': 'iframe',
-    'sql': 'iframe',
-    'schedule': 'iframe',
-    'config': 'iframe',
-    'oss': 'module',
-    'log': 'module',
-    'generator': 'module'
-  }
+  contentTabs: [],
+  contentTabsActiveName: ''
 };
 
 /* harmony default export */ var store = (new vuex_esm["a" /* default */].Store({
   state: store_state,
-  getters: getters_namespaceObject,
+  getters: getters,
   mutations: mutations,
   actions: actions,
   modules: {
-    home: home
+    user: user
   },
   strict: "production" !== 'production'
 }));
-// EXTERNAL MODULE: ./node_modules/.1.1.4@vue-cookie/src/vue-cookie.js
-var vue_cookie = __webpack_require__("R49g");
+// EXTERNAL MODULE: ./node_modules/_vue-cookie@1.1.4@vue-cookie/src/vue-cookie.js
+var vue_cookie = __webpack_require__("Klf7");
 var vue_cookie_default = /*#__PURE__*/__webpack_require__.n(vue_cookie);
 
-// EXTERNAL MODULE: ./src/assets/css/normalize.css
-var normalize = __webpack_require__("0AzE");
-var normalize_default = /*#__PURE__*/__webpack_require__.n(normalize);
-
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/message.css
-var message = __webpack_require__("EAzk");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/message.css
+var message = __webpack_require__("fKYx");
 var message_default = /*#__PURE__*/__webpack_require__.n(message);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/message.js
-var lib_message = __webpack_require__("zgrn");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/message.js
+var lib_message = __webpack_require__("UonM");
 var lib_message_default = /*#__PURE__*/__webpack_require__.n(lib_message);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/message-box.css
-var message_box = __webpack_require__("V9RT");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/message-box.css
+var message_box = __webpack_require__("bQJQ");
 var message_box_default = /*#__PURE__*/__webpack_require__.n(message_box);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/message-box.js
-var lib_message_box = __webpack_require__("Lfqr");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/message-box.js
+var lib_message_box = __webpack_require__("w74i");
 var lib_message_box_default = /*#__PURE__*/__webpack_require__.n(lib_message_box);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/loading.css
-var loading = __webpack_require__("gT+B");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/loading.css
+var loading = __webpack_require__("VX4u");
 var loading_default = /*#__PURE__*/__webpack_require__.n(loading);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/loading.js
-var lib_loading = __webpack_require__("sd1+");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/loading.js
+var lib_loading = __webpack_require__("JAru");
 var lib_loading_default = /*#__PURE__*/__webpack_require__.n(lib_loading);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/card.css
-var card = __webpack_require__("vCwP");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/card.css
+var card = __webpack_require__("3mYQ");
 var card_default = /*#__PURE__*/__webpack_require__.n(card);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/card.js
-var lib_card = __webpack_require__("ryUU");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/card.js
+var lib_card = __webpack_require__("t3BO");
 var lib_card_default = /*#__PURE__*/__webpack_require__.n(lib_card);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/upload.css
-var upload = __webpack_require__("O3H0");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/upload.css
+var upload = __webpack_require__("7WzZ");
 var upload_default = /*#__PURE__*/__webpack_require__.n(upload);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/upload.js
-var lib_upload = __webpack_require__("xtar");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/upload.js
+var lib_upload = __webpack_require__("0ARm");
 var lib_upload_default = /*#__PURE__*/__webpack_require__.n(lib_upload);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/col.css
-var col = __webpack_require__("cTb2");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/col.css
+var col = __webpack_require__("XJUo");
 var col_default = /*#__PURE__*/__webpack_require__.n(col);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/col.js
-var lib_col = __webpack_require__("7FKt");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/col.js
+var lib_col = __webpack_require__("Gc45");
 var lib_col_default = /*#__PURE__*/__webpack_require__.n(lib_col);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/row.css
-var row = __webpack_require__("lCBG");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/row.css
+var row = __webpack_require__("W/cv");
 var row_default = /*#__PURE__*/__webpack_require__.n(row);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/row.js
-var lib_row = __webpack_require__("xDGp");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/row.js
+var lib_row = __webpack_require__("9Yn1");
 var lib_row_default = /*#__PURE__*/__webpack_require__.n(lib_row);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/tag.css
-var tag = __webpack_require__("O9kN");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/tree.css
+var tree = __webpack_require__("/hXL");
+var tree_default = /*#__PURE__*/__webpack_require__.n(tree);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/tree.js
+var lib_tree = __webpack_require__("W6RO");
+var lib_tree_default = /*#__PURE__*/__webpack_require__.n(lib_tree);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/tag.css
+var tag = __webpack_require__("fcO/");
 var tag_default = /*#__PURE__*/__webpack_require__.n(tag);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/tag.js
-var lib_tag = __webpack_require__("M00k");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/tag.js
+var lib_tag = __webpack_require__("lfaL");
 var lib_tag_default = /*#__PURE__*/__webpack_require__.n(lib_tag);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/tab-pane.css
-var tab_pane = __webpack_require__("LgDJ");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/tab-pane.css
+var tab_pane = __webpack_require__("etnC");
 var tab_pane_default = /*#__PURE__*/__webpack_require__.n(tab_pane);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/tab-pane.js
-var lib_tab_pane = __webpack_require__("x2w0");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/tab-pane.js
+var lib_tab_pane = __webpack_require__("0fml");
 var lib_tab_pane_default = /*#__PURE__*/__webpack_require__.n(lib_tab_pane);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/tabs.css
-var tabs = __webpack_require__("/kji");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/tabs.css
+var tabs = __webpack_require__("JKhv");
 var tabs_default = /*#__PURE__*/__webpack_require__.n(tabs);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/tabs.js
-var lib_tabs = __webpack_require__("Oel9");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/tabs.js
+var lib_tabs = __webpack_require__("lmDE");
 var lib_tabs_default = /*#__PURE__*/__webpack_require__.n(lib_tabs);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/form-item.css
-var form_item = __webpack_require__("rpM4");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/form-item.css
+var form_item = __webpack_require__("yhKg");
 var form_item_default = /*#__PURE__*/__webpack_require__.n(form_item);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/form-item.js
-var lib_form_item = __webpack_require__("V2dX");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/form-item.js
+var lib_form_item = __webpack_require__("zB2f");
 var lib_form_item_default = /*#__PURE__*/__webpack_require__.n(lib_form_item);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/form.css
-var theme_chalk_form = __webpack_require__("XKTU");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/form.css
+var theme_chalk_form = __webpack_require__("lX6Q");
 var form_default = /*#__PURE__*/__webpack_require__.n(theme_chalk_form);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/form.js
-var lib_form = __webpack_require__("hmN2");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/form.js
+var lib_form = __webpack_require__("nbO0");
 var lib_form_default = /*#__PURE__*/__webpack_require__.n(lib_form);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/breadcrumb-item.css
-var breadcrumb_item = __webpack_require__("sYTU");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/breadcrumb-item.css
+var breadcrumb_item = __webpack_require__("CV4Z");
 var breadcrumb_item_default = /*#__PURE__*/__webpack_require__.n(breadcrumb_item);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/breadcrumb-item.js
-var lib_breadcrumb_item = __webpack_require__("jiEa");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/breadcrumb-item.js
+var lib_breadcrumb_item = __webpack_require__("mb9/");
 var lib_breadcrumb_item_default = /*#__PURE__*/__webpack_require__.n(lib_breadcrumb_item);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/breadcrumb.css
-var breadcrumb = __webpack_require__("6xuc");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/breadcrumb.css
+var breadcrumb = __webpack_require__("lbIT");
 var breadcrumb_default = /*#__PURE__*/__webpack_require__.n(breadcrumb);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/breadcrumb.js
-var lib_breadcrumb = __webpack_require__("A9pN");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/breadcrumb.js
+var lib_breadcrumb = __webpack_require__("cZtA");
 var lib_breadcrumb_default = /*#__PURE__*/__webpack_require__.n(lib_breadcrumb);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/tooltip.css
-var tooltip = __webpack_require__("wmRL");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/tooltip.css
+var tooltip = __webpack_require__("DD0Q");
 var tooltip_default = /*#__PURE__*/__webpack_require__.n(tooltip);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/tooltip.js
-var lib_tooltip = __webpack_require__("BW4C");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/tooltip.js
+var lib_tooltip = __webpack_require__("v1SV");
 var lib_tooltip_default = /*#__PURE__*/__webpack_require__.n(lib_tooltip);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/table-column.css
-var table_column = __webpack_require__("h5tL");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/popover.css
+var popover = __webpack_require__("UGBS");
+var popover_default = /*#__PURE__*/__webpack_require__.n(popover);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/popover.js
+var lib_popover = __webpack_require__("3We/");
+var lib_popover_default = /*#__PURE__*/__webpack_require__.n(lib_popover);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/table-column.css
+var table_column = __webpack_require__("zfRq");
 var table_column_default = /*#__PURE__*/__webpack_require__.n(table_column);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/table-column.js
-var lib_table_column = __webpack_require__("dLq6");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/table-column.js
+var lib_table_column = __webpack_require__("QTfr");
 var lib_table_column_default = /*#__PURE__*/__webpack_require__.n(lib_table_column);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/table.css
-var table = __webpack_require__("POYT");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/table.css
+var table = __webpack_require__("T6FB");
 var table_default = /*#__PURE__*/__webpack_require__.n(table);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/table.js
-var lib_table = __webpack_require__("dRl3");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/table.js
+var lib_table = __webpack_require__("2B8f");
 var lib_table_default = /*#__PURE__*/__webpack_require__.n(lib_table);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/button.css
-var theme_chalk_button = __webpack_require__("u3iA");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/button.css
+var theme_chalk_button = __webpack_require__("Ww9V");
 var button_default = /*#__PURE__*/__webpack_require__.n(theme_chalk_button);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/button.js
-var lib_button = __webpack_require__("A1o3");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/button.js
+var lib_button = __webpack_require__("z7Ct");
 var lib_button_default = /*#__PURE__*/__webpack_require__.n(lib_button);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/radio-group.css
-var radio_group = __webpack_require__("SFVL");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/checkbox-group.css
+var checkbox_group = __webpack_require__("pbkR");
+var checkbox_group_default = /*#__PURE__*/__webpack_require__.n(checkbox_group);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/checkbox-group.js
+var lib_checkbox_group = __webpack_require__("Lnnn");
+var lib_checkbox_group_default = /*#__PURE__*/__webpack_require__.n(lib_checkbox_group);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/checkbox.css
+var theme_chalk_checkbox = __webpack_require__("UG//");
+var checkbox_default = /*#__PURE__*/__webpack_require__.n(theme_chalk_checkbox);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/checkbox.js
+var lib_checkbox = __webpack_require__("xHgQ");
+var lib_checkbox_default = /*#__PURE__*/__webpack_require__.n(lib_checkbox);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/radio-group.css
+var radio_group = __webpack_require__("Uh8s");
 var radio_group_default = /*#__PURE__*/__webpack_require__.n(radio_group);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/radio-group.js
-var lib_radio_group = __webpack_require__("0ct9");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/radio-group.js
+var lib_radio_group = __webpack_require__("EO+1");
 var lib_radio_group_default = /*#__PURE__*/__webpack_require__.n(lib_radio_group);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/radio.css
-var theme_chalk_radio = __webpack_require__("PeXj");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/radio.css
+var theme_chalk_radio = __webpack_require__("FBzL");
 var radio_default = /*#__PURE__*/__webpack_require__.n(theme_chalk_radio);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/radio.js
-var lib_radio = __webpack_require__("Nbls");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/radio.js
+var lib_radio = __webpack_require__("FKyB");
 var lib_radio_default = /*#__PURE__*/__webpack_require__.n(lib_radio);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/input.css
-var input = __webpack_require__("vo9P");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/input-number.css
+var input_number = __webpack_require__("03OU");
+var input_number_default = /*#__PURE__*/__webpack_require__.n(input_number);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/input-number.js
+var lib_input_number = __webpack_require__("uiwM");
+var lib_input_number_default = /*#__PURE__*/__webpack_require__.n(lib_input_number);
+
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/input.css
+var input = __webpack_require__("R6rY");
 var input_default = /*#__PURE__*/__webpack_require__.n(input);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/input.js
-var lib_input = __webpack_require__("FcbF");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/input.js
+var lib_input = __webpack_require__("ZCxo");
 var lib_input_default = /*#__PURE__*/__webpack_require__.n(lib_input);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/menu-item-group.css
-var menu_item_group = __webpack_require__("dwtk");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/menu-item-group.css
+var menu_item_group = __webpack_require__("vFs3");
 var menu_item_group_default = /*#__PURE__*/__webpack_require__.n(menu_item_group);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/menu-item-group.js
-var lib_menu_item_group = __webpack_require__("U/cS");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/menu-item-group.js
+var lib_menu_item_group = __webpack_require__("TJNR");
 var lib_menu_item_group_default = /*#__PURE__*/__webpack_require__.n(lib_menu_item_group);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/menu-item.css
-var menu_item = __webpack_require__("pAaE");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/menu-item.css
+var menu_item = __webpack_require__("KGYT");
 var menu_item_default = /*#__PURE__*/__webpack_require__.n(menu_item);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/menu-item.js
-var lib_menu_item = __webpack_require__("vo6q");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/menu-item.js
+var lib_menu_item = __webpack_require__("lBEB");
 var lib_menu_item_default = /*#__PURE__*/__webpack_require__.n(lib_menu_item);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/submenu.css
-var submenu = __webpack_require__("BcPV");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/submenu.css
+var submenu = __webpack_require__("Y471");
 var submenu_default = /*#__PURE__*/__webpack_require__.n(submenu);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/submenu.js
-var lib_submenu = __webpack_require__("9Uqp");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/submenu.js
+var lib_submenu = __webpack_require__("hR/J");
 var lib_submenu_default = /*#__PURE__*/__webpack_require__.n(lib_submenu);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/menu.css
-var menu = __webpack_require__("UHJy");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/menu.css
+var menu = __webpack_require__("vXxe");
 var menu_default = /*#__PURE__*/__webpack_require__.n(menu);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/menu.js
-var lib_menu = __webpack_require__("pztU");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/menu.js
+var lib_menu = __webpack_require__("9cGN");
 var lib_menu_default = /*#__PURE__*/__webpack_require__.n(lib_menu);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/dropdown-item.css
-var dropdown_item = __webpack_require__("LDut");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/dropdown-item.css
+var dropdown_item = __webpack_require__("Emjw");
 var dropdown_item_default = /*#__PURE__*/__webpack_require__.n(dropdown_item);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/dropdown-item.js
-var lib_dropdown_item = __webpack_require__("H9q5");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/dropdown-item.js
+var lib_dropdown_item = __webpack_require__("cj4b");
 var lib_dropdown_item_default = /*#__PURE__*/__webpack_require__.n(lib_dropdown_item);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/dropdown-menu.css
-var dropdown_menu = __webpack_require__("5ykg");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/dropdown-menu.css
+var dropdown_menu = __webpack_require__("95lS");
 var dropdown_menu_default = /*#__PURE__*/__webpack_require__.n(dropdown_menu);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/dropdown-menu.js
-var lib_dropdown_menu = __webpack_require__("gCQH");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/dropdown-menu.js
+var lib_dropdown_menu = __webpack_require__("9ScS");
 var lib_dropdown_menu_default = /*#__PURE__*/__webpack_require__.n(lib_dropdown_menu);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/dropdown.css
-var dropdown = __webpack_require__("Lpdk");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/dropdown.css
+var dropdown = __webpack_require__("lD/f");
 var dropdown_default = /*#__PURE__*/__webpack_require__.n(dropdown);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/dropdown.js
-var lib_dropdown = __webpack_require__("h/3i");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/dropdown.js
+var lib_dropdown = __webpack_require__("Hgqz");
 var lib_dropdown_default = /*#__PURE__*/__webpack_require__.n(lib_dropdown);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/dialog.css
-var dialog = __webpack_require__("1y+L");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/dialog.css
+var dialog = __webpack_require__("VbI/");
 var dialog_default = /*#__PURE__*/__webpack_require__.n(dialog);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/dialog.js
-var lib_dialog = __webpack_require__("4qhY");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/dialog.js
+var lib_dialog = __webpack_require__("Lj4K");
 var lib_dialog_default = /*#__PURE__*/__webpack_require__.n(lib_dialog);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/pagination.css
-var pagination = __webpack_require__("zCDq");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/pagination.css
+var pagination = __webpack_require__("y5EY");
 var pagination_default = /*#__PURE__*/__webpack_require__.n(pagination);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/theme-chalk/base.css
-var base = __webpack_require__("pAyZ");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/theme-chalk/base.css
+var base = __webpack_require__("8Ehn");
 var base_default = /*#__PURE__*/__webpack_require__.n(base);
 
-// EXTERNAL MODULE: ./node_modules/.2.0.7@element-ui/lib/pagination.js
-var lib_pagination = __webpack_require__("n6yb");
+// EXTERNAL MODULE: ./node_modules/_element-ui@2.1.0@element-ui/lib/pagination.js
+var lib_pagination = __webpack_require__("yAL1");
 var lib_pagination_default = /*#__PURE__*/__webpack_require__.n(lib_pagination);
 
 // CONCATENATED MODULE: ./src/element-ui/index.js
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -694,13 +786,13 @@ vue_esm["default"].use(lib_submenu_default.a);
 vue_esm["default"].use(lib_menu_item_default.a);
 vue_esm["default"].use(lib_menu_item_group_default.a);
 vue_esm["default"].use(lib_input_default.a);
-// Vue.use(InputNumber)
+vue_esm["default"].use(lib_input_number_default.a);
 vue_esm["default"].use(lib_radio_default.a);
 vue_esm["default"].use(lib_radio_group_default.a);
 // Vue.use(RadioButton)
-// Vue.use(Checkbox)
+vue_esm["default"].use(lib_checkbox_default.a);
 // Vue.use(CheckboxButton)
-// Vue.use(CheckboxGroup)
+vue_esm["default"].use(lib_checkbox_group_default.a);
 // Vue.use(Switch)
 // Vue.use(Select)
 // Vue.use(Option)
@@ -712,7 +804,7 @@ vue_esm["default"].use(lib_table_column_default.a);
 // Vue.use(DatePicker)
 // Vue.use(TimeSelect)
 // Vue.use(TimePicker)
-// Vue.use(Popover)
+vue_esm["default"].use(lib_popover_default.a);
 vue_esm["default"].use(lib_tooltip_default.a);
 vue_esm["default"].use(lib_breadcrumb_default.a);
 vue_esm["default"].use(lib_breadcrumb_item_default.a);
@@ -721,7 +813,7 @@ vue_esm["default"].use(lib_form_item_default.a);
 vue_esm["default"].use(lib_tabs_default.a);
 vue_esm["default"].use(lib_tab_pane_default.a);
 vue_esm["default"].use(lib_tag_default.a);
-// Vue.use(Tree)
+vue_esm["default"].use(lib_tree_default.a);
 // Vue.use(Alert)
 // Vue.use(Slider)
 // Vue.use(Icon)
@@ -756,7 +848,7 @@ vue_esm["default"].prototype.$confirm = lib_message_box_default.a.confirm;
 vue_esm["default"].prototype.$prompt = lib_message_box_default.a.prompt;
 // Vue.prototype.$notify = Notification
 vue_esm["default"].prototype.$message = lib_message_default.a;
-// CONCATENATED MODULE: ./node_modules/.7.1.1@babel-loader/lib!./node_modules/.13.3.0@vue-loader/lib/selector.js?type=script&index=0!./src/components/icon-svg.vue
+// CONCATENATED MODULE: ./node_modules/_babel-loader@7.1.1@babel-loader/lib!./node_modules/_vue-loader@13.3.0@vue-loader/lib/selector.js?type=script&index=0!./src/components/icon-svg/index.vue
 //
 //
 //
@@ -794,16 +886,16 @@ vue_esm["default"].prototype.$message = lib_message_default.a;
     }
   }
 });
-// CONCATENATED MODULE: ./node_modules/.13.3.0@vue-loader/lib/template-compiler?{"id":"data-v-bb011a6a","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/.13.3.0@vue-loader/lib/selector.js?type=template&index=0!./src/components/icon-svg.vue
+// CONCATENATED MODULE: ./node_modules/_vue-loader@13.3.0@vue-loader/lib/template-compiler?{"id":"data-v-13ff750e","hasScoped":false,"transformToRequire":{"video":["src","poster"],"source":"src","img":"src","image":"xlink:href"},"buble":{"transforms":{}}}!./node_modules/_vue-loader@13.3.0@vue-loader/lib/selector.js?type=template&index=0!./src/components/icon-svg/index.vue
 var icon_svg_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('svg',{class:_vm.getClassName,attrs:{"width":_vm.width,"height":_vm.height,"aria-hidden":"true"}},[_c('use',{attrs:{"xlink:href":_vm.getName}})])}
 var icon_svg_staticRenderFns = []
 var icon_svg_esExports = { render: icon_svg_render, staticRenderFns: icon_svg_staticRenderFns }
 /* harmony default export */ var components_icon_svg = (icon_svg_esExports);
-// CONCATENATED MODULE: ./src/components/icon-svg.vue
-function icon_svg_injectStyle (ssrContext) {
-  __webpack_require__("JsC+")
+// CONCATENATED MODULE: ./src/components/icon-svg/index.vue
+function injectStyle (ssrContext) {
+  __webpack_require__("DmrU")
 }
-var icon_svg_normalizeComponent = __webpack_require__("mPyB")
+var icon_svg_normalizeComponent = __webpack_require__("46Yf")
 /* script */
 
 /* template */
@@ -811,7 +903,7 @@ var icon_svg_normalizeComponent = __webpack_require__("mPyB")
 /* template functional */
   var icon_svg___vue_template_functional__ = false
 /* styles */
-var icon_svg___vue_styles__ = icon_svg_injectStyle
+var icon_svg___vue_styles__ = injectStyle
 /* scopeId */
 var icon_svg___vue_scopeId__ = null
 /* moduleIdentifier (server only) */
@@ -845,6 +937,13 @@ var iconfont_default = /*#__PURE__*/__webpack_require__.n(iconfont);
 
 
 vue_esm["default"].component('IconSvg', src_components_icon_svg);
+// EXTERNAL MODULE: ./src/assets/scss/index.scss
+var scss = __webpack_require__("d4tr");
+var scss_default = /*#__PURE__*/__webpack_require__.n(scss);
+
+// EXTERNAL MODULE: ./src/utils/index.js
+var utils = __webpack_require__("0xDb");
+
 // CONCATENATED MODULE: ./src/main.js
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
@@ -853,13 +952,16 @@ vue_esm["default"].component('IconSvg', src_components_icon_svg);
  // api: https://router.vuejs.org/
  // api: https://vuex.vuejs.org/
  // api: https://github.com/alfhen/vue-cookie
- // api: https://github.com/necolas/normalize.css
  // api: https://github.com/ElemeFE/element
  // api: http://www.iconfont.cn/
+
+
 
 vue_esm["default"].config.productionTip = false;
 
 vue_esm["default"].use(vue_cookie_default.a);
+
+vue_esm["default"].prototype.isAuth = utils["b" /* isAuth */]; // 挂载权限方法
 
 /* eslint-disable no-new */
 new vue_esm["default"]({
@@ -872,101 +974,130 @@ new vue_esm["default"]({
 
 /***/ }),
 
-/***/ "O3H0":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "O9kN":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ "Opzk":
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./config/add-or-update.vue": [
+		"dyKt",
+		0,
+		22
+	],
 	"./config/index.vue": [
 		"3W8Q",
-		15
-	],
-	"./dept/index.vue": [
-		"knae",
 		0,
-		12
+		11
 	],
 	"./error/404.vue": [
 		"34W9",
-		11
-	],
-	"./generator/index.vue": [
-		"s0e1",
-		0,
-		10
+		21
 	],
 	"./home/index.vue": [
 		"KR8f",
-		5
+		8
 	],
 	"./layout/content-tabs.vue": [
 		"sPSN",
 		0,
-		6
+		20
 	],
 	"./layout/index.vue": [
 		"6f/g",
 		0,
-		1
+		3
 	],
 	"./layout/sidebar.vue": [
 		"jqh9",
 		0,
-		2
+		23
 	],
 	"./layout/topbar.vue": [
 		"8HvM",
 		0,
-		4
+		10
+	],
+	"./layout/update-password.vue": [
+		"OHGg",
+		0
 	],
 	"./log/index.vue": [
 		"QWih",
 		0,
-		9
+		19
 	],
 	"./login/index.vue": [
 		"T+/8",
 		0,
-		3
+		4
+	],
+	"./menu/add-or-update.vue": [
+		"P5+K",
+		0,
+		7
 	],
 	"./menu/index.vue": [
 		"sS1m",
-		17
+		0,
+		1
+	],
+	"./oss/config.vue": [
+		"xZFR",
+		0,
+		18
 	],
 	"./oss/index.vue": [
 		"oi/V",
 		0,
-		8
+		6
+	],
+	"./oss/upload.vue": [
+		"GpWj",
+		0,
+		17
+	],
+	"./role/add-or-update.vue": [
+		"0icb",
+		0,
+		16
 	],
 	"./role/index.vue": [
 		"scgI",
-		13
+		0,
+		9
+	],
+	"./schedule/add-or-update.vue": [
+		"vGzp",
+		0,
+		15
 	],
 	"./schedule/index.vue": [
 		"v50Q",
+		0,
+		5
+	],
+	"./schedule/log.vue": [
+		"bPsF",
+		0,
 		14
 	],
 	"./sql/index.vue": [
 		"7ijD",
-		16
+		13
+	],
+	"./tree-table/index.vue": [
+		"sIkh",
+		0,
+		2
+	],
+	"./user/add-or-update.vue": [
+		"Tg2t",
+		0,
+		24
 	],
 	"./user/index.vue": [
 		"md3T",
 		0,
-		7
+		12
 	]
 };
 function webpackAsyncContext(req) {
@@ -985,42 +1116,84 @@ module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ "POYT":
+/***/ "R6rY":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "PeXj":
+/***/ "T6FB":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "SFVL":
+/***/ "UG//":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "UHJy":
+/***/ "UGBS":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "V9RT":
+/***/ "Uh8s":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "XKTU":
+/***/ "UjVw":
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "VX4u":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "VbI/":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "W/cv":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "Ww9V":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "XJUo":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "Y471":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -1031,8 +1204,8 @@ module.exports = webpackAsyncContext;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("KEcs");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__("1eSk");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("MVSX");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__("zO6J");
 
 
 
@@ -1045,7 +1218,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
 // 1. 代码中路由统一使用name属性跳转.
 // 2. 开放path属性用做简短路由, 比如: '/a1', 访问地址: www.renren.io/#/a1
 /* harmony default export */ __webpack_exports__["a"] = (new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
-  routes: [{ path: '/404', component: _import('error/404'), name: '404', desc: '404未找到' }, { path: '/login', component: _import('login/index'), name: 'login', desc: '登录' }, {
+  mode: 'hash',
+  routes: [{ path: '/tree-table', component: _import('tree-table/index'), name: 'treeTable', desc: '树型表格' }, { path: '/404', component: _import('error/404'), name: '404', desc: '404未找到' }, { path: '/login', component: _import('login/index'), name: 'login', desc: '登录' }, {
     path: '/',
     component: _import('layout/index'),
     name: 'layout',
@@ -1059,42 +1233,70 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
       desc: '内容需通过tabs展示',
       children: [
       // 以'/n'开头统一拦截, 标记为左侧菜单导航tab展示内容方式路由
-      { path: '/n/user', component: _import('user/index'), name: 'user', desc: '管理员管理' }, { path: '/n/dept', component: _import('dept/index'), name: 'dept', desc: '部门管理' }, { path: '/n/role', component: _import('role/index'), name: 'role', desc: '角色管理' }, { path: '/n/menu', component: _import('menu/index'), name: 'menu', desc: '菜单管理' }, { path: '/n/sql', component: _import('sql/index'), name: 'sql', desc: 'SQL监控' }, { path: '/n/schedule', component: _import('schedule/index'), name: 'schedule', desc: '定时任务' }, { path: '/n/config', component: _import('config/index'), name: 'config', desc: '参数管理' }, { path: '/n/oss', component: _import('oss/index'), name: 'oss', desc: '文件上传' }, { path: '/n/log', component: _import('log/index'), name: 'log', desc: '系统日志' }, { path: '/n/generator', component: _import('generator/index'), name: 'generator', desc: '代码生成器' }]
-    }]
+      { path: '/n/user', component: _import('user/index'), name: 'user', desc: '管理员管理' }, { path: '/n/role', component: _import('role/index'), name: 'role', desc: '角色管理' }, { path: '/n/menu', component: _import('menu/index'), name: 'menu', desc: '菜单管理' }, { path: '/n/sql', component: _import('sql/index'), name: 'sql', desc: 'SQL监控' }, { path: '/n/schedule', component: _import('schedule/index'), name: 'schedule', desc: '定时任务' }, { path: '/n/config', component: _import('config/index'), name: 'config', desc: '参数管理' }, { path: '/n/oss', component: _import('oss/index'), name: 'oss', desc: '文件上传' }, { path: '/n/log', component: _import('log/index'), name: 'log', desc: '系统日志' }]
+    }],
+    beforeEnter: function beforeEnter(to, from, next) {
+      var token = __WEBPACK_IMPORTED_MODULE_0_vue__["default"].cookie.get('token');
+      if (!token || !/\S/.test(token)) {
+        next({ name: 'login' });
+      }
+      next();
+    }
   }, { path: '*', redirect: { name: '404' } }]
 }));
 
 /***/ }),
 
-/***/ "cTb2":
+/***/ "bQJQ":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "dwtk":
+/***/ "d4tr":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "gT+B":
+/***/ "etnC":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "h5tL":
+/***/ "fKYx":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "lCBG":
+/***/ "fcO/":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "lD/f":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "lX6Q":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "lbIT":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -1108,63 +1310,42 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["default"].use(__WEBPACK_IMPORTED_MODULE_1_vue
 
 /***/ }),
 
-/***/ "pAaE":
+/***/ "pbkR":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "pAyZ":
+/***/ "vFs3":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "rpM4":
+/***/ "vXxe":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "sYTU":
+/***/ "y5EY":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "u3iA":
+/***/ "yhKg":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
 
-/***/ "vCwP":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "vo9P":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "wmRL":
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "zCDq":
+/***/ "zfRq":
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
