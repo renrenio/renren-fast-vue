@@ -33,7 +33,7 @@
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
-      <el-button type="primary" @click="addOrUpdateFormSubmit()">确定</el-button>
+      <el-button type="primary" @click="dataFormSubmit()">确定</el-button>
     </span>
   </el-dialog>
 </template>
@@ -131,8 +131,8 @@
           }
         })
       },
-      // 新增 / 修改, 提交
-      addOrUpdateFormSubmit () {
+      // 表单提交
+      dataFormSubmit () {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             var params = {
@@ -144,7 +144,7 @@
               'status': this.dataForm.status,
               'roleIdList': this.dataForm.roleIdList
             }
-            var tick = this.dataForm.id ? API.user.update(params) : API.user.add(params)
+            var tick = !this.dataForm.id ? API.user.add(params) : API.user.update(params)
             tick.then(({data}) => {
               if (data && data.code === 0) {
                 this.$message({
@@ -153,7 +153,7 @@
                   duration: 1500,
                   onClose: () => {
                     this.visible = false
-                    this.getDataList()
+                    this.$emit('refreshDataList')
                   }
                 })
               } else {
@@ -166,4 +166,3 @@
     }
   }
 </script>
-

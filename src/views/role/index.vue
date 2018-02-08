@@ -70,39 +70,13 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
-    <el-dialog
-      :title="!addOrUpdateForm.roleId ? '新增' : '修改'"
-      :close-on-click-modal="false"
-      :visible.sync="addOrUpdateDialogVisible">
-      <el-form :model="addOrUpdateForm" :rules="addOrUpdateRule" ref="addOrUpdateForm" label-width="80px">
-        <el-form-item label="角色名称" prop="roleName">
-          <el-input v-model="addOrUpdateForm.roleName" placeholder="角色名称"></el-input>
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="addOrUpdateForm.remark" placeholder="备注"></el-input>
-        </el-form-item>
-        <el-form-item size="mini" label="授权">
-          <el-tree
-            :data="menuList"
-            :props="menuListTreeProps"
-            node-key="menuId"
-            ref="menuListTree"
-            :default-expand-all="true"
-            show-checkbox>
-          </el-tree>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addOrUpdateDialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="addOrUpdateFormSubmit()">确定</el-button>
-      </span>
-    </el-dialog>
+    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
 
 <script>
+  import AddOrUpdate from './add-or-update'
   import API from '@/api'
-  import { treeDataTranslate } from '@/utils'
   export default {
     data () {
       return {
@@ -115,23 +89,11 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        menuList: [],
-        menuListTreeProps: {
-          label: 'name',
-          children: 'children'
-        },
-        addOrUpdateDialogVisible: false,
-        addOrUpdateForm: {
-          roleId: 0,
-          roleName: '',
-          remark: ''
-        },
-        addOrUpdateRule: {
-          roleName: [
-            { required: true, message: '角色名称不能为空', trigger: 'blur' }
-          ]
-        }
+        addOrUpdateVisible: false
       }
+    },
+    components: {
+      AddOrUpdate
     },
     activated () {
       this.getDataList()
@@ -173,66 +135,22 @@
       },
       // 新增 / 修改
       addOrUpdateHandle (id) {
-        this.addOrUpdateForm.roleId = id || 0
-        API.menu.list().then(({data}) => {
-          this.menuList = treeDataTranslate(data, 'menuId')
-        }).then(() => {
-          this.addOrUpdateDialogVisible = true
-          this.$nextTick(() => {
-            this.$refs['addOrUpdateForm'].resetFields()
-          })
-        }).then(() => {
-          if (this.addOrUpdateForm.roleId) {
-            API.role.info(this.addOrUpdateForm.roleId).then(({data}) => {
-              if (data && data.code === 0) {
-                this.addOrUpdateForm.roleName = data.role.roleName
-                this.addOrUpdateForm.remark = data.role.remark
-                this.$refs.menuListTree.setCheckedKeys(data.role.menuIdList)
-              }
-            })
-          }
-        })
-      },
-      // 新增 / 修改, 提交
-      addOrUpdateFormSubmit () {
-        this.$refs['addOrUpdateForm'].validate((valid) => {
-          if (valid) {
-            var params = {
-              'roleId': this.addOrUpdateForm.roleId || undefined,
-              'roleName': this.addOrUpdateForm.roleName,
-              'remark': this.addOrUpdateForm.remark,
-              'menuIdList': this.$refs.menuListTree.getCheckedKeys()
-            }
-            var tick = this.addOrUpdateForm.roleId ? API.role.update(params) : API.role.add(params)
-            tick.then(({data}) => {
-              if (data && data.code === 0) {
-                this.$message({
-                  message: '操作成功',
-                  type: 'success',
-                  duration: 1500,
-                  onClose: () => {
-                    this.addOrUpdateDialogVisible = false
-                    this.getDataList()
-                  }
-                })
-              } else {
-                this.$message.error(data.msg)
-              }
-            })
-          }
+        this.addOrUpdateVisible = true
+        this.$nextTick(() => {
+          this.$refs.addOrUpdate.init(id)
         })
       },
       // 删除
       deleteHandle (id) {
-        var roleIds = id ? [id] : this.dataListSelections.map(item => {
+        var ids = id ? [id] : this.dataListSelections.map(item => {
           return item.roleId
         })
-        this.$confirm(`确定对[id=${roleIds.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
+        this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          API.role.del(roleIds).then(({data}) => {
+          API.role.del(ids).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: '操作成功',

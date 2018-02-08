@@ -60,111 +60,16 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
     <!-- 弹窗, 云存储配置 -->
-    <el-dialog
-      title="云存储配置"
-      :close-on-click-modal="false"
-      :visible.sync="configDialogVisible">
-      <el-form :model="configForm" :rules="configRule" ref="configForm" label-width="120px">
-        <el-form-item size="mini" label="存储类型">
-          <el-radio-group v-model="configForm.type">
-            <el-radio :label="1">七牛</el-radio>
-            <el-radio :label="2">阿里云</el-radio>
-            <el-radio :label="3">腾讯云</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <template v-if="configForm.type === 1">
-          <el-form-item size="mini">
-            <a href="http://www.renren.io/open/qiniu.html" target="_blank">免费申请(七牛)10GB储存空间</a>
-          </el-form-item>
-          <el-form-item label="域名">
-            <el-input v-model="configForm.qiniuDomain" placeholder="七牛绑定的域名"></el-input>
-          </el-form-item>
-          <el-form-item label="路径前缀">
-            <el-input v-model="configForm.qiniuPrefix" placeholder="不设置默认为空"></el-input>
-          </el-form-item>
-          <el-form-item label="AccessKey">
-            <el-input v-model="configForm.qiniuAccessKey" placeholder="七牛AccessKey"></el-input>
-          </el-form-item>
-          <el-form-item label="SecretKey">
-            <el-input v-model="configForm.qiniuSecretKey" placeholder="七牛SecretKey"></el-input>
-          </el-form-item>
-          <el-form-item label="空间名">
-            <el-input v-model="configForm.qiniuBucketName" placeholder="七牛存储空间名"></el-input>
-          </el-form-item>
-        </template>
-        <template v-else-if="configForm.type === 2">
-          <el-form-item label="域名">
-            <el-input v-model="configForm.aliyunDomain" placeholder="阿里云绑定的域名"></el-input>
-          </el-form-item>
-          <el-form-item label="路径前缀">
-            <el-input v-model="configForm.aliyunPrefix" placeholder="不设置默认为空"></el-input>
-          </el-form-item>
-          <el-form-item label="EndPoint">
-            <el-input v-model="configForm.aliyunEndPoint" placeholder="阿里云EndPoint"></el-input>
-          </el-form-item>
-          <el-form-item label="AccessKeyId">
-            <el-input v-model="configForm.aliyunAccessKeyId" placeholder="阿里云AccessKeyId"></el-input>
-          </el-form-item>
-          <el-form-item label="AccessKeySecret">
-            <el-input v-model="configForm.aliyunAccessKeySecret" placeholder="阿里云AccessKeySecret"></el-input>
-          </el-form-item>
-          <el-form-item label="BucketName">
-            <el-input v-model="configForm.aliyunBucketName" placeholder="阿里云BucketName"></el-input>
-          </el-form-item>
-        </template>
-        <template v-else-if="configForm.type === 3">
-          <el-form-item label="域名">
-            <el-input v-model="configForm.qcloudDomain" placeholder="腾讯云绑定的域名"></el-input>
-          </el-form-item>
-          <el-form-item label="路径前缀">
-            <el-input v-model="configForm.qcloudPrefix" placeholder="不设置默认为空"></el-input>
-          </el-form-item>
-          <el-form-item label="AppId">
-            <el-input v-model="configForm.qcloudAppId" placeholder="腾讯云AppId"></el-input>
-          </el-form-item>
-          <el-form-item label="SecretId">
-            <el-input v-model="configForm.qcloudSecretId" placeholder="腾讯云SecretId"></el-input>
-          </el-form-item>
-          <el-form-item label="SecretKey">
-            <el-input v-model="configForm.qcloudSecretKey" placeholder="腾讯云SecretKey"></el-input>
-          </el-form-item>
-          <el-form-item label="BucketName">
-            <el-input v-model="configForm.qcloudBucketName" placeholder="腾讯云BucketName"></el-input>
-          </el-form-item>
-          <el-form-item label="Bucket所属地区">
-            <el-input v-model="configForm.qcloudRegion" placeholder="如：sh（可选值 ，华南：gz 华北：tj 华东：sh）"></el-input>
-          </el-form-item>
-        </template>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="configDialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="configFormSubmit()">确定</el-button>
-      </span>
-    </el-dialog>
+    <config v-if="configVisible" ref="config"></config>
     <!-- 弹窗, 上传文件 -->
-    <el-dialog
-      title="上传文件"
-      :close-on-click-modal="false"
-      @close="uploadDialogCloseHandle"
-      :visible.sync="uploadDialogVisible">
-      <el-upload
-        drag
-        :action="uploadUrl"
-        :before-upload="uploadBeforeUploadHandle"
-        :on-success="uploadSuccessHandle"
-        multiple
-        :file-list="uploadFileList"
-        style="text-align: center;">
-        <i class="el-icon-upload"></i>
-        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-        <div class="el-upload__tip" slot="tip">只支持jpg、png、gif格式的图片！</div>
-      </el-upload>
-    </el-dialog>
+    <upload v-if="uploadVisible" ref="upload" @refreshDataList="getDataList"></upload>
   </div>
 </template>
 
 <script>
   import API from '@/api'
+  import Config from './config'
+  import Upload from './upload'
   export default {
     data () {
       return {
@@ -175,15 +80,13 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        configDialogVisible: false,
-        configForm: {},
-        configRule: {},
-        uploadDialogVisible: false,
-        uploadUrl: '',
-        uploadNum: 0,
-        uploadSuccessNum: 0,
-        uploadFileList: []
+        configVisible: false,
+        uploadVisible: false
       }
+    },
+    components: {
+      Config,
+      Upload
     },
     activated () {
       this.getDataList()
@@ -224,67 +127,17 @@
       },
       // 云存储配置
       configHandle () {
-        this.configDialogVisible = true
-        API.oss.config().then(({data}) => {
-          this.configForm = data && data.code === 0 ? data.config : []
-        })
-      },
-      // 云存储配置, 提交
-      configFormSubmit () {
-        this.$refs['configForm'].validate((valid) => {
-          if (valid) {
-            API.oss.addConfig(this.configForm).then(({data}) => {
-              if (data && data.code === 0) {
-                this.$message({
-                  message: '操作成功',
-                  type: 'success',
-                  duration: 1500,
-                  onClose: () => {
-                    this.configDialogVisible = false
-                  }
-                })
-              } else {
-                this.$message.error(data.msg)
-              }
-            })
-          }
+        this.configVisible = true
+        this.$nextTick(() => {
+          this.$refs.config.init()
         })
       },
       // 上传文件
       uploadHandle () {
-        this.uploadUrl = API.oss.upload(this.$cookie.get('token'))
-        this.uploadDialogVisible = true
-      },
-      // 图片上传之前
-      uploadBeforeUploadHandle (file) {
-        if (file.type !== 'image/jpg' && file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
-          this.$message.error('只支持jpg、png、gif格式的图片！')
-          return false
-        }
-        this.uploadNum++
-      },
-      // 图片上传成功
-      uploadSuccessHandle (response, file, fileList) {
-        this.uploadFileList = fileList
-        this.uploadSuccessNum++
-        if (response && response.code === 0) {
-          if (this.uploadNum === this.uploadSuccessNum) {
-            this.$confirm('操作成功, 是否继续操作?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              type: 'warning'
-            }).catch(() => {
-              this.uploadDialogVisible = false
-            })
-          }
-        } else {
-          this.$message.error(response.msg)
-        }
-      },
-      // 图片上传, 弹窗关闭
-      uploadDialogCloseHandle () {
-        this.uploadFileList = []
-        this.getDataList()
+        this.uploadVisible = true
+        this.$nextTick(() => {
+          this.$refs.upload.init()
+        })
       },
       // 删除
       deleteHandle (id) {

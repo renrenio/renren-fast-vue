@@ -69,31 +69,13 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
-    <el-dialog
-      :title="!addOrUpdateForm.id ? '新增' : '修改'"
-      :close-on-click-modal="false"
-      :visible.sync="addOrUpdateDialogVisible">
-      <el-form :model="addOrUpdateForm" :rules="addOrUpdateRule" ref="addOrUpdateForm" label-width="80px">
-        <el-form-item label="参数名" prop="key">
-          <el-input v-model="addOrUpdateForm.key" placeholder="参数名"></el-input>
-        </el-form-item>
-        <el-form-item label="参数值" prop="value">
-          <el-input v-model="addOrUpdateForm.value" placeholder="参数值"></el-input>
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="addOrUpdateForm.remark" placeholder="备注"></el-input>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="addOrUpdateDialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="addOrUpdateFormSubmit()">确定</el-button>
-      </span>
-    </el-dialog>
+    <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
 
 <script>
   import API from '@/api'
+  import AddOrUpdate from './add-or-update'
   export default {
     data () {
       return {
@@ -106,22 +88,11 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        addOrUpdateDialogVisible: false,
-        addOrUpdateForm: {
-          id: 0,
-          key: '',
-          value: '',
-          remark: ''
-        },
-        addOrUpdateRule: {
-          key: [
-            { required: true, message: '参数名不能为空', trigger: 'blur' }
-          ],
-          value: [
-            { required: true, message: '参数值不能为空', trigger: 'blur' }
-          ]
-        }
+        addOrUpdateVisible: false
       }
+    },
+    components: {
+      AddOrUpdate
     },
     activated () {
       this.getDataList()
@@ -163,48 +134,9 @@
       },
       // 新增 / 修改
       addOrUpdateHandle (id) {
-        this.addOrUpdateForm.id = id || 0
-        this.addOrUpdateDialogVisible = true
+        this.addOrUpdateVisible = true
         this.$nextTick(() => {
-          this.$refs['addOrUpdateForm'].resetFields()
-          if (this.addOrUpdateForm.id) {
-            API.config.info(this.addOrUpdateForm.id).then(({data}) => {
-              if (data && data.code === 0) {
-                this.addOrUpdateForm.key = data.config.key
-                this.addOrUpdateForm.value = data.config.value
-                this.addOrUpdateForm.remark = data.config.remark
-              }
-            })
-          }
-        })
-      },
-      // 新增 / 修改, 提交
-      addOrUpdateFormSubmit () {
-        this.$refs['addOrUpdateForm'].validate((valid) => {
-          if (valid) {
-            var params = {
-              'id': this.addOrUpdateForm.id || undefined,
-              'key': this.addOrUpdateForm.key,
-              'value': this.addOrUpdateForm.value,
-              'remark': this.addOrUpdateForm.remark
-            }
-            var tick = this.addOrUpdateForm.id ? API.config.update(params) : API.config.add(params)
-            tick.then(({data}) => {
-              if (data && data.code === 0) {
-                this.$message({
-                  message: '操作成功',
-                  type: 'success',
-                  duration: 1500,
-                  onClose: () => {
-                    this.addOrUpdateDialogVisible = false
-                    this.getDataList()
-                  }
-                })
-              } else {
-                this.$message.error(data.msg)
-              }
-            })
-          }
+          this.$refs.addOrUpdate.init(id)
         })
       },
       // 删除

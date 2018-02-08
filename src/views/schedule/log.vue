@@ -1,8 +1,12 @@
 <template>
-  <div class="mod-schedule__log">
-    <el-form :inline="true" :model="dataForm">
+  <el-dialog
+    title="日志列表"
+    :close-on-click-modal="false"
+    :visible.sync="visible"
+    width="75%">
+    <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.jobId" placeholder="任务ID" clearable></el-input>
+        <el-input v-model="dataForm.id" placeholder="任务ID" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -79,7 +83,7 @@
       :total="totalPage"
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
-  </div>
+  </el-dialog>
 </template>
 
 <script>
@@ -87,8 +91,9 @@
   export default {
     data () {
       return {
+        visible: false,
         dataForm: {
-          jobId: ''
+          id: ''
         },
         dataList: [],
         pageIndex: 1,
@@ -97,17 +102,18 @@
         dataListLoading: false
       }
     },
-    created () {
-      this.getDataList()
-    },
     methods: {
+      init () {
+        this.visible = true
+        this.getDataList()
+      },
       // 获取数据列表
       getDataList () {
         this.dataListLoading = true
         var params = {
           page: this.pageIndex,
           limit: this.pageSize,
-          jobId: this.dataForm.jobId
+          jobId: this.dataForm.id
         }
         API.log.scheduleList(params).then(({data}) => {
           if (data && data.code === 0) {
