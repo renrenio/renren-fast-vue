@@ -1,10 +1,15 @@
 <template>
-  <div class="site-wrapper" :class="siteWarpperClasses">
-    <topbar></topbar>
-    <sidebar></sidebar>
-    <div class="site-content__wrapper" :style="siteContentWarpperStyles">
-      <router-view></router-view>
-    </div>
+  <div class="site-wrapper"
+    :class="siteWarpperClasses"
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="拼命加载中">
+    <template v-if="!loading">
+      <topbar></topbar>
+      <sidebar></sidebar>
+      <div class="site-content__wrapper" :style="siteContentWarpperStyles">
+        <router-view></router-view>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -15,6 +20,11 @@
   import API from '@/api'
   import { mapMutations } from 'vuex'
   export default {
+    data () {
+      return {
+        loading: true
+      }
+    },
     components: {
       Topbar,
       Sidebar,
@@ -50,6 +60,7 @@
       getUserInfo () {
         API.user.info().then(({data}) => {
           if (data && data.code === 0) {
+            this.loading = false
             this.UPDATE_USER_ID({ id: data.user.userId })
             this.UPDATE_USER_NAME({ name: data.user.username })
           }
