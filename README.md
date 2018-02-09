@@ -4,8 +4,8 @@
 
 ## Demo
 [在线 Demo](//fast.demo.renren.io/)
-![demo-screenshot](//github.com/daxiongYang/vue-cli-basic/demo-screenshot/1518154896410.png)
-![demo-screenshot](//github.com/daxiongYang/vue-cli-basic/demo-screenshot/1518154896420.png)
+![demo-screenshot](https://github.com/daxiongYang/vue-cli-basic/blob/master/demo-screenshot/1518154896410.png)
+![demo-screenshot](https://github.com/daxiongYang/vue-cli-basic/blob/master/demo-screenshot/1518154896410.png)
 
 ## 开发
 ```bash
