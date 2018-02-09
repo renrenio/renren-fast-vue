@@ -81,6 +81,7 @@
           userName: '',
           password: '',
           comfirmPassword: '',
+          salt: '',
           email: '',
           mobile: '',
           roleIdList: [],
@@ -122,6 +123,7 @@
             API.user.info(this.dataForm.id).then(({data}) => {
               if (data && data.code === 0) {
                 this.dataForm.userName = data.user.username
+                this.dataForm.salt = data.user.salt
                 this.dataForm.email = data.user.email
                 this.dataForm.mobile = data.user.mobile
                 this.dataForm.roleIdList = data.user.roleIdList
@@ -139,6 +141,7 @@
               'userId': this.dataForm.id || undefined,
               'username': this.dataForm.userName,
               'password': this.dataForm.password,
+              'salt': this.dataForm.salt,
               'email': this.dataForm.email,
               'mobile': this.dataForm.mobile,
               'status': this.dataForm.status,
