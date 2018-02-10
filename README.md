@@ -1,13 +1,13 @@
 ## Demo
 [在线 Demo](//fast.demo.renren.io/)
 
-![demo-screenshot](https://github.com/daxiongYang/vue-cli-basic/blob/master/demo-screenshot/1518154896410.png)
-![demo-screenshot](https://github.com/daxiongYang/vue-cli-basic/blob/master/demo-screenshot/1518154896420.png)
+![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1518154896410.png)
+![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1518154896420.png)
 
 ## 开发
 ```bash
 # 克隆项目
-git clone https://github.com/daxiongYang/vue-cli-basic.git
+git clone https://github.com/daxiongYang/renren-fast-vue.git
 
 # 安装依赖
 npm install

@@ -11,7 +11,7 @@
       </ul>
       <h3>获取帮助</h3>
       <ul>
-        <li>前端Git地址：<a href="//github.com/daxiongYang/vue-cli-basic" target="_blank">github.com/daxiongYang/vue-cli-basic</a></li>
+        <li>前端Git地址：<a href="//github.com/daxiongYang/renren-fast-vue" target="_blank">github.com/daxiongYang/renren-fast-vue</a></li>
         <li>后台Git地址：<a href="//git.oschina.net/babaio/renren-fast" target="_blank">git.oschina.net/babaio/renren-fast</a></li>
         <li>使用手册：<a href="//www.renren.io/open/renren-fast" target="_blank">www.renren.io/open/renren-fast</a></li>
         <li>代码生成器：<a href="//git.oschina.net/babaio/renren-generator" target="_blank">git.oschina.net/babaio/renren-generator</a></li>

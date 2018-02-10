@@ -101,7 +101,6 @@
         var vm = this
         // var data = JSON.parse(JSON.stringify(this.owner.store.states._data))
         var data = this.owner.store.states._data
-        debugger
         if (data[index].$extra === undefined) {
           data[index].$extra = { expanded: true }
         } else {

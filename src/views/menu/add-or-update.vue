@@ -51,7 +51,7 @@
               <div slot="content">
                 <span>获取图标: </span><br/>
                 1. 暂时兼容旧版引入使用 <a href="//fontawesome.io/icons/" target="_blank">fontawesome</a><br/>
-                2. 之后统一全站修改使用 <a href="//github.com/daxiongYang/vue-cli-basic/blob/master/src/iconfont/index.js" target="_blank">iconfont</a>
+                2. 之后统一全站修改使用 <a href="//github.com/daxiongYang/renren-fast-vue/blob/master/src/iconfont/index.js" target="_blank">iconfont</a>
               </div>
               <i class="el-icon-warning"></i>
             </el-tooltip>

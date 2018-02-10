@@ -2,8 +2,8 @@
   <header class="site-topbar">
     <div class="site-topbar__header">
       <h1 class="site-logo" @click="$router.push({ name: 'home' })">
-        <a class="site-logo__lg" href="javascript:;">Vue-cli-basic</a>
-        <a class="site-logo__mini" href="javascript:;">Vue</a>
+        <a class="site-logo__lg" href="javascript:;">人人快速开发平台</a>
+        <a class="site-logo__mini" href="javascript:;">人人</a>
       </h1>
     </div>
     <div class="site-topbar__body clearfix">
