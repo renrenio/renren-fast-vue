@@ -1,8 +1,12 @@
-## Demo
-[在线 Demo](//fast.demo.renren.io/)
-
-![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1518154896410.png)
-![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1518154896420.png)
+## 介绍
+- 一个轻量级的Java快速开发平台，能快速开发项目并交付【接私活利器】
+- 友好的代码结构及注释，便于阅读及二次开发
+- 完善的XSS防范及脚本过滤，彻底杜绝XSS攻击
+- 实现前后端分离，通过token进行数据交互
+- [在线访问](//fast.demo.renren.io/)
+- 后台Git地址：[git.oschina.net/babaio/renren-fast](//git.oschina.net/babaio/renren-fast)
+![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1.png)
+![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/2.png)
 
 ## 开发
 ```bash
