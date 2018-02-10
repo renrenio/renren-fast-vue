@@ -20,8 +20,6 @@
         prop="name"
         header-align="center"
         align="center"
-        file-icon="icon icon-file" 
-        folder-icon="icon icon-folder" 
         treeKey="menuId"
         min-width="120"
         label="名称">
@@ -30,6 +28,7 @@
         prop="parentName"
         header-align="center"
         align="center"
+        min-width="120"
         label="上级菜单">
       </el-table-column>
       <el-table-column
@@ -75,6 +74,7 @@
         label="授权标识">
       </el-table-column>
       <el-table-column
+        fixed="right"
         header-align="center"
         align="center"
         width="200"

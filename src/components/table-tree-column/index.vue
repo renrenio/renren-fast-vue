@@ -1,16 +1,16 @@
 <template>
   <el-table-column :prop="prop" v-bind="$attrs">
     <template slot-scope="scope">
-      <span v-if="hasChild(scope.row)" @click.prevent="doexpanded(scope.$index,scope.row)" >
-        <span :style="{paddingLeft : paddingLeft(scope.row)}">
+      <span v-if="hasChild(scope.row)" @click.prevent="expandedHandle(scope.$index, scope.row)">
+        <span :style="{ 'padding-left': paddingLeft(scope.row) }">
           <i :class="icon(scope.row)"></i>
           <i :class="floderIcon(scope.row)" style="padding-right: 7px;"></i>
         </span>
         <span>{{scope.row[prop]}}</span>
       </span>
       <span v-if="!hasChild(scope.row)">
-        <span :style="{paddingLeft : paddingLeft(scope.row)}">
-          <i :class="fileIcon" style="padding-right: 7px;padding-left:18px"></i>
+        <span :style="{ 'padding-left': paddingLeft(scope.row) }">
+          <i :class="fileIcon" style="padding-right: 7px; padding-left:18px;"></i>
         </span>
         <span>{{scope.row[prop]}}</span>
       </span>
@@ -19,9 +19,11 @@
 </template>
 
 <script>
-  import util from './util'
   export default {
-    name: 'el-table-tree-column',
+    name: 'table-tree-column',
+    data () {
+      return { loading: false }
+    },
     props: {
       prop: {
         type: String
@@ -53,31 +55,14 @@
       folderIcon: {
         type: String,
         default: 'el-icon-folder'
-      },
-      remote: {
-        type: Function,
-        default: null
       }
-    },
-    computed: {
-      owner () {
-        let parent = this.$parent
-        while (parent && !parent.tableId) {
-          parent = parent.$parent
-        }
-        return parent
-      }
-    },
-    data () {
-      return { loading: false }
     },
     created () {
       console.log(this.$attrs)
     },
     methods: {
       floderIcon (row) {
-        var expanded = row.$extra && row.$extra.expanded
-        return expanded ? this.folderIcon + '-open' : this.folderIcon
+        return row._expanded ? this.folderIcon + '-open' : this.folderIcon
       },
       hasChild (row) {
         if (row[this.childNumKey] !== undefined) {
@@ -92,66 +77,51 @@
         return (parseInt(row[this.levelKey]) * 14) + 'px'
       },
       icon (row) {
-        if (row.$extra && row.$extra.loading) return 'el-icon-loading'
-        return row.$extra && row.$extra.expanded ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
+        return row._expanded ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
       },
-      doexpanded (index, row) {
-        var vm = this
-        var data = JSON.parse(JSON.stringify(this.owner.store.states._data))
-        if (data[index].$extra === undefined) {
-          data[index].$extra = { expanded: true }
+      expandedHandle (index, row) {
+        var data = JSON.parse(JSON.stringify(this.$parent.store.states.data))
+        data[index]._expanded = !data[index]._expanded
+        console.log(data)
+        if (data[index]._expanded) {
+          data = data.splice(0, index + 1).concat(row[this.childKey]).concat(data)
+          this.$parent.store.commit('setData', data)
         } else {
-          data[index].$extra.expanded = !data[index].$extra.expanded
-        }
-        if (data[index].$extra.expanded) {
-          if (this.remote !== null) {
-            var hash = util.hash()
-            data[index].$extra.expanded = false
-            data[index].$extra.hash = hash
-            data[index].$extra.loading = true
-            vm.owner.store.commit('setData', data)
-            this.remote(row, function (result) {
-              let list = vm.owner.store.states._data
-              let _index = util.index(hash, list)
-              list[_index].$extra = {
-                loading: false,
-                expanded: (result && result.length > 0) || false
-              }
-              if (result && result.length > 0) {
-                var prefix = list.slice(0, _index + 1)
-                var i = 0
-                while (i < _index + 1) {
-                  list.shift()
-                  i++
-                }
-                list = prefix.concat(result).concat(list)
-              } else {
-                list[_index][vm.childNumKey] = 0
-              }
-              vm.owner.store.commit('setData', list)
-            })
-          } else {
-            var prefix = data.slice(0, index + 1)
-            var i = 0
-            while (i < index + 1) {
-              data.shift()
-              i++
-            }
-            data = prefix.concat(row[vm.childKey]).concat(data)
-            this.owner.store.commit('setData', data)
-          }
-        } else {
-          var id = row[vm.treeKey]
+          var id = row[this.treeKey]
           var result = []
-          var removeIds = util.descendantsIds(id, data, this.parentKey, this.treeKey)
-          data.forEach(function (item) {
-            if (util.indexOf(item[vm.treeKey], removeIds) === -1) {
+          var removeIds = this.descendantsIds(id, data, this.parentKey, this.treeKey)
+          data.forEach(item => {
+            if (removeIds.indexOf(item[this.treeKey]) === -1) {
               result.push(item)
             }
           })
           data = result
-          this.owner.store.commit('setData', data)
+          this.$parent.store.commit('setData', data)
         }
+      },
+      descendantsIds (id, data, parentKey, treeKey) {
+        var result = []
+        var compare = [id]
+        var length = -1
+        // if (compare.length !== -1) {
+        //   data.forEach(item => {
+        //     if (compare.indexOf(item[parentKey]) > -1 && compare.indexOf(item[treeKey]) === -1) {
+        //       result.push(item[treeKey])
+        //       compare.push(item[treeKey])
+        //     }
+        //   })
+        // }
+        while (length !== compare.length) {
+          length = compare.length
+          console.log(length)
+          data.forEach(item => {
+            if (compare.indexOf(item[parentKey]) > -1 && compare.indexOf(item[treeKey]) === -1) {
+              result.push(item[treeKey])
+              compare.push(item[treeKey])
+            }
+          })
+        }
+        return result
       }
     }
   }
