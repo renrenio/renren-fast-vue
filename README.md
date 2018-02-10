@@ -5,6 +5,7 @@
 - 实现前后端分离，通过token进行数据交互
 - [在线访问](//fast.demo.renren.io/)
 - 后台Git地址：[git.oschina.net/babaio/renren-fast](//git.oschina.net/babaio/renren-fast)
+
 ![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1.png)
 ![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/2.png)
 
