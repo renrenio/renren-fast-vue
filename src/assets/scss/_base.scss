@@ -10,7 +10,8 @@ body {
   color: #333;
   background-color: #f0f0f0;
 }
-*:focus {
+*,
+:focus {
   outline: 0;
 }
 a {

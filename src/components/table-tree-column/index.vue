@@ -1,5 +1,5 @@
 <template>
-  <el-table-column :prop="prop" :label="label" :width="width">
+  <el-table-column :prop="prop" v-bind="$attrs">
     <template slot-scope="scope">
       <span v-if="hasChild(scope.row)" @click.prevent="doexpanded(scope.$index,scope.row)" >
         <span :style="{paddingLeft : paddingLeft(scope.row)}">
@@ -17,18 +17,13 @@
     </template>
   </el-table-column>
 </template>
+
 <script>
   import util from './util'
   export default {
     name: 'el-table-tree-column',
     props: {
       prop: {
-        type: String
-      },
-      label: {
-        type: String
-      },
-      width: {
         type: String
       },
       treeKey: {
@@ -76,6 +71,9 @@
     data () {
       return { loading: false }
     },
+    created () {
+      console.log(this.$attrs)
+    },
     methods: {
       floderIcon (row) {
         var expanded = row.$extra && row.$extra.expanded
@@ -91,23 +89,22 @@
         }
       },
       paddingLeft (row) {
-        return parseInt(row[this.levelKey]) * 14 + 'px'
+        return (parseInt(row[this.levelKey]) * 14) + 'px'
       },
       icon (row) {
-        if (row.$extra && row.$extra.loading === true) return 'el-icon-loading'
+        if (row.$extra && row.$extra.loading) return 'el-icon-loading'
         return row.$extra && row.$extra.expanded ? 'el-icon-caret-bottom' : 'el-icon-caret-right'
       },
       doexpanded (index, row) {
         var vm = this
-        // var data = JSON.parse(JSON.stringify(this.owner.store.states._data))
-        var data = this.owner.store.states._data
+        var data = JSON.parse(JSON.stringify(this.owner.store.states._data))
         if (data[index].$extra === undefined) {
           data[index].$extra = { expanded: true }
         } else {
           data[index].$extra.expanded = !data[index].$extra.expanded
         }
         if (data[index].$extra.expanded) {
-          if (this.remote != null) {
+          if (this.remote !== null) {
             var hash = util.hash()
             data[index].$extra.expanded = false
             data[index].$extra.hash = hash
@@ -146,12 +143,7 @@
         } else {
           var id = row[vm.treeKey]
           var result = []
-          var removeIds = util.descendantsIds(
-            id,
-            data,
-            this.parentKey,
-            this.treeKey
-          )
+          var removeIds = util.descendantsIds(id, data, this.parentKey, this.treeKey)
           data.forEach(function (item) {
             if (util.indexOf(item[vm.treeKey], removeIds) === -1) {
               result.push(item)

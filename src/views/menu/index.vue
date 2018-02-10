@@ -5,17 +5,27 @@
         <el-button v-if="isAuth('sys:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
       </el-form-item>
     </el-form>
-    <tree-table
-      :columns="treeTableColumns"
+    <el-table
       :data="dataList"
       border
       style="width: 100%;">
       <el-table-column
+        prop="menuId"
+        header-align="center"
+        align="center"
+        width="80"
+        label="ID">
+      </el-table-column>
+      <table-tree-column
         prop="name"
         header-align="center"
         align="center"
-        label="菜单名称">
-      </el-table-column>
+        file-icon="icon icon-file" 
+        folder-icon="icon icon-folder" 
+        treeKey="menuId"
+        min-width="120"
+        label="名称">
+      </table-tree-column>
       <el-table-column
         prop="parentName"
         header-align="center"
@@ -74,14 +84,14 @@
           <el-button v-if="isAuth('sys:user:delete')" type="text" size="small" @click="deleteHandle(scope.row.menuId)">删除</el-button>
         </template>
       </el-table-column>
-    </tree-table>
+    </el-table>
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
   </div>
 </template>
 
 <script>
-  import TreeTable from '@/components/tree-table'
+  import TableTreeColumn from '@/components/table-tree-column'
   import AddOrUpdate from './add-or-update'
   import API from '@/api'
   import { treeDataTranslate } from '@/utils'
@@ -89,20 +99,13 @@
     data () {
       return {
         dataForm: {},
-        treeTableColumns: [
-          {
-            text: 'ID',
-            value: 'menuId',
-            width: '120'
-          }
-        ],
         dataList: [],
         dataListLoading: false,
         addOrUpdateVisible: false
       }
     },
     components: {
-      TreeTable,
+      TableTreeColumn,
       AddOrUpdate
     },
     activated () {

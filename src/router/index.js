@@ -12,7 +12,6 @@ Vue.use(Router)
 export default new Router({
   mode: 'hash',
   routes: [
-    { path: '/tree-table', component: _import('tree-table/index'), name: 'treeTable', desc: '树型表格' },
     { path: '/404', component: _import('error/404'), name: '404', desc: '404未找到' },
     { path: '/login', component: _import('login/index'), name: 'login', desc: '登录' },
     {
