@@ -10,7 +10,6 @@
 - 演示地址：[fast.demo.renren.io](//fast.demo.renren.io)
 
 ![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1.png)
-![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/2.png)
 
 ## 开发
 ```bash
