@@ -6,8 +6,9 @@
 - 后台Git地址：[git.oschina.net/babaio/renren-fast](//git.oschina.net/babaio/renren-fast)
 
 ## renren-fast-vue
-- renren-fast-vue基于vue、element-ui构建开发，实现renren-fast后台管理前端功能，提供一套更优的前端解决方案。
+- renren-fast-vue基于vue、element-ui构建开发，实现renren-fast后台管理前端功能，提供一套更优的前端解决方案
 - 演示地址：[fast.demo.renren.io](//fast.demo.renren.io)
+
 ![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1.png)
 ![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/2.png)
 
