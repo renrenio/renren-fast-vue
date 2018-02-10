@@ -61,21 +61,22 @@
       // 路由操作
       routeHandle (route) {
         if (/^\/n\/.*$/.test(route.path)) {
-          var tab = this.$store.state.contentTabs.filter(item => item.name === route.name)
+          var tab = this.$store.state.contentTabs.filter(item => item.name === route.name)[0]
           // tab不存在, 先添加
           if (isEmpty(tab)) {
             var menuNav = this.getMenuNavByRouteName(route.name, this.$store.state.menuNavList)
             if (!isEmpty(menuNav)) {
-              this.menuNavActive = menuNav.menuId + ''
-              this.ADD_CONTENT_TAB({
+              tab = {
                 id: menuNav.menuId,
                 name: route.name,
                 title: menuNav.name,
                 type: (window.SITE_CONFIG.nestIframeRouteNameList || []).indexOf(route.name) !== -1 ? 'iframe' : 'module',
                 url: menuNav.url
-              })
+              }
+              this.ADD_CONTENT_TAB(tab)
             }
           }
+          this.menuNavActive = tab.id + ''
           this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name: route.name })
         }
       },
