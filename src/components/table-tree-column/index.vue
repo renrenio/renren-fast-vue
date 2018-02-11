@@ -50,7 +50,7 @@
       // 切换处理
       toggleHandle (index, row) {
         if (this.hasChild(row)) {
-          var data = JSON.parse(JSON.stringify(this.$parent.store.states.data))
+          var data = this.$parent.store.states.data.slice(0)
           data[index]._expanded = !data[index]._expanded
           if (data[index]._expanded) {
             data = data.splice(0, index + 1).concat(row[this.childKey]).concat(data)
