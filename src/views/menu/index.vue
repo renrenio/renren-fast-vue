@@ -19,16 +19,15 @@
       <table-tree-column
         prop="name"
         header-align="center"
-        align="center"
         treeKey="menuId"
-        min-width="120"
+        width="150"
         label="名称">
       </table-tree-column>
       <el-table-column
         prop="parentName"
         header-align="center"
         align="center"
-        min-width="120"
+        width="120"
         label="上级菜单">
       </el-table-column>
       <el-table-column
@@ -77,7 +76,7 @@
         fixed="right"
         header-align="center"
         align="center"
-        width="200"
+        width="150"
         label="操作">
         <template slot-scope="scope">
           <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.menuId)">修改</el-button>
@@ -117,6 +116,7 @@
         this.dataListLoading = true
         API.menu.list().then(({data}) => {
           this.dataList = treeDataTranslate(data, 'menuId')
+          console.log(this.dataList)
           this.dataListLoading = false
         })
       },

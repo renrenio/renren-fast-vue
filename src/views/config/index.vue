@@ -51,7 +51,7 @@
         fixed="right"
         header-align="center"
         align="center"
-        width="200"
+        width="150"
         label="操作">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>

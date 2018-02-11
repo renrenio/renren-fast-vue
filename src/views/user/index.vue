@@ -68,7 +68,7 @@
         fixed="right"
         header-align="center"
         align="center"
-        width="200"
+        width="150"
         label="操作">
         <template slot-scope="scope">
           <el-button v-if="isAuth('sys:user:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>

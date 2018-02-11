@@ -36,12 +36,16 @@
         prop="method"
         header-align="center"
         align="center"
+        width="150"
+        :show-overflow-tooltip="true"
         label="请求方法">
       </el-table-column>
       <el-table-column
         prop="params"
         header-align="center"
         align="center"
+        width="150"
+        :show-overflow-tooltip="true"
         label="请求参数">
       </el-table-column>
       <el-table-column
@@ -54,6 +58,7 @@
         prop="ip"
         header-align="center"
         align="center"
+        width="150"
         label="IP地址">
       </el-table-column>
       <el-table-column

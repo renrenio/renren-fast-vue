@@ -32,6 +32,10 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
       if (!temp[data[k][pid]]['children']) {
         temp[data[k][pid]]['children'] = []
       }
+      if (!temp[data[k][pid]]['_level']) {
+        temp[data[k][pid]]['_level'] = 1
+      }
+      data[k]['_level'] = temp[data[k][pid]]._level + 1
       temp[data[k][pid]]['children'].push(data[k])
     } else {
       res.push(data[k])

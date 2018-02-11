@@ -40,8 +40,8 @@ import {
   // TimePicker,
   Popover,
   Tooltip,
-  Breadcrumb,
-  BreadcrumbItem,
+  // Breadcrumb,
+  // BreadcrumbItem,
   Form,
   FormItem,
   Tabs,
@@ -109,8 +109,8 @@ Vue.use(TableColumn)
 // Vue.use(TimePicker)
 Vue.use(Popover)
 Vue.use(Tooltip)
-Vue.use(Breadcrumb)
-Vue.use(BreadcrumbItem)
+// Vue.use(Breadcrumb)
+// Vue.use(BreadcrumbItem)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Tabs)
