@@ -38,12 +38,14 @@
 
 <script>
   import API from '@/api'
+  import { getUUID } from '@/utils'
   export default {
     data () {
       return {
         dataForm: {
           userName: '',
           password: '',
+          uuid: '',
           captcha: ''
         },
         dataRule: {
@@ -71,6 +73,7 @@
             var params = {
               'username': this.dataForm.userName,
               'password': this.dataForm.password,
+              'uuid': this.dataForm.uuid,
               'captcha': this.dataForm.captcha
             }
             API.common.login(params).then(({data}) => {
@@ -78,6 +81,7 @@
                 this.$cookie.set('token', data.token)
                 this.$router.replace({ name: 'home' })
               } else {
+                this.getCaptcha()
                 this.$message.error(data.msg)
               }
             })
@@ -86,7 +90,8 @@
       },
       // 获取验证码
       getCaptcha () {
-        this.captchaPath = API.common.captcha()
+        this.dataForm.uuid = getUUID()
+        this.captchaPath = API.common.captcha(this.dataForm.uuid)
       }
     }
   }

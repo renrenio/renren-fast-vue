@@ -3,8 +3,8 @@ import requestUrl from '../requestUrl'
 import requestParam from '../requestParam'
 
 // 获取验证码
-export function captcha () {
-  return requestUrl('/captcha.jpg?t=' + new Date().getTime())
+export function captcha (uuid) {
+  return requestUrl(`/captcha.jpg?uuid=${uuid}`)
 }
 
 // 登录
