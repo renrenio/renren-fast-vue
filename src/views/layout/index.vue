@@ -61,12 +61,13 @@
         API.user.info().then(({data}) => {
           if (data && data.code === 0) {
             this.loading = false
+            this.DELETE_CONTENT_TABS([])
             this.UPDATE_USER_ID({ id: data.user.userId })
             this.UPDATE_USER_NAME({ name: data.user.username })
           }
         })
       },
-      ...mapMutations(['UPDATE_DOCUMENT_CLIENT_HEIGHT', 'UPDATE_USER_ID', 'UPDATE_USER_NAME'])
+      ...mapMutations(['UPDATE_DOCUMENT_CLIENT_HEIGHT', 'UPDATE_USER_ID', 'UPDATE_USER_NAME', 'DELETE_CONTENT_TABS'])
     }
   }
 </script>
