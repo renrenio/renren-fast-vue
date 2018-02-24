@@ -16,17 +16,17 @@ service.interceptors.request.use(config => {
   config.headers['token'] = Vue.cookie.get('token')
   return config
 }, error => {
-  return Promise.reject(error)
+  Promise.reject(error)
 })
 
 // response拦截器
 service.interceptors.response.use(response => {
   if (response.data && response.data.code === 401) { // 401, token失效
-    Vue.cookie.delete('token')
     router.push({ name: 'login' })
   }
   return response
-}, error => {
+},
+error => {
   return Promise.reject(error)
 })
 
