@@ -116,7 +116,6 @@
         this.dataListLoading = true
         API.menu.list().then(({data}) => {
           this.dataList = treeDataTranslate(data, 'menuId')
-          console.log(this.dataList)
           this.dataListLoading = false
         })
       },

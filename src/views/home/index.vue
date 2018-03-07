@@ -11,10 +11,10 @@
       </ul>
       <h3>获取帮助</h3>
       <ul>
+        <li>官方社区：<a href="//renren.io" target="_blank">renren.io</a></li>
         <li>前端Git地址：<a href="//github.com/daxiongYang/renren-fast-vue" target="_blank">github.com/daxiongYang/renren-fast-vue</a></li>
-        <li>后台Git地址：<a href="//git.oschina.net/babaio/renren-fast" target="_blank">git.oschina.net/babaio/renren-fast</a></li>
-        <li>代码生成器：<a href="//git.oschina.net/babaio/renren-generator" target="_blank">git.oschina.net/babaio/renren-generator</a></li>
-        <li>官方社区：<a href="//www.renren.io" target="_blank">www.renren.io</a></li>
+        <li>后台Git地址：<a href="//git.oschina.net/renrenio/renren-fast" target="_blank">git.oschina.net/renrenio/renren-fast</a></li>
+        <li>代码生成器：<a href="//git.oschina.net/renrenio/renren-generator" target="_blank">git.oschina.net/renrenio/renren-generator</a></li>
         <li>如需关注项目最新动态，请Watch、Star项目，同时也是对项目最好的支持</li>
       </ul>
       <h3>官方QQ群</h3>

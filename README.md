@@ -3,11 +3,11 @@
 - 友好的代码结构及注释，便于阅读及二次开发
 - 完善的XSS防范及脚本过滤，彻底杜绝XSS攻击
 - 实现前后端分离，通过token进行数据交互
-- 后台Git地址：[git.oschina.net/babaio/renren-fast](//git.oschina.net/babaio/renren-fast)
+- 后台Git地址：[gitee.com/renrenio/renren-fast](https://gitee.com/renrenio/renren-fast)
 
 ## renren-fast-vue
 - renren-fast-vue基于vue、element-ui构建开发，实现renren-fast后台管理前端功能，提供一套更优的前端解决方案
-- 演示地址：[fast.demo.renren.io](http://fast.demo.renren.io)
+- 演示地址：[fast.demo.renren.io](http://fast.demo.renren.io) (账号密码: admin/admin)
 
 ![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/1.png)
 
