@@ -3,7 +3,7 @@
  */
 ;(function () {
   window.SITE_CONFIG = {}
-  // api请求地址
+  // api接口请求地址
   window.SITE_CONFIG.baseUrl = '//demo.renren.io/renren-fast/'
 
   // 嵌套iframe地址
