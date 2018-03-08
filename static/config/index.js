@@ -4,10 +4,10 @@
 ;(function () {
   window.SITE_CONFIG = {}
   // api接口请求地址
-  window.SITE_CONFIG.baseUrl = '//demo.renren.io/renren-fast/'
+  window.SITE_CONFIG.baseUrl = '//localhost:8080/renren-fast/'
 
   // 嵌套iframe地址
-  window.SITE_CONFIG.nestIframeUrl = '//demo.renren.io/renren-fast/'
+  window.SITE_CONFIG.nestIframeUrl = '//localhost:8080/renren-fast/'
   // 嵌套iframe路由名称列表
   window.SITE_CONFIG.nestIframeRouteNameList = ['sql']
   
