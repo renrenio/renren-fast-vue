@@ -18,13 +18,7 @@
     </script>
   <% }else { %>
     <!-- 开发环境 -->
-    <script>
-      (function () {
-        var s = document.createElement('script');
-        s.src = './static/config/index.js?v=' + new Date().getTime();
-        document.getElementsByTagName('head')[0].appendChild(s);
-      })();
-    </script>
+    <script src="./static/config/index.js?v=<%=new Date().getTime()%>"></script>
   <% } %>
 </head>
 <body>
