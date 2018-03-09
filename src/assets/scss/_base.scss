@@ -8,7 +8,7 @@ body {
   font-size: 14px;
   line-height: 1.15;
   color: #333;
-  background-color: #f0f0f0;
+  background-color: #fff;
 }
 *,
 :focus {
@@ -51,6 +51,7 @@ img {
 .site-wrapper {
   position: relative;
   min-width: 1180px;
+  background: #f0f0f0;
 }
 
 /* site-sidebar-collapse */
