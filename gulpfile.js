@@ -29,7 +29,7 @@ gulp.task('create:versionPath', ['build'], function () {
 // 替换${versionPath}/static/js/manifest.js window.SITE_CONFIG.cdnUrl占位变量
 gulp.task('replace:cdnUrl', ['create:versionPath'], function () {
   return gulp.src(`${versionPath}/static/js/manifest.js`)
-    .pipe($.replace(/"\.\/"/g, 'window.SITE_CONFIG.cdnUrl + "/"'))
+    .pipe($.replace(new RegExp(`"${require('./config').build.assetsPublicPath}"`, 'g'), 'window.SITE_CONFIG.cdnUrl + "/"'))
     .pipe(gulp.dest(`${versionPath}/static/js/`))
 });
 
@@ -56,7 +56,7 @@ gulp.task('default', ['clean'], function () {
   // 获取环境配置
   env = process.env.npm_config_qa ? 'qa' : process.env.npm_config_uat ? 'uat' : 'prod'
   // 开始打包编译
-  gulp.start(['replace:cdnUrl', 'replace:staticFileName', 'concat:config'], function () {
+  gulp.start(['build', 'create:versionPath', 'replace:cdnUrl', 'replace:staticFileName', 'concat:config'], function () {
     // 清除, 编译 / 处理项目中产生的文件
     del([`${distPath}/static`, `${versionPath}/static/config`])
   })
