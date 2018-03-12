@@ -24,6 +24,7 @@
     "gulp-replace": "0.6.1",
     "gulp-shell": "0.6.5",
     "lodash": "4.17.5",
+    "mockjs": "1.0.0",
     "vue": "2.5.2",
     "vue-cookie": "1.1.4",
     "vue-router": "3.0.1",
