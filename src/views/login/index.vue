@@ -77,8 +77,9 @@
               'captcha': this.dataForm.captcha
             }
             API.common.login(params).then(({data}) => {
+              console.log(data)
               if (data && data.code === 0) {
-                this.$cookie.set('token', data.token)
+                this.$cookie.set('token', data.token, { expires: `${data.expire || 0}s` })
                 this.$router.replace({ name: 'home' })
               } else {
                 this.getCaptcha()

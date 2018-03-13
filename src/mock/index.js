@@ -1,11 +1,13 @@
 import Mock from 'mockjs'
 import requestUrl from '@/api/requestUrl'
-import './modules/common'
+// import * as common from './modules/common'
 
-var data = {
-  code: 0,
-  token: Mock.Random.guid()
+var addModule = (mods) => {
+  for (var key in mods) {
+    var mod = mods[key]()
+    Mock.mock(requestUrl(mod.url), mod.type, mod.data)
+  }
 }
-Mock.mock(requestUrl('/sys/login'), 'post', data)
 
-export default Mock
+addModule(require('./modules/common'))
+// Mock.mock(requestUrl('/sys/login'), 'post', common.login)
