@@ -88,5 +88,9 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
+  },
+  externals: {
+    // 打包生产环境时, 排除mockjs模拟数据组件
+    mockjs: 'mockjs'
   }
 }

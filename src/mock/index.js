@@ -3,9 +3,8 @@ import requestUrl from '@/api/requestUrl'
 import './modules/common'
 
 var data = {
-  code: 1,
-  name: 'daxiong',
-  'datas|1-10': [{}]
+  code: 0,
+  token: Mock.Random.guid()
 }
 Mock.mock(requestUrl('/sys/login'), 'post', data)
 
