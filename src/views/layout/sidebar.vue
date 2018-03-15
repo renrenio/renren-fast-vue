@@ -27,7 +27,7 @@
   import API from '@/api'
   import { mapMutations } from 'vuex'
   import { getRouteNameByUrl } from '@/utils'
-  import isEmpty from 'lodash/isEmpty'
+  import isNil from 'lodash/isNil'
   export default {
     data () {
       return {
@@ -63,9 +63,9 @@
         if (/^\/n\/.*$/.test(route.path)) {
           var tab = this.$store.state.contentTabs.filter(item => item.name === route.name)[0]
           // tab不存在, 先添加
-          if (isEmpty(tab)) {
+          if (isNil(tab)) {
             var menuNav = this.getMenuNavByRouteName(route.name, this.$store.state.menuNavList)
-            if (!isEmpty(menuNav)) {
+            if (!isNil(menuNav)) {
               tab = {
                 id: menuNav.menuId,
                 name: route.name,
