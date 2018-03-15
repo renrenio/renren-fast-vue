@@ -27,7 +27,7 @@
   import API from '@/api'
   import { mapMutations } from 'vuex'
   import { getRouteNameByUrl } from '@/utils'
-  import isNil from 'lodash/isNil'
+  import isEmpty from 'lodash/isEmpty'
   export default {
     data () {
       return {
@@ -63,9 +63,9 @@
         if (/^\/n\/.*$/.test(route.path)) {
           var tab = this.$store.state.contentTabs.filter(item => item.name === route.name)[0]
           // tab不存在, 先添加
-          if (isNil(tab)) {
+          if (isEmpty(tab)) {
             var menuNav = this.getMenuNavByRouteName(route.name, this.$store.state.menuNavList)
-            if (!isNil(menuNav)) {
+            if (!isEmpty(menuNav)) {
               tab = {
                 id: menuNav.menuId,
                 name: route.name,
@@ -74,6 +74,8 @@
                 url: menuNav.url
               }
               this.ADD_CONTENT_TAB(tab)
+            } else {
+              return console.error('未能找到可用tab标签页！')
             }
           }
           this.menuNavActive = tab.id + ''
@@ -85,10 +87,8 @@
         for (var i = 0; i < menuNavList.length; i++) {
           if (menuNavList[i].list && menuNavList[i].list.length >= 1) {
             return this.getMenuNavByRouteName(name, menuNavList[i].list)
-          } else {
-            if (getRouteNameByUrl(menuNavList[i].url) === name) {
-              return menuNavList[i]
-            }
+          } else if (getRouteNameByUrl(menuNavList[i].url) === name) {
+            return menuNavList[i]
           }
         }
       },
