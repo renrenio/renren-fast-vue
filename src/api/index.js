@@ -6,6 +6,7 @@ import * as log from './modules/log'
 import * as config from './modules/config'
 import * as oss from './modules/oss'
 import * as schedule from './modules/schedule'
+import * as team from './modules/team'
 
 export default {
   common,     // 公共
@@ -15,5 +16,6 @@ export default {
   log,        // 系统日志
   config,     // 参数管理
   oss,        // 文件服务
-  schedule    // 定时任务
+  schedule,    // 定时任务
+  team         // 群管理
 }

@@ -13,7 +13,7 @@
           <span slot="title">首页</span>
         </el-menu-item>
         <sub-menu-nav
-          v-for="menuNav in $store.state.menuNavList" 
+          v-for="menuNav in $store.state.menuNavList"
           :key="menuNav.menuId"
           :menu-nav="menuNav">
         </sub-menu-nav>
@@ -62,6 +62,7 @@
       routeHandle (route) {
         if (/^\/n\/.*$/.test(route.path)) {
           var tab = this.$store.state.contentTabs.filter(item => item.name === route.name)[0]
+          console.log(tab)
           // tab不存在, 先添加
           if (isEmpty(tab)) {
             var menuNav = this.getMenuNavByRouteName(route.name, this.$store.state.menuNavList)
@@ -84,11 +85,14 @@
       },
       // 获取菜单导航, 根据路由名称
       getMenuNavByRouteName (name, menuNavList) {
+        console.log(menuNavList)
         for (var i = 0; i < menuNavList.length; i++) {
-          if (menuNavList[i].list && menuNavList[i].list.length >= 1) {
-            return this.getMenuNavByRouteName(name, menuNavList[i].list)
-          } else if (getRouteNameByUrl(menuNavList[i].url) === name) {
-            return menuNavList[i]
+          var subNavList = menuNavList[i].list
+          console.log(subNavList)
+          for (var j = 0; j < subNavList.length; j++) {
+            if (getRouteNameByUrl(subNavList[j].url) === name) {
+              return subNavList[j]
+            }
           }
         }
       },
