@@ -7,6 +7,8 @@ import * as config from './modules/config'
 import * as oss from './modules/oss'
 import * as schedule from './modules/schedule'
 import * as team from './modules/team'
+import * as recharge from './modules/recharge'
+import * as pk10 from './modules/pk10'
 
 export default {
   common,     // 公共
@@ -17,5 +19,7 @@ export default {
   config,     // 参数管理
   oss,        // 文件服务
   schedule,    // 定时任务
-  team         // 群管理
+  team,         // 群管理
+  recharge,    // 充值管理
+  pk10         // pk10
 }

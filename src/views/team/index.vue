@@ -34,10 +34,14 @@
         label="群名称">s
       </el-table-column>
       <el-table-column
-        prop="bid"
+        prop="status"
         header-align="center"
         align="center"
-        label="群主id">
+        label="是否开启">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status === 1" size="small" type="danger">未开启</el-tag>
+          <el-tag v-else size="small" type="success">已开启</el-tag>
+        </template>
       </el-table-column>
       <el-table-column
         prop="id"
@@ -46,14 +50,18 @@
         label="是否绑定机器人">
         <template slot-scope="scope">
           <el-tag v-if="scope.row.isBindRobot === 1" size="small" type="danger">未绑定</el-tag>
-          <el-tag v-else size="small">已绑定</el-tag>
+          <el-tag v-else size="small" type="success">已绑定</el-tag>
         </template>
       </el-table-column>
       <el-table-column
-        prop="memberNum"
+        prop="lotteryType"
         header-align="center"
         align="center"
-        label="群人数">
+        label="游戏类型">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.lotteryType === 1" size="small">pk赛车</el-tag>
+          <el-tag v-else size="small">重庆时时彩</el-tag>
+        </template>
       </el-table-column>
       <el-table-column
         prop="createTime"
@@ -67,12 +75,20 @@
         fixed="right"
         header-align="center"
         align="center"
-        width="150"
+        width="200"
         label="操作">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.isBindRobot === 1" type="text" size="small">绑定机器人
-
+          <el-button v-if="scope.row.isBindRobot === 1" type="text" size="small">绑定机器人</el-button>
+          <el-button v-if="scope.row.lotteryType === 1" type="text" size="small"
+                     @click="gameConfigHandle(scope.row.id , 1)">pk10配置
           </el-button>
+          <el-button v-if="scope.row.lotteryTpe === 2" type="text" size="small"
+                     @click="gameConfigHandle(scope.row.id , 2)">时时彩配置
+          </el-button>
+          <el-button v-if="scope.row.status === 1" type="text" size="small">关闭游戏</el-button>
+          <el-button v-if="scope.row.status === 2" type="text" size="small">开启游戏</el-button>
+          <el-button v-if="scope.row.lotteryType === 1" type="text" size="small">切换至时时彩</el-button>
+          <el-button v-if="scope.row.lotteryType === 2" type="text" size="small">切换至pk10</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -86,14 +102,18 @@
       layout="total, sizes, prev, pager, next, jumper">
     </el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
+    <pk10Config v-if="pk10ConfigVisible" ref="pk10Config" @refreshDataList="getDataList"></pk10Config>
+    <cqsscConfig v-if="cqsscConfigVisible" ref="cqsscConfig" @refreshDataList="getDataList"></cqsscConfig>
   </div>
 </template>
 
-<script>
+<script type="es6">
   import API from '@/api'
+  import pk10Config from './pk10Config'
+  import cqsscConfig from './cqsscConfig'
 
   export default {
-    data () {
+    data() {
       return {
         dataForm: {
           teamName: ''
@@ -104,15 +124,21 @@
         totalPage: 0,
         dataListLoading: false,
         dataListSelections: [],
-        addOrUpdateVisible: false
+        addOrUpdateVisible: false,
+        pk10ConfigVisible: false,
+        cqsscConfigVisible: false
       }
     },
-    activated () {
+    components: {
+      pk10Config,
+      cqsscConfig
+    },
+    activated() {
       this.getDataList()
     },
     methods: {
       // 获取数据列表
-      getDataList () {
+      getDataList() {
         this.dataListLoading = true
         var params = {
           page: this.pageIndex,
@@ -131,19 +157,33 @@
         })
       },
       // 每页数
-      sizeChangeHandle (val) {
+      sizeChangeHandle(val) {
         this.pageSize = val
         this.pageIndex = 1
         this.getDataList()
       },
       // 当前页
-      currentChangeHandle (val) {
+      currentChangeHandle(val) {
         this.pageIndex = val
         this.getDataList()
       },
       // 多选
-      selectionChangeHandle (val) {
+      selectionChangeHandle(val) {
         this.dataListSelections = val
+      },
+      // 游戏配置
+      gameConfigHandle(id, lotteryType) {
+        if (lotteryType === 1) {
+          this.pk10ConfigVisible = true
+          this.$nextTick(() => {
+            this.$refs.pk10Config.init(id)
+          })
+        } else {
+          this.cqsscConfigVisible = true
+          this.$nextTick(() => {
+            this.$refs.cqsscConfig.init(id)
+          })
+        }
       }
     }
   }
