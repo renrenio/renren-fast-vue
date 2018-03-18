@@ -9,7 +9,7 @@ import '@/element-ui'               // api: https://github.com/ElemeFE/element
 import '@/iconfont'                 // api: http://www.iconfont.cn/
 import '@/assets/scss/index.scss'
 import { isAuth } from '@/utils'
-// import '@/mock'                     // api: https://github.com/nuysoft/Mock
+import '@/mock'                     // api: https://github.com/nuysoft/Mock
 
 Vue.config.productionTip = false
 
