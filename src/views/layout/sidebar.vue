@@ -84,13 +84,15 @@
       },
       // 获取菜单导航, 根据路由名称
       getMenuNavByRouteName (name, menuNavList) {
+        var temp = []
         for (var i = 0; i < menuNavList.length; i++) {
           if (menuNavList[i].list && menuNavList[i].list.length >= 1) {
-            return this.getMenuNavByRouteName(name, menuNavList[i].list)
+            temp = temp.concat(menuNavList[i].list)
           } else if (getRouteNameByUrl(menuNavList[i].url) === name) {
             return menuNavList[i]
           }
         }
+        return temp.length >= 1 ? this.getMenuNavByRouteName(name, temp) : []
       },
       ...mapMutations(['UPDATE_MENU_NAV_LIST', 'ADD_CONTENT_TAB', 'UPDATE_CONTENT_TABS_ACTIVE_NAME'])
     }
