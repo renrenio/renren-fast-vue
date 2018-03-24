@@ -137,7 +137,7 @@
       dataFormSubmit () {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
-            var params = {
+            let params = {
               'userId': this.dataForm.id || undefined,
               'username': this.dataForm.userName,
               'password': this.dataForm.password,

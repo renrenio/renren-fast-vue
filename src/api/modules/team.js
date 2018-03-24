@@ -10,3 +10,12 @@ export function list (params) {
     params: requestParam(params, 'get')
   })
 }
+
+// 绑定机器人
+export function bindRobot (param) {
+  return request({
+    url: requestUrl('robot/team/bindRobot'),
+    method: 'post',
+    data: requestParam(param)
+  })
+}

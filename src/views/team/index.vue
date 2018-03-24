@@ -78,15 +78,17 @@
         width="200"
         label="操作">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.isBindRobot === 1" type="text" size="small">绑定机器人</el-button>
+          <el-button v-if="scope.row.isBindRobot === 1" type="text" size="small" @click="bindRobot(scope.row.id)">
+            绑定机器人
+          </el-button>
           <el-button v-if="scope.row.lotteryType === 1" type="text" size="small"
                      @click="gameConfigHandle(scope.row.id , 1)">pk10配置
           </el-button>
           <el-button v-if="scope.row.lotteryTpe === 2" type="text" size="small"
                      @click="gameConfigHandle(scope.row.id , 2)">时时彩配置
           </el-button>
-          <el-button v-if="scope.row.status === 1" type="text" size="small">关闭游戏</el-button>
-          <el-button v-if="scope.row.status === 2" type="text" size="small">开启游戏</el-button>
+          <el-button v-if="scope.row.status === 1" type="text" size="small">开启游戏</el-button>
+          <el-button v-if="scope.row.status === 2" type="text" size="small">关闭游戏</el-button>
           <el-button v-if="scope.row.lotteryType === 1" type="text" size="small">切换至时时彩</el-button>
           <el-button v-if="scope.row.lotteryType === 2" type="text" size="small">切换至pk10</el-button>
         </template>
@@ -184,6 +186,31 @@
             this.$refs.cqsscConfig.init(id)
           })
         }
+      },
+      bindRobot(tid) {
+        this.$confirm(`确定绑定机器人?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var params = {
+            "tid": tid
+          }
+          API.team.bindRobot(params).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList()
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        })
       }
     }
   }
