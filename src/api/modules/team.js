@@ -19,3 +19,12 @@ export function bindRobot (param) {
     data: requestParam(param)
   })
 }
+
+// 修改游戏状态
+export function updateGame (param) {
+  return request({
+    url: requestUrl('robot/team/updateGame'),
+    method: 'post',
+    data: requestParam(param)
+  })
+}

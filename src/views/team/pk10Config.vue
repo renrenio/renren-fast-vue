@@ -1,18 +1,18 @@
 <template>
   <el-dialog
-    :title="!dataForm.tid ? '新增' : '修改'"
+    :title="'配置pk10'"
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form  :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()"
-             label-width="80px" size="small">
-      <el-form-item label="开始时间" prop="playTimeStart" >
-        <el-input v-model="dataForm.playTimeStart" placeholder="游戏开始时间,如:09:00"></el-input>
-      </el-form-item>
-      <el-form-item label="结束时间" prop="playTimeEnd">
-        <el-input v-model="dataForm.playTimeEnd" placeholder="游戏结束时间,如:23:00"></el-input>
-      </el-form-item>
+             label-width="120px" size="small" inline="true" >
+      <!--<el-form-item label="开始时间" prop="playTimeStart" >-->
+        <!--<el-input v-model="dataForm.playTimeStart" placeholder="游戏开始时间,如:09:00"></el-input>-->
+      <!--</el-form-item>-->
+      <!--<el-form-item label="结束时间" prop="playTimeEnd">-->
+        <!--<el-input v-model="dataForm.playTimeEnd" placeholder="游戏结束时间,如:23:00"></el-input>-->
+      <!--</el-form-item>-->
       <el-form-item label="投注最小值" prop="playMinNum">
-        <el-input v-model="dataForm.playMinNum" autosize="true"></el-input>
+        <el-input v-model="dataForm.playMinNum" ></el-input>
       </el-form-item>
       <el-form-item label="投注最大值" prop="playMaxNum">
         <el-input v-model="dataForm.playMaxNum"></el-input>
@@ -113,12 +113,12 @@
           tid: ""
         },
         dataRule: {
-          playTimeStart: [
-            {required: true, message: '开始时间不能为空', trigger: 'blur'}
-          ],
-          playTimeEnd: [
-            {required: true, message: '结束时间不能为空', trigger: 'blur'}
-          ],
+          // playTimeStart: [
+          //   {required: true, message: '开始时间不能为空', trigger: 'blur'}
+          // ],
+          // playTimeEnd: [
+          //   {required: true, message: '结束时间不能为空', trigger: 'blur'}
+          // ],
           playMinNum: [
             {required: true, message: '投注最小值不能为空', trigger: 'blur'}
           ],
@@ -139,6 +139,15 @@
           ],
           champAndSecondSingleOdds: [
             {required: true, message: '冠亚和单赔率不能为空', trigger: 'blur'}
+          ],
+          champAndSecondDoubleOdds: [
+            {required: true, message: '冠亚和双赔率不能为空', trigger: 'blur'}
+          ],
+          champAndSecondBigOdds: [
+            {required: true, message: '冠亚和大赔率不能为空', trigger: 'blur'}
+          ],
+          champAndSecondSmallOdds: [
+            {required: true, message: '冠亚和小赔率不能为空', trigger: 'blur'}
           ],
           champAndSecondValue3Odds: [
             {required: true, message: '冠亚和3赔率不能为空', trigger: 'blur'}

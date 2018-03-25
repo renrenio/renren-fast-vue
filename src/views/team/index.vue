@@ -24,7 +24,7 @@
         prop="id"
         header-align="center"
         align="center"
-        width="80"
+        width="100"
         label="ID">
       </el-table-column>
       <el-table-column
@@ -59,7 +59,7 @@
         align="center"
         label="游戏类型">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.lotteryType === 1" size="small">pk赛车</el-tag>
+          <el-tag v-if="scope.row.lotteryType == '1' " size="small">pk赛车</el-tag>
           <el-tag v-else size="small">重庆时时彩</el-tag>
         </template>
       </el-table-column>
@@ -81,16 +81,24 @@
           <el-button v-if="scope.row.isBindRobot === 1" type="text" size="small" @click="bindRobot(scope.row.id)">
             绑定机器人
           </el-button>
-          <el-button v-if="scope.row.lotteryType === 1" type="text" size="small"
+          <el-button v-if="scope.row.lotteryType == '1' " type="text" size="small"
                      @click="gameConfigHandle(scope.row.id , 1)">pk10配置
           </el-button>
-          <el-button v-if="scope.row.lotteryTpe === 2" type="text" size="small"
+          <el-button v-if="scope.row.lotteryTpe == '2' " type="text" size="small"
                      @click="gameConfigHandle(scope.row.id , 2)">时时彩配置
           </el-button>
-          <el-button v-if="scope.row.status === 1" type="text" size="small">开启游戏</el-button>
-          <el-button v-if="scope.row.status === 2" type="text" size="small">关闭游戏</el-button>
-          <el-button v-if="scope.row.lotteryType === 1" type="text" size="small">切换至时时彩</el-button>
-          <el-button v-if="scope.row.lotteryType === 2" type="text" size="small">切换至pk10</el-button>
+          <el-button v-if="scope.row.status === 1" type="text" size="small" @click="updateGame(scope.row.id,2,'')">
+            开启游戏
+          </el-button>
+          <el-button v-if="scope.row.status === 2" type="text" size="small" @click="updateGame(scope.row.id,1,'')">
+            关闭游戏
+          </el-button>
+          <el-button v-if="scope.row.lotteryType == '1' " type="text" size="small" @click="updateGame(scope.row.id,'',2)">
+            切换至时时彩
+          </el-button>
+          <el-button v-if="scope.row.lotteryType == '2' " type="text" size="small" @click="updateGame(scope.row.id,'',1)">
+            切换至pk10
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -211,6 +219,36 @@
             }
           })
         })
+      },
+
+      //修改游戏
+      updateGame(tid, status, lotteryType) {
+        this.$confirm(`确定更改游戏`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          var params = {
+            "tid": tid,
+            "status": status,
+            "lotteryType": lotteryType
+          }
+          API.team.updateGame(params).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList()
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
+        })
+
       }
     }
   }
