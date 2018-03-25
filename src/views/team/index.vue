@@ -84,7 +84,7 @@
           <el-button v-if="scope.row.lotteryType == '1' " type="text" size="small"
                      @click="gameConfigHandle(scope.row.id , 1)">pk10配置
           </el-button>
-          <el-button v-if="scope.row.lotteryTpe == '2' " type="text" size="small"
+          <el-button v-if="scope.row.lotteryType == '2' " type="text" size="small"
                      @click="gameConfigHandle(scope.row.id , 2)">时时彩配置
           </el-button>
           <el-button v-if="scope.row.status === 1" type="text" size="small" @click="updateGame(scope.row.id,2,'')">

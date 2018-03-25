@@ -9,6 +9,7 @@ import * as schedule from './modules/schedule'
 import * as team from './modules/team'
 import * as recharge from './modules/recharge'
 import * as pk10 from './modules/pk10'
+import * as cqssc from './modules/cqssc'
 
 export default {
   common,     // 公共
@@ -21,5 +22,7 @@ export default {
   schedule,    // 定时任务
   team,         // 群管理
   recharge,    // 充值管理
-  pk10         // pk10
+  pk10,         // pk10
+  cqssc         // 重庆时时彩
+
 }
