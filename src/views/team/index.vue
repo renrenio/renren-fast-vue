@@ -93,11 +93,16 @@
           <el-button v-if="scope.row.status === 2" type="text" size="small" @click="updateGame(scope.row.id,1,'')">
             关闭游戏
           </el-button>
-          <el-button v-if="scope.row.lotteryType == '1' " type="text" size="small" @click="updateGame(scope.row.id,'',2)">
+          <el-button v-if="scope.row.lotteryType == '1' " type="text" size="small"
+                     @click="updateGame(scope.row.id,'',2)">
             切换至时时彩
           </el-button>
-          <el-button v-if="scope.row.lotteryType == '2' " type="text" size="small" @click="updateGame(scope.row.id,'',1)">
+          <el-button v-if="scope.row.lotteryType == '2' " type="text" size="small"
+                     @click="updateGame(scope.row.id,'',1)">
             切换至pk10
+          </el-button>
+          <el-button type="text" size="small" @click="orderHandle(scope.row.id)">
+            投注列表
           </el-button>
         </template>
       </el-table-column>
@@ -114,16 +119,19 @@
     <!-- 弹窗, 新增 / 修改 -->
     <pk10Config v-if="pk10ConfigVisible" ref="pk10Config" @refreshDataList="getDataList"></pk10Config>
     <cqsscConfig v-if="cqsscConfigVisible" ref="cqsscConfig" @refreshDataList="getDataList"></cqsscConfig>
+    <!-- 弹窗, 日志列表 -->
+    <order v-if="orderVisible" ref="order" @refreshDataList="getDataList"></order>
   </div>
 </template>
 
-<script type="es6">
+<script type="text/javascript">
   import API from '@/api'
   import pk10Config from './pk10Config'
   import cqsscConfig from './cqsscConfig'
+  import order from './order'
 
   export default {
-    data() {
+    data () {
       return {
         dataForm: {
           teamName: ''
@@ -136,19 +144,21 @@
         dataListSelections: [],
         addOrUpdateVisible: false,
         pk10ConfigVisible: false,
-        cqsscConfigVisible: false
+        cqsscConfigVisible: false,
+        orderVisible: false
       }
     },
     components: {
       pk10Config,
-      cqsscConfig
+      cqsscConfig,
+      order
     },
-    activated() {
+    activated () {
       this.getDataList()
     },
     methods: {
       // 获取数据列表
-      getDataList() {
+      getDataList () {
         this.dataListLoading = true
         var params = {
           page: this.pageIndex,
@@ -167,22 +177,22 @@
         })
       },
       // 每页数
-      sizeChangeHandle(val) {
+      sizeChangeHandle (val) {
         this.pageSize = val
         this.pageIndex = 1
         this.getDataList()
       },
       // 当前页
-      currentChangeHandle(val) {
+      currentChangeHandle (val) {
         this.pageIndex = val
         this.getDataList()
       },
       // 多选
-      selectionChangeHandle(val) {
+      selectionChangeHandle (val) {
         this.dataListSelections = val
       },
       // 游戏配置
-      gameConfigHandle(id, lotteryType) {
+      gameConfigHandle (id, lotteryType) {
         if (lotteryType === 1) {
           this.pk10ConfigVisible = true
           this.$nextTick(() => {
@@ -195,14 +205,14 @@
           })
         }
       },
-      bindRobot(tid) {
+      bindRobot (tid) {
         this.$confirm(`确定绑定机器人?`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           var params = {
-            "tid": tid
+            'tid': tid
           }
           API.team.bindRobot(params).then(({data}) => {
             if (data && data.code === 0) {
@@ -221,17 +231,17 @@
         })
       },
 
-      //修改游戏
-      updateGame(tid, status, lotteryType) {
+      // 修改游戏
+      updateGame (tid, status, lotteryType) {
         this.$confirm(`确定更改游戏`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
           var params = {
-            "tid": tid,
-            "status": status,
-            "lotteryType": lotteryType
+            'tid': tid,
+            'status': status,
+            'lotteryType': lotteryType
           }
           API.team.updateGame(params).then(({data}) => {
             if (data && data.code === 0) {
@@ -248,7 +258,13 @@
             }
           })
         })
-
+      },
+      // 订单列表
+      orderHandle (tid) {
+        this.orderVisible = true
+        this.$nextTick(() => {
+          this.$refs.order.init(tid)
+        })
       }
     }
   }
