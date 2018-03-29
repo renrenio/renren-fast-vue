@@ -4,6 +4,7 @@
       <el-menu
         :default-active="menuNavActive"
         :collapse="$store.state.sidebarCollapse"
+        :collapseTransition="false"
         class="site-sidebar__menu"
         background-color="#545c64"
         text-color="#fff"
