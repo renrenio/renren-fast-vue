@@ -9,13 +9,17 @@ import '@/element-ui'               // api: https://github.com/ElemeFE/element
 import '@/iconfont'                 // api: http://www.iconfont.cn/
 import '@/assets/scss/index.scss'
 import { isAuth } from '@/utils'
-import '@/mock'                     // api: https://github.com/nuysoft/Mock
-
-Vue.config.productionTip = false
 
 Vue.use(VueCookie)
+Vue.config.productionTip = false
 
-Vue.prototype.isAuth = isAuth // 挂载权限方法
+// 非生产环境, 适配mockjs模拟数据. api: https://github.com/nuysoft/Mock
+if (process.env.NODE_ENV !== 'production') {
+  require('@/mock')
+}
+
+// 挂载权限方法
+Vue.prototype.isAuth = isAuth
 
 /* eslint-disable no-new */
 new Vue({

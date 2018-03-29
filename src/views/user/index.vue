@@ -48,7 +48,7 @@
         label="手机号">
       </el-table-column>
       <el-table-column
-        prop="userId"
+        prop="status"
         header-align="center"
         align="center"
         label="状态">
