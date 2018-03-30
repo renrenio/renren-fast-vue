@@ -214,9 +214,10 @@ i.site-sidebar__menu-icon {
 .site-content {
   position: relative;
   padding: 15px;
-}
-.site-content--tabs {
-  padding: 55px 0 0;
+  > *[class^="mod-"] {
+    padding: 15px;
+    background-color: #fff;
+  }
   > .el-tabs {
     .el-tabs__header {
       position: fixed;
@@ -237,14 +238,18 @@ i.site-sidebar__menu-icon {
     .el-tabs__content {
       padding: 0 15px 15px;
     }
-    .el-pagination {
-      margin-top: 15px;
-      text-align: right;
-    }
     .el-breadcrumb {
       padding: 0 0 15px;
       margin-bottom: 22px;
       border-bottom: 1px solid #ebeef5;
     }
+  }
+  .el-pagination {
+    margin-top: 15px;
+    text-align: right;
+  }
+
+  &--tabs {
+    padding: 55px 0 0;
   }
 }

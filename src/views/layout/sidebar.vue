@@ -61,7 +61,7 @@
       },
       // 路由操作
       routeHandle (route) {
-        if (/^\/n\/.*$/.test(route.path)) {
+        if (route.meta && route.meta.isTab) {
           var tab = this.$store.state.contentTabs.filter(item => item.name === route.name)[0]
           // tab不存在, 先添加
           if (isEmpty(tab)) {

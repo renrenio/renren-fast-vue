@@ -7,7 +7,13 @@
       <topbar></topbar>
       <sidebar></sidebar>
       <div class="site-content__wrapper" :style="siteContentWarpperStyles">
-        <router-view></router-view>
+        <div class="site-content" :class="{ 'site-content--tabs': routeIsTab }">
+          <keep-alive v-if="!routeIsTab">
+            <router-view></router-view>
+          </keep-alive>
+          <!-- tab标签页, 内容展示方式 -->
+          <content-tabs v-else></content-tabs>
+        </div>
       </div>
     </template>
   </div>
@@ -40,6 +46,9 @@
         return [
           { 'minHeight': this.$store.state.documentClientHeight + 'px' }
         ]
+      },
+      routeIsTab () {
+        return this.$route.meta && this.$route.meta.isTab
       }
     },
     created () {

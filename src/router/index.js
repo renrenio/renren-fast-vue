@@ -21,25 +21,16 @@ export default new Router({
       redirect: { name: 'home' },
       desc: '上左右整体布局',
       children: [
+        // 通过isTab属性, 设定是否通过tab标签页展示内容
         { path: '/home', component: _import('home/index'), name: 'home', desc: '首页' },
-        {
-          path: '/content-tabs',
-          component: _import('layout/content-tabs'),
-          name: 'content-tabs',
-          redirect: { name: '404' },
-          desc: '内容需通过tabs展示',
-          children: [
-            // 以'/n'开头统一拦截, 标记为左侧菜单导航tab展示内容方式路由
-            { path: '/n/user', component: _import('user/index'), name: 'user', desc: '管理员管理' },
-            { path: '/n/role', component: _import('role/index'), name: 'role', desc: '角色管理' },
-            { path: '/n/menu', component: _import('menu/index'), name: 'menu', desc: '菜单管理' },
-            { path: '/n/sql', component: _import('sql/index'), name: 'sql', desc: 'SQL监控' },
-            { path: '/n/schedule', component: _import('schedule/index'), name: 'schedule', desc: '定时任务' },
-            { path: '/n/config', component: _import('config/index'), name: 'config', desc: '参数管理' },
-            { path: '/n/oss', component: _import('oss/index'), name: 'oss', desc: '文件上传' },
-            { path: '/n/log', component: _import('log/index'), name: 'log', desc: '系统日志' }
-          ]
-        }
+        { path: '/user', component: _import('user/index'), name: 'user', desc: '管理员管理', meta: { isTab: true } },
+        { path: '/role', component: _import('role/index'), name: 'role', desc: '角色管理', meta: { isTab: true } },
+        { path: '/menu', component: _import('menu/index'), name: 'menu', desc: '菜单管理', meta: { isTab: true } },
+        { path: '/sql', component: _import('sql/index'), name: 'sql', desc: 'SQL监控', meta: { isTab: true } },
+        { path: '/schedule', component: _import('schedule/index'), name: 'schedule', desc: '定时任务', meta: { isTab: true } },
+        { path: '/config', component: _import('config/index'), name: 'config', desc: '参数管理', meta: { isTab: true } },
+        { path: '/oss', component: _import('oss/index'), name: 'oss', desc: '文件上传', meta: { isTab: true } },
+        { path: '/log', component: _import('log/index'), name: 'log', desc: '系统日志', meta: { isTab: true } }
       ],
       beforeEnter (to, from, next) {
         let token = Vue.cookie.get('token')
