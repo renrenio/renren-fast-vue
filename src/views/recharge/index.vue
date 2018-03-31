@@ -32,6 +32,9 @@
         header-align="center"
         align="center"
         label="金额">
+        <template scope="scope">
+          {{ scope.row.amount | filterPrice }}
+        </template>
       </el-table-column>
 
       <el-table-column

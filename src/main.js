@@ -10,11 +10,11 @@ import '@/iconfont'                 // api: http://www.iconfont.cn/
 import '@/assets/scss/index.scss'
 import { isAuth } from '@/utils'
 // import '@/mock'                     // api: https://github.com/nuysoft/Mock
-
+import filter from '@/filters/index'
 Vue.config.productionTip = false
 
 Vue.use(VueCookie)
-
+Vue.use(filter)
 Vue.prototype.isAuth = isAuth // 挂载权限方法
 
 /* eslint-disable no-new */

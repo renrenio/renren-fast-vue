@@ -39,7 +39,8 @@ export default new Router({
             { path: '/n/oss', component: _import('oss/index'), name: 'oss', desc: '文件上传' },
             { path: '/n/log', component: _import('log/index'), name: 'log', desc: '系统日志' },
             { path: '/n/team', component: _import('team/index'), name: 'team', desc: '群管理' },
-            { path: '/n/recharge', component: _import('recharge/index'), name: 'recharge', desc: '充值订单' }
+            { path: '/n/recharge', component: _import('recharge/index'), name: 'recharge', desc: '充值订单' },
+            { path: '/n/cash', component: _import('cash/index'), name: 'cash', desc: '提现订单' }
           ]
         }
       ],

@@ -11,6 +11,7 @@ import * as recharge from './modules/recharge'
 import * as pk10 from './modules/pk10'
 import * as cqssc from './modules/cqssc'
 import * as order from './modules/order'
+import * as cash from './modules/cash'
 
 export default {
   common,     // 公共
@@ -25,6 +26,7 @@ export default {
   recharge,    // 充值管理
   pk10,         // pk10
   cqssc,         // 重庆时时彩
-  order          // 订单管理
+  order,          // 订单管理
+  cash            // 提现
 
 }
