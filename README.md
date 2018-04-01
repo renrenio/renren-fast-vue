@@ -11,7 +11,11 @@
 - 发布时，支持动态配置CDN静态资源／切换新旧版本
 - 演示地址：[fast.demo.renren.io](http://fast.demo.renren.io) (账号密码：admin/admin)
 
-![demo-screenshot](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot.png)
+![demo-screenshot_01](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot_01.png)
+
+![demo-screenshot_02](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot_02.png)
+
+![demo-screenshot_03](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot_03.png)
 
 ## 开发
 > 无法正常预览项目效果时，请先检查是否正常安装依赖，再查看启动服务是否存在报错
