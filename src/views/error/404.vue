@@ -23,11 +23,11 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: #fff;
     overflow: hidden;
     .site-content__wrapper {
       padding: 0;
       margin: 0;
+      background-color: #fff;
     }
     .site-content {
       position: fixed;

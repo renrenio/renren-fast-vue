@@ -9,7 +9,7 @@
       :key="item.name"
       :label="item.title"
       :name="item.name">
-      <el-card :body-style="contentViewHeight(item)">
+      <el-card :body-style="contentViewStyles(item)">
         <iframe
           v-if="item.type === 'iframe'"
           :src="getNestIframeUrl(item.url)"
@@ -43,7 +43,7 @@
     },
     methods: {
       // tab内容容器显示高度
-      contentViewHeight (tab) {
+      contentViewStyles (tab) {
         var height = this.$store.state.documentClientHeight
         height -= 50 // site-topbar
         height -= 40 // el-tabs__header
@@ -51,7 +51,9 @@
         height -= 15 // el-tabs__content padding-bottom
         height -= 2  // el-card border-top border-bottom
         height += 'px'
-        return tab.type === 'iframe' ? { height } : { minHeight: height }
+        return [
+          tab.type === 'iframe' ? { height } : { minHeight: height }
+        ]
       },
       // 获取iframe嵌套地址
       getNestIframeUrl (url) {

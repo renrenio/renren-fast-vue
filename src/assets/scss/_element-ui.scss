@@ -1,0 +1,15 @@
+/**
+ * element-ui组件风格定制
+ * 
+ * #1 重置变量
+ * #2 引入组件, 进行定制
+ */
+
+// ---------- #1 ----------
+// 通过_variables.scss站点变量统一重置
+
+
+// ---------- #2 ----------
+// 改变 icon 字体路径变量, 必需(勿删)
+$--font-path: '~element-ui/lib/theme-chalk/fonts'; 
+@import "~element-ui/packages/theme-chalk/src/index";

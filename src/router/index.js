@@ -23,6 +23,7 @@ export default new Router({
       children: [
         // 通过isTab属性, 设定是否通过tab标签页展示内容
         { path: '/home', component: _import('home/index'), name: 'home', desc: '首页' },
+        { path: '/layout-setting', component: _import('layout/setting'), name: 'setting', desc: '布局设置' },
         { path: '/user', component: _import('user/index'), name: 'user', desc: '管理员管理', meta: { isTab: true } },
         { path: '/role', component: _import('role/index'), name: 'role', desc: '角色管理', meta: { isTab: true } },
         { path: '/menu', component: _import('menu/index'), name: 'menu', desc: '菜单管理', meta: { isTab: true } },

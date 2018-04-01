@@ -1,14 +1,11 @@
 <template>
-  <aside class="site-sidebar">
+  <aside class="site-sidebar" :class="sidebarClasses">
     <div class="site-sidebar__inner">
       <el-menu
         :default-active="menuNavActive"
         :collapse="$store.state.sidebarCollapse"
         :collapseTransition="false"
-        class="site-sidebar__menu"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b">
+        class="site-sidebar__menu">
         <el-menu-item index="1-1" @click="$router.push({ name: 'home' })">
           <i class="site-sidebar__menu-icon fa fa-home"></i>
           <span slot="title">首页</span>
@@ -37,6 +34,14 @@
     },
     components: {
       SubMenuNav
+    },
+    computed: {
+      sidebarClasses () {
+        let skin = this.$store.state.sidebarLayoutSkin
+        return [
+          !/\S/.test(skin) || skin === 'light' ? '' : `site-sidebar--${skin}`
+        ]
+      }
     },
     watch: {
       $route: 'routeHandle'

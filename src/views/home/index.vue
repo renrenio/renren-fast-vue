@@ -26,22 +26,6 @@
 
 <script>
   export default {
-    data () {
-      return {
-      }
-    },
-    computed: {
-      contentViewStyles () {
-        var height = this.$store.state.documentClientHeight
-        height -= 50 // site-topbar
-        height -= 15 // site-content padding-top
-        height -= 15 // site-content padding-bottom
-        height += 'px'
-        return [
-          { minHeight: height }
-        ]
-      }
-    }
   }
 </script>
 

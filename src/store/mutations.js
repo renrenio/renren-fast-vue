@@ -1,6 +1,12 @@
 import * as types from './mutation-types'
 
 export default {
+  [types.SET_NAVBAR_LAYOUT_TYPE] (state, { type }) {
+    state.navbarLayoutType = type
+  },
+  [types.SET_SIDEBAR_LAYOUT_SKIN] (state, { skin }) {
+    state.sidebarLayoutSkin = skin
+  },
   [types.SWITCH_SIDEBAR_COLLAPSE] (state, { collapse }) {
     state.sidebarCollapse = collapse
   },

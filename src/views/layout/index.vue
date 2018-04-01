@@ -1,26 +1,25 @@
 <template>
-  <div class="site-wrapper"
-    :class="siteWarpperClasses"
-    v-loading.fullscreen.lock="loading"
-    element-loading-text="拼命加载中">
+  <div class="site-wrapper" :class="siteWarpperClasses" v-loading.fullscreen.lock="loading" element-loading-text="拼命加载中">
     <template v-if="!loading">
-      <topbar></topbar>
+      <navbar></navbar>
       <sidebar></sidebar>
       <div class="site-content__wrapper" :style="siteContentWarpperStyles">
-        <div class="site-content" :class="{ 'site-content--tabs': routeIsTab }">
-          <keep-alive v-if="!routeIsTab">
-            <router-view></router-view>
-          </keep-alive>
+        <main class="site-content" :class="{ 'site-content--tabs': routeIsTab }">
+          <el-card v-if="!routeIsTab" :body-style="contentViewStyles">
+            <keep-alive>
+              <router-view></router-view>
+            </keep-alive>
+          </el-card>
           <!-- tab标签页, 内容展示方式 -->
           <content-tabs v-else></content-tabs>
-        </div>
+        </main>
       </div>
     </template>
   </div>
 </template>
 
 <script>
-  import Topbar from './topbar'
+  import Navbar from './navbar'
   import Sidebar from './sidebar'
   import ContentTabs from './content-tabs'
   import API from '@/api'
@@ -32,7 +31,7 @@
       }
     },
     components: {
-      Topbar,
+      Navbar,
       Sidebar,
       ContentTabs
     },
@@ -49,6 +48,17 @@
       },
       routeIsTab () {
         return this.$route.meta && this.$route.meta.isTab
+      },
+      contentViewStyles () {
+        var height = this.$store.state.documentClientHeight
+        height -= 50 // site-topbar
+        height -= 15 // site-content padding-top
+        height -= 15 // site-content padding-bottom
+        height -= 2  // el-card border-top border-bottom
+        height += 'px'
+        return [
+          { minHeight: height }
+        ]
       }
     },
     created () {

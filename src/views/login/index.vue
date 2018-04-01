@@ -127,6 +127,7 @@
       margin: 0;
       overflow-x: hidden;
       overflow-y: auto;
+      background-color: transparent;
     }
     .site-content {
       min-height: 100%;

@@ -1,0 +1,22 @@
+/**
+ * 站点变量
+ * 
+ * #1 重置element-ui组件, 请查阅_element-ui__lookup.scss变量, 并保证变量名一致
+ * #2 站内变量
+ */
+
+// ---------- #1 ----------
+$--color-primary: #17b3a3;
+$--color-text-primary: #303133;
+
+
+// ---------- #2 ----------
+// Navbar
+$navbar--background-color: $--color-primary;
+
+// Sidebar
+$sidebar--background-color-dark: #263238;
+$sidebar--color-text-dark: #8a979e;
+
+// Content
+$content--background-color: #f1f4f5;
