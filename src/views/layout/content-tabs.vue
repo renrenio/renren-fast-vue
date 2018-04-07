@@ -1,7 +1,7 @@
 <template>
   <el-tabs
     v-model="tabActiveName"
-    :closable="$store.state.contentTabs.length > 1"
+    :closable="true"
     @tab-click="selectedTabHandle"
     @tab-remove="removeTabHandle">
     <el-tab-pane
@@ -20,6 +20,17 @@
         </keep-alive>
       </el-card>
     </el-tab-pane>
+    
+    <!-- tabs tools -->
+    <el-dropdown class="site-tabs__tools" @command="toolsCommandHandle" :show-timeout="0">
+      <i class="el-icon-arrow-down el-icon--right"></i>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="closeCurrent">关闭当前标签页</el-dropdown-item>
+        <el-dropdown-item command="closeOther">关闭其它标签页</el-dropdown-item>
+        <el-dropdown-item command="closeAll">关闭全部标签页</el-dropdown-item>
+        <el-dropdown-item command="refreshCurrent">刷新当前标签页</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
   </el-tabs>
 </template>
 
@@ -36,8 +47,16 @@
         get () {
           return this.$store.state.contentTabsActiveName
         },
-        set (val) {
-          this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name: val })
+        set (name) {
+          this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name })
+        }
+      }
+    },
+    watch: {
+      '$store.state.contentTabs' (tabs) {
+        if (tabs.length <= 0) {
+          this.UPDATE_MENU_NAV_ACTIVE_NAME({ name: '' })
+          this.$router.push({ name: 'home' })
         }
       }
     },
@@ -70,14 +89,30 @@
       removeTabHandle (tabName) {
         var newTabs = this.$store.state.contentTabs.filter(item => item.name !== tabName)
         // 当前选中tab被删除
-        if (tabName === this.tabActiveName) {
+        if (newTabs.length >= 1 && tabName === this.tabActiveName) {
           this.$router.push({ name: newTabs[newTabs.length - 1].name }, () => {
             this.tabActiveName = this.$route.name
           })
         }
         this.UPDATE_CONTENT_TABS(newTabs)
       },
-      ...mapMutations(['UPDATE_CONTENT_TABS', 'UPDATE_CONTENT_TABS_ACTIVE_NAME'])
+      // 工具操作
+      toolsCommandHandle (command) {
+        if (command === 'closeCurrent') {
+          this.removeTabHandle(this.tabActiveName)
+        } else if (command === 'closeOther') {
+          this.UPDATE_CONTENT_TABS(this.$store.state.contentTabs.filter(item => item.name === this.tabActiveName))
+        } else if (command === 'closeAll') {
+          this.DELETE_CONTENT_TABS()
+        } else if (command === 'refreshCurrent') {
+          var tempTabName = this.tabActiveName
+          this.removeTabHandle(tempTabName)
+          this.$nextTick(() => {
+            this.$router.push({ name: tempTabName })
+          })
+        }
+      },
+      ...mapMutations(['UPDATE_MENU_NAV_ACTIVE_NAME', 'UPDATE_CONTENT_TABS', 'UPDATE_CONTENT_TABS_ACTIVE_NAME', 'DELETE_CONTENT_TABS'])
     }
   }
 </script>

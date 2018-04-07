@@ -19,6 +19,10 @@ export default {
     state.menuNavList = list
   },
 
+  [types.UPDATE_MENU_NAV_ACTIVE_NAME] (state, { name }) {
+    state.menuNavActiveName = name
+  },
+
   [types.ADD_CONTENT_TAB] (state, tab) {
     state.contentTabs.push(tab)
   },

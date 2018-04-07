@@ -82,7 +82,7 @@
                   onClose: () => {
                     this.visible = false
                     this.$nextTick(() => {
-                      this.DELETE_CONTENT_TABS([])
+                      this.DELETE_CONTENT_TABS()
                       this.$cookie.delete('token')
                       this.$router.replace({ name: 'login' })
                     })

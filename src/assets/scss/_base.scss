@@ -258,7 +258,6 @@ img {
 
   &--dark {
     background-color: $sidebar--background-color-dark;
-
     .site-sidebar__menu.el-menu {
       background-color: $sidebar--background-color-dark;
       .el-menu-item,
@@ -280,7 +279,6 @@ img {
       }
     }
   }
-
   &__inner {
     position: relative;
     z-index: 1;
@@ -319,6 +317,21 @@ img {
   &--tabs {
     padding: 55px 0 0;
   }
+  .site-tabs__tools {
+    position: fixed;
+    top: 50px;
+    right: 0;
+    z-index: 931;
+    height: 40px;
+    padding: 0 12px;
+    font-size: 16px;
+    line-height: 40px;
+    background-color: $content--background-color;
+    cursor: pointer;
+    .el-icon--right {
+      margin-left: 0;
+    }
+  }
   > .el-tabs {
     .el-tabs__header {
       position: fixed;
@@ -326,7 +339,7 @@ img {
       left: 230px;
       right: 0;
       z-index: 930;
-      padding: 0 15px;
+      padding: 0 55px 0 15px;
       box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
       background-color: #fff;
     }
@@ -341,3 +354,7 @@ img {
     }
   }
 }
+
+
+/* Dropdown
+------------------------------ */

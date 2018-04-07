@@ -36,7 +36,7 @@
           <el-menu-item index="2-3"><a href="//git.oschina.net/renrenio/renren-generator" target="_blank">代码生成器</a></el-menu-item>
         </el-submenu>
         <el-menu-item class="site-navbar__avatar" index="3">
-          <el-dropdown placement="bottom" :hide-on-click="false">
+          <el-dropdown :show-timeout="0" placement="bottom">
             <span class="el-dropdown-link">
               <img src="~@/assets/img/avatar.png" :alt="$store.state.user.name">
               {{ $store.state.user.name }}
@@ -96,12 +96,12 @@
         }).then(() => {
           API.common.logout().then(({data}) => {
             if (data && data.code === 0) {
-              this.DELETE_CONTENT_TABS([])
+              this.DELETE_CONTENT_TABS()
               this.$cookie.delete('token')
               this.$router.replace({ name: 'login' })
             }
           })
-        })
+        }).catch(() => {})
       },
       ...mapMutations(['SWITCH_SIDEBAR_COLLAPSE', 'DELETE_CONTENT_TABS'])
     }

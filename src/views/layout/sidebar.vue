@@ -2,7 +2,7 @@
   <aside class="site-sidebar" :class="sidebarClasses">
     <div class="site-sidebar__inner">
       <el-menu
-        :default-active="menuNavActive"
+        :default-active="menuNavActiveName"
         :collapse="$store.state.sidebarCollapse"
         :collapseTransition="false"
         class="site-sidebar__menu">
@@ -29,13 +29,21 @@
   export default {
     data () {
       return {
-        menuNavActive: '1-1'
       }
     },
     components: {
       SubMenuNav
     },
     computed: {
+      menuNavActiveName: {
+        get () {
+          let name = this.$store.state.menuNavActiveName
+          return /\S/.test(name) ? name : '1-1'
+        },
+        set (name) {
+          this.UPDATE_MENU_NAV_ACTIVE_NAME({ name })
+        }
+      },
       sidebarClasses () {
         let skin = this.$store.state.sidebarLayoutSkin
         return [
@@ -84,7 +92,7 @@
               return console.error('未能找到可用tab标签页！')
             }
           }
-          this.menuNavActive = tab.id + ''
+          this.menuNavActiveName = tab.id + ''
           this.UPDATE_CONTENT_TABS_ACTIVE_NAME({ name: route.name })
         }
       },
@@ -100,7 +108,7 @@
         }
         return temp.length >= 1 ? this.getMenuNavByRouteName(name, temp) : []
       },
-      ...mapMutations(['UPDATE_MENU_NAV_LIST', 'ADD_CONTENT_TAB', 'UPDATE_CONTENT_TABS_ACTIVE_NAME'])
+      ...mapMutations(['UPDATE_MENU_NAV_LIST', 'UPDATE_MENU_NAV_ACTIVE_NAME', 'ADD_CONTENT_TAB', 'UPDATE_CONTENT_TABS_ACTIVE_NAME'])
     }
   }
 </script>
