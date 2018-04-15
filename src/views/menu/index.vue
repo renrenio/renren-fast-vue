@@ -31,12 +31,11 @@
         label="上级菜单">
       </el-table-column>
       <el-table-column
-        prop="icon"
         header-align="center"
         align="center"
         label="图标">
         <template slot-scope="scope">
-          <i :class="['fa-lg', scope.row.icon]"></i>
+          <icon-svg :name="scope.row.icon"></icon-svg>
         </template>
       </el-table-column>
       <el-table-column

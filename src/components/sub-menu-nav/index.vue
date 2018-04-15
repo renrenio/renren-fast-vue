@@ -4,7 +4,7 @@
     :data-idx="menuNav.menuId + ''"
     :index="menuNav.menuId + ''">
     <template slot="title">
-      <i :class="['site-sidebar__menu-icon', menuNav.icon ? menuNav.icon : 'fa fa-circle-o']"></i>
+      <icon-svg :name="menuNav.icon" class="site-sidebar__menu-icon"></icon-svg>
       <span>{{ menuNav.name }}</span>
     </template>
     <sub-menu-nav
@@ -18,7 +18,7 @@
     :index="menuNav.menuId + ''"
     :data-idx="menuNav.menuId + ''"
     @click="gotoRouteHandle(menuNav.url)">
-    <i :class="['site-sidebar__menu-icon', menuNav.icon ? menuNav.icon : 'fa fa-circle-o']"></i>
+    <icon-svg :name="menuNav.icon" class="site-sidebar__menu-icon"></icon-svg>
     <span>{{ menuNav.name }}</span>
   </el-menu-item>
 </template>

@@ -20,7 +20,7 @@
         <el-menu-item index="1" @click="$router.push({ name: 'setting' })">
           <template slot="title">
             <el-badge value="new">
-              <i class="el-icon-setting"></i>
+              <icon-svg name="shezhi" class="el-icon-setting"></icon-svg>
             </el-badge>
           </template>
         </el-menu-item>

@@ -4,22 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <title>人人快速开发平台</title>
-  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <% if (process.env.NODE_ENV === 'production') { %>
     <!-- 生产环境 -->
-    <script>
-      (function () {
-        var s = document.createElement('script');
-        s.src = './config/index.js?v=' + new Date().getTime();
-        document.getElementsByTagName('head')[0].appendChild(s);
-      })();
-    </script>
+    <script src="./config/index.js?h=<%=compilation.hash%>"></script>
   <% }else { %>
     <!-- 开发环境 -->
-    <script src="https://cdn.bootcss.com/Mock.js/1.0.0/mock-min.js"></script>
-    <script src="./static/config/index.js?v=<%=new Date().getTime()%>"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="./static/img/favicon.ico">
+    <script src="./static/config/index.js"></script>
+    <script src="./static/plugins/mock-1.0.0-beta3/mock-min.js"></script>
   <% } %>
 </head>
 <body>

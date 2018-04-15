@@ -6,18 +6,16 @@
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
       <el-form-item label="类型" prop="type">
         <el-radio-group v-model="dataForm.type">
-          <el-radio :label="0">目录</el-radio>
-          <el-radio :label="1">菜单</el-radio>
-          <el-radio :label="2">按钮</el-radio>
+          <el-radio v-for="(type, index) in dataForm.typeList" :label="index" :key="index">{{ type }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="菜单名称" prop="name">
-        <el-input v-model="dataForm.name" placeholder="菜单名称或按钮名称"></el-input>
+      <el-form-item :label="dataForm.typeList[dataForm.type] + '名称'" prop="name">
+        <el-input v-model="dataForm.name" :placeholder="dataForm.typeList[dataForm.type] + '名称'"></el-input>
       </el-form-item>
       <el-form-item label="上级菜单" prop="parentName">
         <el-popover
           ref="menuListPopover"
-          placement="bottom-end"
+          placement="bottom-start"
           trigger="click">
           <el-tree
             :data="menuList"
@@ -44,15 +42,26 @@
       <el-form-item v-if="dataForm.type !== 2" label="菜单图标" prop="icon">
         <el-row>
           <el-col :span="22">
-            <el-input v-model="dataForm.icon" placeholder="菜单图标"></el-input>
-          </el-col>
-          <el-col :span="2" class="icon-tips">
-            <el-tooltip placement="top" effect="light">
-              <div slot="content">
-                <span>获取图标: </span><br/>
-                1. 暂时兼容旧版引入使用 <a href="//fontawesome.io/icons/" target="_blank">fontawesome</a><br/>
-                2. 之后统一全站修改使用 <a href="//github.com/daxiongYang/renren-fast-vue/blob/master/src/iconfont/index.js" target="_blank">iconfont</a>
+            <el-popover
+              ref="iconListPopover"
+              placement="bottom-start"
+              trigger="click"
+              popper-class="mod-menu__icon-popover">
+              <div class="mod-menu__icon-list">
+                <el-button
+                  v-for="(item, index) in iconList"
+                  :key="index"
+                  @click="iconActiveHandle(item)"
+                  :class="{ 'is-active': item === dataForm.icon }">
+                  <icon-svg :name="item"></icon-svg>
+                </el-button>
               </div>
+            </el-popover>
+            <el-input v-model="dataForm.icon" v-popover:iconListPopover :readonly="true" placeholder="菜单图标名称" class="icon-list__input"></el-input>
+          </el-col>
+          <el-col :span="2" class="icon-list__tips">
+            <el-tooltip placement="top" effect="light">
+              <div slot="content">全站推荐使用SVG Sprite, 详细请参考:<a href="//github.com/daxiongYang/renren-fast-vue/blob/master/src/icons/index.js" target="_blank">icons/index.js</a>描述</div>
               <i class="el-icon-warning"></i>
             </el-tooltip>
           </el-col>
@@ -69,6 +78,7 @@
 <script>
   import API from '@/api'
   import { treeDataTranslate } from '@/utils'
+  import Icon from '@/icons'
   export default {
     data () {
       var validateUrl = (rule, value, callback) => {
@@ -83,13 +93,15 @@
         dataForm: {
           id: 0,
           type: 1,
+          typeList: ['目录', '菜单', '按钮'],
           name: '',
           parentId: 0,
           parentName: '',
           url: '',
           perms: '',
           orderNum: 0,
-          icon: ''
+          icon: '',
+          iconList: []
         },
         dataRule: {
           name: [
@@ -108,6 +120,9 @@
           children: 'children'
         }
       }
+    },
+    created () {
+      this.iconList = Icon.getNameList()
     },
     methods: {
       init (id) {
@@ -149,6 +164,10 @@
         this.$refs.menuListTree.setCurrentKey(this.dataForm.parentId)
         this.dataForm.parentName = (this.$refs.menuListTree.getCurrentNode() || {})['name']
       },
+      // 图标选中
+      iconActiveHandle (iconName) {
+        this.dataForm.icon = iconName
+      },
       // 表单提交
       dataFormSubmit () {
         this.$refs['dataForm'].validate((valid) => {
@@ -188,12 +207,32 @@
 
 <style lang="scss">
   .mod-menu {
-    .menu-list__input {
+    .menu-list__input,
+    .icon-list__input {
        > .el-input__inner {
         cursor: pointer;
       }
     }
-    .icon-tips {
+    &__icon-popover {
+      max-width: 370px;
+    }
+    &__icon-list {
+      max-height: 180px;
+      padding: 0;
+      margin: -8px 0 0 -8px;
+      > .el-button {
+        padding: 8px;
+        margin: 8px 0 0 8px;
+        > span {
+          display: inline-block;
+          vertical-align: middle;
+          width: 18px;
+          height: 18px;
+          font-size: 18px;
+        }
+      }
+    }
+    .icon-list__tips {
       font-size: 18px;
       text-align: center;
       color: #e6a23c;

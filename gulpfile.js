@@ -36,7 +36,7 @@ gulp.task('replace:cdnUrl', ['create:versionPath'], function () {
 // 替换${versionPath}/static/config/index-${env}.js window.SITE_CONFIG.staticFileName配置变量
 gulp.task('replace:staticFileName', ['create:versionPath'], function () {
   return gulp.src(`${versionPath}/static/config/index-${env}.js`)
-    .pipe($.replace(/window.SITE_CONFIG.staticFileName = \'.*\'/g, `window.SITE_CONFIG.staticFileName = \'${version}\'`))
+    .pipe($.replace(/window.SITE_CONFIG\['staticFileName'\] = '.*'/g, `window.SITE_CONFIG['staticFileName'] = '${version}'`))
     .pipe(gulp.dest(`${versionPath}/static/config/`))
 });
 
