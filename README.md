@@ -1,12 +1,5 @@
-## renren-fast
-- 一个轻量级的Java快速开发平台，能快速开发项目并交付【接私活利器】
-- 友好的代码结构及注释，便于阅读及二次开发
-- 完善的XSS防范及脚本过滤，彻底杜绝XSS攻击
-- 实现前后端分离，通过token进行数据交互
-- 后台Git地址：[gitee.com/renrenio/renren-fast](https://gitee.com/renrenio/renren-fast)
-
 ## renren-fast-vue
-- renren-fast-vue基于vue、element-ui构建开发，实现renren-fast后台管理前端功能，提供一套更优的前端解决方案
+- renren-fast-vue基于vue、element-ui构建开发，实现[renren-fast](https://gitee.com/renrenio/renren-fast)后台管理前端功能，提供一套更优的前端解决方案
 - 定制主题风格，通过scss变量统一一站式定制
 - 前后端分离，通过token进行数据交互，可独立部署
 - 发布时，支持动态配置CDN静态资源／切换新旧版本
@@ -17,6 +10,11 @@
 ![demo-screenshot_02](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot_02.png)
 
 ![demo-screenshot_03](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot_03.png)
+
+## 更新日志
+每个版本的详细更改都记录在[release notes](https://github.com/daxiongYang/renren-fast-vue/releases)中。
+
+
 
 ## 开发
 > 无法正常预览项目效果时，请先检查是否正常安装依赖，再查看启动服务是否存在报错
