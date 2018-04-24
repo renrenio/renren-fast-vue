@@ -5,11 +5,11 @@
 - 发布时，支持动态配置CDN静态资源／切换新旧版本
 - 演示地址：[fast.demo.renren.io](http://fast.demo.renren.io) (账号密码：admin/admin)
 
-![demo-screenshot_01](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot_01.png)
+![demo-screenshot_01](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/01.png)
 
-![demo-screenshot_02](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot_02.png)
+![demo-screenshot_02](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/02.png)
 
-![demo-screenshot_03](https://github.com/daxiongYang/renren-fast-vue/blob/master/screenshot_03.png)
+![demo-screenshot_03](https://github.com/daxiongYang/renren-fast-vue/blob/master/demo-screenshot/03.png)
 
 ## 更新日志
 每个版本的详细更改都记录在[release notes](https://github.com/daxiongYang/renren-fast-vue/releases)中。

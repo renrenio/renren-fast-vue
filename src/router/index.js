@@ -12,8 +12,8 @@ Vue.use(Router)
 export default new Router({
   mode: 'hash',
   routes: [
-    { path: '/404', component: _import('common/404'), name: '404', desc: '404未找到' },
-    { path: '/login', component: _import('common/login'), name: 'login', desc: '登录' },
+    { path: '/404', component: _import('error/404'), name: '404', desc: '404未找到' },
+    { path: '/login', component: _import('login/index'), name: 'login', desc: '登录' },
     {
       path: '/',
       component: _import('main'),
@@ -22,8 +22,8 @@ export default new Router({
       desc: '主入口整体布局',
       children: [
         // 通过isTab属性, 设定是否通过tab标签页展示内容
-        { path: '/home', component: _import('common/home'), name: 'home', desc: '首页' },
-        { path: '/theme', component: _import('common/theme'), name: 'theme', desc: '主题' },
+        { path: '/home', component: _import('home/index'), name: 'home', desc: '首页' },
+        { path: '/theme', component: _import('theme/index'), name: 'theme', desc: '主题' },
         { path: '/job/schedule', component: _import('modules/job/schedule'), name: 'schedule', desc: '定时任务', meta: { isTab: true } },
         { path: '/oss', component: _import('modules/oss/index'), name: 'oss', desc: '文件上传', meta: { isTab: true } },
         { path: '/sys/config', component: _import('modules/sys/config'), name: 'config', desc: '参数管理', meta: { isTab: true } },
