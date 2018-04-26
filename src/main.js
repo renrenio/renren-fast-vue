@@ -1,20 +1,21 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import router from '@/router'
+import store from '@/store'
+import VueCookie from 'vue-cookie'
+
 import App from '@/App'
-import router from '@/router'       // api: https://github.com/vuejs/vue-router
-import store from '@/store'         // api: https://github.com/vuejs/vuex
-import VueCookie from 'vue-cookie'  // api: https://github.com/alfhen/vue-cookie
-import '@/element-ui'               // api: https://github.com/ElemeFE/element
-import '@/icons'                    // api: http://www.iconfont.cn/
+
+import '@/element-ui'
+import '@/icons'
 import '@/assets/scss/index.scss'
+
 import http from '@/utils/http'
 import { isAuth } from '@/utils'
 
 Vue.use(VueCookie)
 Vue.config.productionTip = false
 
-// 非生产环境, 适配mockjs模拟数据.         api: https://github.com/nuysoft/Mock
+// 非生产环境, 适配mockjs模拟数据
 if (process.env.NODE_ENV !== 'production') {
   require('@/mock')
 }

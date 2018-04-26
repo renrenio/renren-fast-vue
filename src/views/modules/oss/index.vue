@@ -67,8 +67,8 @@
 </template>
 
 <script>
-  import Config from './oss-config'
-  import Upload from './oss-upload'
+  import Config from './config'
+  import Upload from './upload'
   export default {
     data () {
       return {

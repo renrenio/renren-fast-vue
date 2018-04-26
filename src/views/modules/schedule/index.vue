@@ -105,8 +105,8 @@
 </template>
 
 <script>
-  import AddOrUpdate from './schedule-add-or-update'
-  import Log from './schedule-log'
+  import AddOrUpdate from './add-or-update'
+  import Log from './log'
   export default {
     data () {
       return {
