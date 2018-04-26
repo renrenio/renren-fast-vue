@@ -23,7 +23,7 @@ export default function (mods, isOpen = true) {
         console.log('\n')
 
         // 2种url拦截方式
-        Mock.mock(http.adronUrl(mod.url), mod.type, mod.data)
+        Mock.mock(http.adornUrl(mod.url), mod.type, mod.data)
         Mock.mock(new RegExp(mod.url, 'g'), mod.type, mod.data)
       }
     }

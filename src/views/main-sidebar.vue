@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import SubMenuNav from '@/components/sub-menu-nav'
+  import SubMenuNav from './main-sidebar-sub-menu-nav'
   import { mapMutations } from 'vuex'
   import { getRouteNameByUrl } from '@/utils'
   import isEmpty from 'lodash/isEmpty'
