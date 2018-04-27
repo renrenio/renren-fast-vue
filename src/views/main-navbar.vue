@@ -10,7 +10,7 @@
       <el-menu
         class="site-navbar__menu"
         mode="horizontal">
-        <el-menu-item class="site-navbar__switch" index="0" @click="switchSidebarCollapseHandle()">
+        <el-menu-item class="site-navbar__switch" index="0" @click="sidebarFold = !sidebarFold">
           <icon-svg name="zhedie"></icon-svg>
         </el-menu-item>
       </el-menu>
@@ -38,8 +38,7 @@
         <el-menu-item class="site-navbar__avatar" index="3">
           <el-dropdown :show-timeout="0" placement="bottom">
             <span class="el-dropdown-link">
-              <img src="~@/assets/img/avatar.png" :alt="$store.state.user.name">
-              {{ $store.state.user.name }}
+              <img src="~@/assets/img/avatar.png" :alt="userName">{{ userName }}
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item @click.native="updatePasswordHandle()">修改密码</el-dropdown-item>
@@ -56,7 +55,6 @@
 
 <script>
   import UpdatePassword from './main-navbar-update-password'
-  import { mapMutations } from 'vuex'
   export default {
     data () {
       return {
@@ -67,18 +65,27 @@
       UpdatePassword
     },
     computed: {
+      navbarLayoutType: {
+        get () { return this.$store.state.common.navbarLayoutType }
+      },
+      sidebarFold: {
+        get () { return this.$store.state.common.sidebarFold },
+        set (val) { this.$store.commit('common/updateSidebarFold', val) }
+      },
+      mainTabs: {
+        get () { return this.$store.state.common.mainTabs },
+        set (val) { this.$store.commit('common/updateMainTabs', val) }
+      },
+      userName: {
+        get () { return this.$store.state.user.name }
+      },
       navbarClasses () {
-        let type = this.$store.state.navbarLayoutType
         return [
-          !/\S/.test(type) || type === 'default' ? '' : `site-navbar--${type}`
+          !/\S/.test(this.navbarLayoutType) || this.navbarLayoutType === 'default' ? '' : `site-navbar--${this.navbarLayoutType}`
         ]
       }
     },
     methods: {
-      // 切换侧边栏, 水平折叠收起状态
-      switchSidebarCollapseHandle () {
-        this.SWITCH_SIDEBAR_COLLAPSE({ collapse: !this.$store.state.sidebarCollapse })
-      },
       // 修改密码
       updatePasswordHandle () {
         this.updatePassowrdVisible = true
@@ -99,14 +106,13 @@
             data: this.$http.adornData()
           }).then(({data}) => {
             if (data && data.code === 0) {
-              this.DELETE_CONTENT_TABS()
+              this.mainTabs = []
               this.$cookie.delete('token')
               this.$router.replace({ name: 'login' })
             }
           })
         }).catch(() => {})
-      },
-      ...mapMutations(['SWITCH_SIDEBAR_COLLAPSE', 'DELETE_CONTENT_TABS'])
+      }
     }
   }
 </script>
