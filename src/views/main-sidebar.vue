@@ -13,7 +13,8 @@
         <sub-menu
           v-for="menu in menuList" 
           :key="menu.menuId"
-          :menu="menu">
+          :menu="menu"
+          :dynamicRoutes="dynamicRoutes">
         </sub-menu>
       </el-menu>
     </div>
@@ -22,11 +23,11 @@
 
 <script>
   import SubMenu from './main-sidebar-sub-menu'
-  import { getRouteNameByUrl } from '@/utils'
   import isEmpty from 'lodash/isEmpty'
   export default {
     data () {
       return {
+        dynamicRoutes: []
       }
     },
     components: {
@@ -65,33 +66,8 @@
       }
     },
     watch: {
-      $route: 'routeHandle'
-    },
-    created () {
-      this.getMenuList().then(() => {
-        this.routeHandle(this.$route)
-      })
-    },
-    methods: {
-      // 获取菜单列表 / 权限
-      getMenuList () {
-        return this.$http({
-          url: this.$http.adornUrl('/sys/menu/nav'),
-          method: 'get',
-          params: this.$http.adornParams()
-        }).then(({data}) => {
-          if (data && data.code === 0) {
-            this.menuList = data.menuList
-            sessionStorage.setItem('permissions', JSON.stringify(data.permissions || '[]'))
-          } else {
-            this.menuList = []
-            sessionStorage.setItem('permissions', '[]')
-          }
-        })
-      },
-      // 路由操作
-      routeHandle (route) {
-        if (route.meta && route.meta.isTab) {
+      '$route' (route) {
+        if (route.meta.isTab) {
           var tab = this.mainTabs.filter(item => item.name === route.name)[0]
           // tab不存在, 先添加
           if (isEmpty(tab)) {
@@ -112,14 +88,20 @@
           this.menuActiveName = tab.id + ''
           this.mainTabsActiveName = route.name
         }
-      },
+      }
+    },
+    created () {
+      this.menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]')
+      this.dynamicRoutes = JSON.parse(sessionStorage.getItem('dynamicRoutes') || '[]')
+    },
+    methods: {
       // 获取菜单, 根据路由名称
       getMenuByRouteName (name, menuList) {
         var temp = []
         for (var i = 0; i < menuList.length; i++) {
           if (menuList[i].list && menuList[i].list.length >= 1) {
             temp = temp.concat(menuList[i].list)
-          } else if (getRouteNameByUrl(menuList[i].url) === name) {
+          } else if (menuList[i].url === name) {
             return menuList[i]
           }
         }

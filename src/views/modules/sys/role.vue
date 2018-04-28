@@ -1,13 +1,13 @@
 <template>
-  <div class="mod-config">
+  <div class="mod-role">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
+        <el-input v-model="dataForm.roleName" placeholder="角色名称" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button v-if="isAuth('sys:role:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('sys:role:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -23,23 +23,17 @@
         width="50">
       </el-table-column>
       <el-table-column
-        prop="id"
+        prop="roleId"
         header-align="center"
         align="center"
         width="80"
         label="ID">
       </el-table-column>
       <el-table-column
-        prop="key"
+        prop="roleName"
         header-align="center"
         align="center"
-        label="参数名">
-      </el-table-column>
-      <el-table-column
-        prop="value"
-        header-align="center"
-        align="center"
-        label="参数值">
+        label="角色名称">
       </el-table-column>
       <el-table-column
         prop="remark"
@@ -48,14 +42,21 @@
         label="备注">
       </el-table-column>
       <el-table-column
+        prop="createTime"
+        header-align="center"
+        align="center"
+        width="180"
+        label="创建时间">
+      </el-table-column>
+      <el-table-column
         fixed="right"
         header-align="center"
         align="center"
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">删除</el-button>
+          <el-button v-if="isAuth('sys:role:update')" type="text" size="small" @click="addOrUpdateHandle(scope.row.roleId)">修改</el-button>
+          <el-button v-if="isAuth('sys:role:delete')" type="text" size="small" @click="deleteHandle(scope.row.roleId)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -74,12 +75,12 @@
 </template>
 
 <script>
-  import AddOrUpdate from './add-or-update'
+  import AddOrUpdate from './role-add-or-update'
   export default {
     data () {
       return {
         dataForm: {
-          key: ''
+          roleName: ''
         },
         dataList: [],
         pageIndex: 1,
@@ -101,12 +102,12 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/sys/config/list'),
+          url: this.$http.adornUrl('/sys/role/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'key': this.dataForm.key
+            'roleName': this.dataForm.roleName
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
@@ -144,7 +145,7 @@
       // 删除
       deleteHandle (id) {
         var ids = id ? [id] : this.dataListSelections.map(item => {
-          return item.id
+          return item.roleId
         })
         this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
           confirmButtonText: '确定',
@@ -152,7 +153,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/sys/config/delete'),
+            url: this.$http.adornUrl('/sys/role/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {

@@ -1,8 +1,5 @@
 <template>
-  <el-submenu
-    v-if="menu.list && menu.list.length >= 1"
-    :data-idx="menu.menuId + ''"
-    :index="menu.menuId + ''">
+  <el-submenu v-if="menu.list && menu.list.length >= 1" :index="menu.menuId + ''">
     <template slot="title">
       <icon-svg :name="menu.icon" class="site-sidebar__menu-icon"></icon-svg>
       <span>{{ menu.name }}</span>
@@ -10,14 +7,11 @@
     <sub-menu
       v-for="item in menu.list" 
       :key="item.menuId"
-      :menu="item">
+      :menu="item"
+      :dynamicRoutes="dynamicRoutes">
     </sub-menu>
   </el-submenu>
-  <el-menu-item
-    v-else
-    :index="menu.menuId + ''"
-    :data-idx="menu.menuId + ''"
-    @click="gotoRouteHandle(menu.url)">
+  <el-menu-item v-else :index="menu.menuId + ''" @click="gotoRouteHandle(menu)">
     <icon-svg :name="menu.icon" class="site-sidebar__menu-icon"></icon-svg>
     <span>{{ menu.name }}</span>
   </el-menu-item>
@@ -25,22 +19,27 @@
 
 <script>
   import SubMenu from './main-sidebar-sub-menu'
-  import { getRouteNameByUrl } from '@/utils'
   export default {
     name: 'sub-menu',
     props: {
-      menu: Object,
-      required: true
+      menu: {
+        type: Object,
+        required: true
+      },
+      dynamicRoutes: {
+        type: Array,
+        required: true
+      }
     },
     components: {
       SubMenu
     },
     methods: {
-      // 跳转到菜单对应路由
-      gotoRouteHandle (url) {
-        var routeName = getRouteNameByUrl(url)
-        if (/\S/.test(routeName)) {
-          this.$router.push({ name: routeName })
+      // 通过menuId与动态(菜单)路由进行匹配跳转至指定路由
+      gotoRouteHandle (menu) {
+        var route = this.dynamicRoutes.filter(item => item.meta.menuId === menu.menuId)
+        if (route.length >= 1) {
+          this.$router.push({ name: route[0].name })
         }
       }
     }
