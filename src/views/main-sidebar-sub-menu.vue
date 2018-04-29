@@ -8,7 +8,7 @@
       v-for="item in menu.list" 
       :key="item.menuId"
       :menu="item"
-      :dynamicRoutes="dynamicRoutes">
+      :dynamicMenuRoutes="dynamicMenuRoutes">
     </sub-menu>
   </el-submenu>
   <el-menu-item v-else :index="menu.menuId + ''" @click="gotoRouteHandle(menu)">
@@ -26,7 +26,7 @@
         type: Object,
         required: true
       },
-      dynamicRoutes: {
+      dynamicMenuRoutes: {
         type: Array,
         required: true
       }
@@ -37,7 +37,7 @@
     methods: {
       // 通过menuId与动态(菜单)路由进行匹配跳转至指定路由
       gotoRouteHandle (menu) {
-        var route = this.dynamicRoutes.filter(item => item.meta.menuId === menu.menuId)
+        var route = this.dynamicMenuRoutes.filter(item => item.meta.menuId === menu.menuId)
         if (route.length >= 1) {
           this.$router.push({ name: route[0].name })
         }

@@ -1,5 +1,5 @@
 import Mock from 'mockjs'
-import http from '@/utils/http'
+import http from '@/utils/httpRequest'
 import merge from 'lodash/merge'
 
 /**

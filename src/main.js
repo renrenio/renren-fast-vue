@@ -9,7 +9,7 @@ import '@/element-ui'
 import '@/icons'
 import '@/assets/scss/index.scss'
 
-import http from '@/utils/http'
+import httpRequest from '@/utils/httpRequest'
 import { isAuth } from '@/utils'
 
 Vue.use(VueCookie)
@@ -20,8 +20,8 @@ if (process.env.NODE_ENV !== 'production') {
   require('@/mock')
 }
 
-Vue.prototype.$http = http    // 挂载, ajax请求方法
-Vue.prototype.isAuth = isAuth // 挂载, 权限方法
+Vue.prototype.$http = httpRequest // 挂载, ajax请求方法
+Vue.prototype.isAuth = isAuth     // 挂载, 权限方法
 
 /* eslint-disable no-new */
 new Vue({
