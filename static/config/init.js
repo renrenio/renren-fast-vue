@@ -11,7 +11,7 @@
       window.SITE_CONFIG.cdnUrl + '/static/js/manifest.js',
       window.SITE_CONFIG.cdnUrl + '/static/js/vendor.js',
       window.SITE_CONFIG.cdnUrl + '/static/js/app.js',
-      window.SITE_CONFIG.cdnUrl + '/static/plugins/mock-1.0.0-beta3/mock-min.js'
+      // window.SITE_CONFIG.cdnUrl + '/static/plugins/mock-1.0.0-beta3/mock-min.js'
     ]
   };
 

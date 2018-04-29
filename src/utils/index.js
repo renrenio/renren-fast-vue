@@ -1,4 +1,13 @@
 /**
+ * 获取uuid
+ */
+export function getUUID () {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    return (c === 'x' ? (Math.random() * 16 | 0) : ('r&0x3' | '0x8')).toString(16)
+  })
+}
+
+/**
  * 是否有权限
  * @param {*} key
  */
@@ -33,21 +42,4 @@ export function treeDataTranslate (data, id = 'id', pid = 'parentId') {
     }
   }
   return res
-}
-
-/**
- * 获取字符串字节长度
- * @param {*} s
- */
-export function getStringLength (s) {
-  return s.replace(/[\u4e00-\u9fa5\uff00-\uffff]/g, '**').length
-}
-
-/**
- * 获取uuid
- */
-export function getUUID () {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-    return (c === 'x' ? (Math.random() * 16 | 0) : ('r&0x3' | '0x8')).toString(16)
-  })
 }
