@@ -5,20 +5,27 @@ import store from '@/store'                   // api: https://github.com/vuejs/v
 import VueCookie from 'vue-cookie'            // api: https://github.com/alfhen/vue-cookie
 import '@/element-ui'                         // api: https://github.com/ElemeFE/element
 import '@/icons'                              // api: http://www.iconfont.cn/
-import '@/assets/scss/index.scss'
 import httpRequest from '@/utils/httpRequest' // api: https://github.com/axios/axios
 import { isAuth } from '@/utils'
 
 Vue.use(VueCookie)
 Vue.config.productionTip = false
 
+// 主题 / 样式
+try {
+  const theme = require('@/element-ui-theme').default
+  require(`@/element-ui-theme/element-${theme.active.toLocaleUpperCase()}/index.css`)
+  require('@/assets/scss/index.scss')
+} catch (e) {}
+
 // 非生产环境, 适配mockjs模拟数据                 // api: https://github.com/nuysoft/Mock
 if (process.env.NODE_ENV !== 'production') {
   require('@/mock')
 }
 
-Vue.prototype.$http = httpRequest // 挂载, ajax请求方法
-Vue.prototype.isAuth = isAuth     // 挂载, 权限方法
+// 挂载全局
+Vue.prototype.$http = httpRequest // ajax请求方法
+Vue.prototype.isAuth = isAuth     // 权限方法
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,5 +1,5 @@
 <template>
-  <aside class="site-sidebar" :class="sidebarClasses">
+  <aside class="site-sidebar" :class="'site-sidebar--' + sidebarLayoutSkin">
     <div class="site-sidebar__inner">
       <el-menu
         :default-active="menuActiveName || 'home'"
@@ -59,11 +59,6 @@
       mainTabsActiveName: {
         get () { return this.$store.state.common.mainTabsActiveName },
         set (val) { this.$store.commit('common/updateMainTabsActiveName', val) }
-      },
-      sidebarClasses () {
-        return [
-          !/\S/.test(this.sidebarLayoutSkin) || this.sidebarLayoutSkin === 'light' ? '' : `site-sidebar--${this.sidebarLayoutSkin}`
-        ]
       }
     },
     watch: {

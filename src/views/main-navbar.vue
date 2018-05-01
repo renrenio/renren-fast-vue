@@ -1,5 +1,5 @@
 <template>
-  <nav class="site-navbar" :class="navbarClasses">
+  <nav class="site-navbar" :class="'site-navbar--' + navbarLayoutType">
     <div class="site-navbar__header">
       <h1 class="site-navbar__brand" @click="$router.push({ name: 'home' })">
         <a class="site-navbar__brand-lg" href="javascript:;">人人快速开发平台</a>
@@ -78,11 +78,6 @@
       },
       userName: {
         get () { return this.$store.state.user.name }
-      },
-      navbarClasses () {
-        return [
-          !/\S/.test(this.navbarLayoutType) || this.navbarLayoutType === 'default' ? '' : `site-navbar--${this.navbarLayoutType}`
-        ]
       }
     },
     methods: {

@@ -1,5 +1,8 @@
 <template>
-  <el-submenu v-if="menu.list && menu.list.length >= 1" :index="menu.menuId + ''">
+  <el-submenu 
+    v-if="menu.list && menu.list.length >= 1"
+    :index="menu.menuId + ''"
+    :popper-class="'site-sidebar--' + sidebarLayoutSkin + '-popper'">
     <template slot="title">
       <icon-svg :name="menu.icon" class="site-sidebar__menu-icon"></icon-svg>
       <span>{{ menu.name }}</span>
@@ -33,6 +36,11 @@
     },
     components: {
       SubMenu
+    },
+    computed: {
+      sidebarLayoutSkin: {
+        get () { return this.$store.state.common.sidebarLayoutSkin }
+      }
     },
     methods: {
       // 通过menuId与动态(菜单)路由进行匹配跳转至指定路由
