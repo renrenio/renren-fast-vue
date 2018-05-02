@@ -13,10 +13,10 @@ var env         = ''; // 运行环境
   var d = new Date();
   var yy = d.getFullYear().toString().slice(2);
   var MM = d.getMonth() + 1 >= 10 ? (d.getMonth() + 1) : '0' + (d.getMonth() + 1);
-  var dd = d.getDate() >= 10 ? d.getDate() : '0' + d.getDate();
-  var HH = d.getHours() >= 10 ? d.getHours() : '0' + d.getHours();
-  var MM = d.getMinutes() >= 10 ? d.getMinutes() : '0' + d.getMinutes();
-  version = yy + MM + dd + HH + MM;
+  var DD = d.getDate() >= 10 ? d.getDate() : '0' + d.getDate();
+  var h  = d.getHours() >= 10 ? d.getHours() : '0' + d.getHours();
+  var mm = d.getMinutes() >= 10 ? d.getMinutes() : '0' + d.getMinutes();
+  version = yy + MM + DD + h + mm;
   versionPath = distPath + '/' + version;
 })();
 
