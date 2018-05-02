@@ -7,7 +7,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   font-size: 14px;
   line-height: 1.15;
-  color: $--color-text-primary;
+  color: #303133;
   background-color: #fff;
 }
 a {
@@ -66,9 +66,9 @@ img {
 }
 
 
-/* Sidebar switching
+/* Sidebar fold
 ------------------------------ */
-.site-sidebar--collapse {
+.site-sidebar--fold {
   .site-navbar__header,
   .site-navbar__brand,
   .site-sidebar,
@@ -137,12 +137,12 @@ img {
         &:focus,
         &:hover {
           color: #fff;
-          background-color: mix(#000, $--color-primary, 15%);
+          background-color: mix(#000, $navbar--background-color, 15%);
         }
       }
       > .el-menu-item.is-active,
       > .el-submenu.is-active .el-submenu__title {
-        border-bottom-color: mix(#fff, $--color-primary, 85%);
+        border-bottom-color: mix(#fff, $navbar--background-color, 85%);
       }
       .el-menu-item i,
       .el-submenu__title i,
@@ -256,9 +256,11 @@ img {
   width: 230px;
   overflow: hidden;
 
-  &--dark {
+  &--dark,
+  &--dark-popper {
     background-color: $sidebar--background-color-dark;
-    .site-sidebar__menu.el-menu {
+    .site-sidebar__menu.el-menu,
+    > .el-menu--popup {
       background-color: $sidebar--background-color-dark;
       .el-menu-item,
       .el-submenu .el-submenu__title {

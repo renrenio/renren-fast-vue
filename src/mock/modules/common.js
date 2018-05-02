@@ -1,7 +1,7 @@
 // 登录
 export function login () {
   return {
-    isOpen: false,
+    // isOpen: false,
     url: '/sys/login',
     type: 'post',
     data: {

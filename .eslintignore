@@ -3,4 +3,4 @@
 /dist/
 /*.js
 /test/unit/coverage/
-/src/iconfont/iconfont.js
+/src/icons/iconfont.js

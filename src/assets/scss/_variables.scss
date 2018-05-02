@@ -1,16 +1,7 @@
-/**
- * 站点变量
- * 
- * #1 重置element-ui组件, 请查阅_element-ui__variable-lookup.scss官方变量列表进行重置, 必须保证变量名一致才能生效!
- * #2 站内变量
- */
-
-// ---------- #1 ----------
+// 站点主色
+// tips: 要达到整站主题修改效果, 请保证[$--color-primary]站点主色与[/src/element-ui-theme/index.js]文件中[active]属性值一致
 $--color-primary: #17b3a3;
-$--color-text-primary: #303133;
 
-
-// ---------- #2 ----------
 // Navbar
 $navbar--background-color: $--color-primary;
 
