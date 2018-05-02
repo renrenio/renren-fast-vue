@@ -61,7 +61,6 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  // debugger
   // 添加动态(菜单)路由
   // 1. 已经添加 or 全局路由, 直接访问
   // 2. 获取菜单列表, 添加并保存本地存储
