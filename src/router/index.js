@@ -114,10 +114,11 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
     if (menuList[i].list && menuList[i].list.length >= 1) {
       temp = temp.concat(menuList[i].list)
     } else if (/\S/.test(menuList[i].url)) {
+      menuList[i].url = menuList[i].url.replace(/^\//, '')
       var route = {
-        path: menuList[i].url.replace(/^\//, '').replace('/', '-'),
+        path: menuList[i].url.replace('/', '-'),
         component: null,
-        name: menuList[i].url.replace(/^\//, '').replace('/', '-'),
+        name: menuList[i].url.replace('/', '-'),
         meta: {
           menuId: menuList[i].menuId,
           title: menuList[i].name,
