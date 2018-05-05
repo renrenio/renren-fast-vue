@@ -56,7 +56,7 @@
       init (id) {
         this.dataForm.id = id || 0
         this.$http({
-          url: this.$http.adornUrl('/sys/role/list'),
+          url: this.$http.adornUrl('/sys/menu/list'),
           method: 'get',
           params: this.$http.adornParams()
         }).then(({data}) => {
