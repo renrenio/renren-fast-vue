@@ -4,11 +4,11 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-      <el-form-item label="参数名" prop="key">
-        <el-input v-model="dataForm.key" placeholder="参数名"></el-input>
+      <el-form-item label="参数名" prop="paramKey">
+        <el-input v-model="dataForm.paramKey" placeholder="参数名"></el-input>
       </el-form-item>
-      <el-form-item label="参数值" prop="value">
-        <el-input v-model="dataForm.value" placeholder="参数值"></el-input>
+      <el-form-item label="参数值" prop="paramValue">
+        <el-input v-model="dataForm.paramValue" placeholder="参数值"></el-input>
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model="dataForm.remark" placeholder="备注"></el-input>
@@ -28,12 +28,12 @@
         visible: false,
         dataForm: {
           id: 0,
-          key: '',
-          value: '',
+          paramKey: '',
+          paramValue: '',
           remark: ''
         },
         dataRule: {
-          key: [
+          paramKey: [
             { required: true, message: '参数名不能为空', trigger: 'blur' }
           ],
           value: [
@@ -55,8 +55,8 @@
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.code === 0) {
-                this.dataForm.key = data.config.key
-                this.dataForm.value = data.config.value
+                this.dataForm.paramKey = data.config.paramKey
+                this.dataForm.paramValue = data.config.paramValue
                 this.dataForm.remark = data.config.remark
               }
             })
@@ -72,8 +72,8 @@
               method: 'post',
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
-                'key': this.dataForm.key,
-                'value': this.dataForm.value,
+                'paramKey': this.dataForm.paramKey,
+                'paramValue': this.dataForm.paramValue,
                 'remark': this.dataForm.remark
               })
             }).then(({data}) => {

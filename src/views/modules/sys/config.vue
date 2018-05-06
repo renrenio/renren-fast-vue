@@ -2,7 +2,7 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
+        <el-input v-model="dataForm.paramKey" placeholder="参数名" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -30,13 +30,13 @@
         label="ID">
       </el-table-column>
       <el-table-column
-        prop="key"
+        prop="paramKey"
         header-align="center"
         align="center"
         label="参数名">
       </el-table-column>
       <el-table-column
-        prop="value"
+        prop="paramValue"
         header-align="center"
         align="center"
         label="参数值">
@@ -79,7 +79,7 @@
     data () {
       return {
         dataForm: {
-          key: ''
+          paramKey: ''
         },
         dataList: [],
         pageIndex: 1,
@@ -106,7 +106,7 @@
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'key': this.dataForm.key
+            'paramKey': this.dataForm.paramKey
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
