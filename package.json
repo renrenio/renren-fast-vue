@@ -65,7 +65,7 @@
     "jest-serializer-vue": "0.3.0",
     "nightwatch": "0.9.12",
     "node-notifier": "5.1.2",
-    "node-sass": "4.7.2",
+    "node-sass": "4.9.0",
     "optimize-css-assets-webpack-plugin": "3.2.0",
     "ora": "1.2.0",
     "portfinder": "1.0.13",
@@ -88,8 +88,8 @@
     "webpack-merge": "4.1.0"
   },
   "engines": {
-    "node": ">= 4.0.0",
-    "npm": ">= 3.0.0"
+    "node": ">= 8.11.1",
+    "npm": ">= 5.6.0"
   },
   "browserslist": [
     "> 1%",
