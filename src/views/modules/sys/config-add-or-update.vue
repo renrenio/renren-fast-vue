@@ -36,7 +36,7 @@
           paramKey: [
             { required: true, message: '参数名不能为空', trigger: 'blur' }
           ],
-          value: [
+          paramValue: [
             { required: true, message: '参数值不能为空', trigger: 'blur' }
           ]
         }
