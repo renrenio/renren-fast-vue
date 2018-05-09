@@ -80,7 +80,7 @@
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
-                this.$cookie.set('token', data.token, { expires: `${data.expire || 0}s` })
+                this.$cookie.set('token', data.token)
                 this.$router.replace({ name: 'home' })
               } else {
                 this.getCaptcha()
