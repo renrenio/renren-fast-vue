@@ -101,9 +101,10 @@
             data: this.$http.adornData()
           }).then(({data}) => {
             if (data && data.code === 0) {
-              this.mainTabs = []
               this.$cookie.delete('token')
-              this.$router.replace({ name: 'login' })
+              this.$router.push({ name: 'login' }, () => {
+                location.reload() // 刷新页面, 清空整站临时存储数据
+              })
             }
           })
         }).catch(() => {})

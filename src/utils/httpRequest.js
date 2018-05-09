@@ -28,7 +28,9 @@ http.interceptors.request.use(config => {
 http.interceptors.response.use(response => {
   if (response.data && response.data.code === 401) { // 401, token失效
     Vue.cookie.delete('token')
-    router.push({ name: 'login' })
+    router.push({ name: 'login' }, () => {
+      location.reload() // 刷新页面, 清空整站临时存储数据
+    })
   }
   return response
 }, error => {
