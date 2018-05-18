@@ -203,7 +203,7 @@
               this.$message.error(data.msg)
             }
           })
-        })
+        }).catch(() => {})
       },
       // 暂停
       pauseHandle (id) {
@@ -233,7 +233,7 @@
               this.$message.error(data.msg)
             }
           })
-        })
+        }).catch(() => {})
       },
       // 恢复
       resumeHandle (id) {
@@ -263,7 +263,7 @@
               this.$message.error(data.msg)
             }
           })
-        })
+        }).catch(() => {})
       },
       // 立即执行
       runHandle (id) {
@@ -293,7 +293,7 @@
               this.$message.error(data.msg)
             }
           })
-        })
+        }).catch(() => {})
       },
       // 日志列表
       logHandle () {

@@ -186,7 +186,7 @@
               this.$message.error(data.msg)
             }
           })
-        })
+        }).catch(() => {})
       }
     }
   }
