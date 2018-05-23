@@ -95,8 +95,9 @@ module.exports = {
     tls: 'empty',
     child_process: 'empty'
   },
+  // 引入外部库, 无需webpack打包处理
   externals: {
-    // 打包生产环境时, 排除mockjs模拟数据组件
-    mockjs: 'Mock'
+    mockjs: 'Mock',
+    echarts: 'echarts'
   }
 }
