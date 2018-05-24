@@ -105,7 +105,7 @@ function fnAddDynamicMenuRoutes (menuList = [], routes = []) {
   for (var i = 0; i < menuList.length; i++) {
     if (menuList[i].list && menuList[i].list.length >= 1) {
       temp = temp.concat(menuList[i].list)
-    } else if (/\S/.test(menuList[i].url)) {
+    } else if (menuList[i].url && /\S/.test(menuList[i].url)) {
       menuList[i].url = menuList[i].url.replace(/^\//, '')
       var route = {
         path: menuList[i].url.replace('/', '-'),
