@@ -35,7 +35,7 @@
         align="center"
         label="图标">
         <template slot-scope="scope">
-          <icon-svg :name="scope.row.icon"></icon-svg>
+          <icon-svg :name="scope.row.icon || ''"></icon-svg>
         </template>
       </el-table-column>
       <el-table-column
