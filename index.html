@@ -7,7 +7,7 @@
   <title>人人快速开发平台</title>
   <% if (process.env.NODE_ENV === 'production') { %>
     <!-- 生产环境 -->
-    <script src="./config/index.js?h=<%=compilation.hash%>"></script>
+    <script>document.write('<script src="./config/index.js?t=' + new Date().getTime() + '"><\/script>');</script>
   <% }else { %>
     <!-- 开发环境 -->
     <link rel="shortcut icon" type="image/x-icon" href="./static/img/favicon.ico">
