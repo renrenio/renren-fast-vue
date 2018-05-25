@@ -1,5 +1,13 @@
 <template>
   <div class="mod-demo-echarts">
+    <el-alert
+      title="提示："
+      type="warning"
+      description="1. 此Demo只提供ECharts官方使用文档，入门部署和体验功能。具体使用请参考：http://echarts.baidu.com/index.html"
+      :closable="false"
+      style="margin-bottom: 10px;">
+    </el-alert>
+
     <el-row :gutter="20">
       <el-col :span="24">
         <el-card>
@@ -28,15 +36,38 @@
 <script>
   import echarts from 'echarts'
   export default {
+    data () {
+      return {
+        chartLine: null,
+        chartBar: null,
+        chartPie: null,
+        chartScatter: null
+      }
+    },
     mounted () {
-      this.chartLine()
-      this.chartBar()
-      this.chartPie()
-      this.chartScatter()
+      this.initChartLine()
+      this.initChartBar()
+      this.initChartPie()
+      this.initChartScatter()
+    },
+    activated () {
+      // 由于给echart添加了resize事件, 在组件激活时需要重新resize绘画一次, 否则出现空白bug
+      if (this.chartLine) {
+        this.chartLine.resize()
+      }
+      if (this.chartBar) {
+        this.chartBar.resize()
+      }
+      if (this.chartPie) {
+        this.chartPie.resize()
+      }
+      if (this.chartScatter) {
+        this.chartScatter.resize()
+      }
     },
     methods: {
       // 折线图
-      chartLine () {
+      initChartLine () {
         var option = {
           'title': {
             'text': '折线图堆叠'
@@ -99,14 +130,14 @@
             }
           ]
         }
-        var chart = echarts.init(document.getElementById('J_chartLineBox'))
-        chart.setOption(option)
+        this.chartLine = echarts.init(document.getElementById('J_chartLineBox'))
+        this.chartLine.setOption(option)
         window.addEventListener('resize', () => {
-          chart.resize()
+          this.chartLine.resize()
         })
       },
       // 柱状图
-      chartBar () {
+      initChartBar () {
         var option = {
           tooltip: {
             trigger: 'axis',
@@ -200,14 +231,14 @@
             }
           ]
         }
-        var chart = echarts.init(document.getElementById('J_chartBarBox'))
-        chart.setOption(option)
+        this.chartBar = echarts.init(document.getElementById('J_chartBarBox'))
+        this.chartBar.setOption(option)
         window.addEventListener('resize', () => {
-          chart.resize()
+          this.chartBar.resize()
         })
       },
       // 饼状图
-      chartPie () {
+      initChartPie () {
         var option = {
           backgroundColor: '#2c343c',
           title: {
@@ -276,14 +307,14 @@
             }
           ]
         }
-        var chart = echarts.init(document.getElementById('J_chartPieBox'))
-        chart.setOption(option)
+        this.chartPie = echarts.init(document.getElementById('J_chartPieBox'))
+        this.chartPie.setOption(option)
         window.addEventListener('resize', () => {
-          chart.resize()
+          this.chartPie.resize()
         })
       },
       // 散点图
-      chartScatter () {
+      initChartScatter () {
         var option = {
           backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [
             { offset: 0, color: '#f7f8fa' },
@@ -410,10 +441,10 @@
             }
           ]
         }
-        var chart = echarts.init(document.getElementById('J_chartScatterBox'))
-        chart.setOption(option)
+        this.chartPie = echarts.init(document.getElementById('J_chartScatterBox'))
+        this.chartPie.setOption(option)
         window.addEventListener('resize', () => {
-          chart.resize()
+          this.chartPie.resize()
         })
       }
     }

@@ -337,6 +337,8 @@ img {
       }
     }
     > .el-tabs__content {
+      position: relative;
+      z-index: 920;
       padding: 0 15px 15px;
       > .site-tabs__tools {
         position: fixed;
@@ -356,7 +358,3 @@ img {
     }
   }
 }
-
-
-/* Dropdown
------------------------------- */
