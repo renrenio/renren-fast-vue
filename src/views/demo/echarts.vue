@@ -3,9 +3,10 @@
     <el-alert
       title="提示："
       type="warning"
-      description="1. 此Demo只提供ECharts官方使用文档，入门部署和体验功能。具体使用请参考：http://echarts.baidu.com/index.html"
-      :closable="false"
-      style="margin-bottom: 10px;">
+      :closable="false">
+      <div slot-scope="description">
+        <p class="el-alert__description">1. 此Demo只提供ECharts官方使用文档，入门部署和体验功能。具体使用请参考：http://echarts.baidu.com/index.html</p>
+      </div>
     </el-alert>
 
     <el-row :gutter="20">
@@ -453,6 +454,9 @@
 
 <style lang="scss">
   .mod-demo-echarts {
+    > .el-alert {
+      margin-bottom: 10px;
+    }
     > .el-row {
       margin-top: -10px;
       margin-bottom: -10px;

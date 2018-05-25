@@ -3,8 +3,7 @@
     <el-alert
       title="提示："
       type="warning"
-      :closable="false"
-      style="margin-bottom: 10px;">
+      :closable="false">
       <div slot-scope="description">
         <p class="el-alert__description">1. 此Demo只提供UEditor官方使用文档，入门部署和体验功能。具体使用请参考：http://fex.baidu.com/ueditor/</p>
         <p class="el-alert__description">2. 浏览器控制台报错“请求后台配置项http错误，上传功能将不能正常使用！”，此错需要后台提供上传接口方法（赋值给serverUrl属性）</p>
@@ -53,3 +52,13 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .mod-demo-ueditor {
+    position: relative;
+    z-index: 510;
+    > .el-alert {
+      margin-bottom: 10px;
+    }
+  }
+</style>
