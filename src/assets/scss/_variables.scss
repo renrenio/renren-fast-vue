@@ -1,6 +1,6 @@
 // 站点主色
-// tips: 要达到整站主题修改效果, 请确保[$--color-primary]站点主色与[/src/element-ui-theme/index.js]文件中[active]属性值一致
-$--color-primary: #17b3a3;
+// tips: 要达到整站主题修改效果, 请确保[$--color-primary]站点主色与[/src/element-ui-theme/index.js]文件中[import './element-[#17B3A3]/index.css']当前主题色一致
+$--color-primary: #17B3A3;
 
 // Navbar
 $navbar--background-color: $--color-primary;
