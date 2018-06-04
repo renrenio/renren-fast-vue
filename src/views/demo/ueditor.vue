@@ -10,7 +10,7 @@
       </div>
     </el-alert>
 
-    <script id="J_ueditorBox" class="ueditor-box" type="text/plain" style="width: 100%; height: 260px;">hello world!</script>
+    <script :id="ueId" class="ueditor-box" type="text/plain" style="width: 100%; height: 260px;">hello world!</script>
     
     <!-- 获取内容 -->
     <p><el-button @click="getContent()">获得内容</el-button></p>
@@ -32,12 +32,13 @@
     data () {
       return {
         ue: null,
+        ueId: `J_ueditorBox_${new Date().getTime()}`,
         ueContent: '',
         dialogVisible: false
       }
     },
     mounted () {
-      this.ue = ueditor.getEditor('J_ueditorBox', {
+      this.ue = ueditor.getEditor(this.ueId, {
         // serverUrl: '', // 服务器统一请求接口路径
         zIndex: 3000
       })
