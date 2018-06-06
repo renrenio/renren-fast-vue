@@ -1,3 +1,5 @@
+import Mock from 'mockjs'
+
 // 登录
 export function login () {
   return {
@@ -7,8 +9,8 @@ export function login () {
     data: {
       'msg': 'success',
       'code': 0,
-      'expire': 43200,
-      'token': '573a5cb08506e7ee35a3445ab3aff3da'
+      'expire': Mock.Random.natural(60 * 60 * 1, 60 * 60 * 12),
+      'token': Mock.Random.string('abcdefghijklmnopqrstuvwxyz0123456789', 32)
     }
   }
 }

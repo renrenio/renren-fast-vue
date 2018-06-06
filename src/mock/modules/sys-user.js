@@ -1,3 +1,20 @@
+import Mock from 'mockjs'
+
+// 生成数据列表
+var dataList = []
+for (let i = 0; i < Math.floor(Math.random() * 10 + 1); i++) {
+  dataList.push(Mock.mock({
+    'userId': '@increment',
+    'username': '@name',
+    'email': '@email',
+    'mobile': /^1[0-9]{10}$/,
+    'status': 1,
+    'roleIdList': null,
+    'createUserId': 1,
+    'createTime': 'datetime'
+  }))
+}
+
 // 获取用户列表
 export function list () {
   return {
@@ -8,34 +25,11 @@ export function list () {
       'msg': 'success',
       'code': 0,
       'page': {
-        'totalCount': 2,
+        'totalCount': dataList.length,
         'pageSize': 10,
         'totalPage': 1,
         'currPage': 1,
-        'list': [{
-          'userId': 1,
-          'username': 'admin',
-          'password': '9ec9750e709431dad22365cabc5c625482e574c74adaebba7dd02f1129e4ce1d',
-          'salt': 'YzcmCZNvbXocrsz9dm8e',
-          'email': 'root@renren.io',
-          'mobile': '13612345678',
-          'status': 1,
-          'roleIdList': null,
-          'createUserId': 1,
-          'createTime': '2016-11-11 11:11:11'
-        },
-        {
-          'userId': 2,
-          'username': 'test',
-          'password': 'e477847e4d57f667c1ff1e8a7d463a31583563104270e61f589fa829ab56a8a9',
-          'salt': 'FWrbqmSyS3J0jps556lt',
-          'email': '11@11.com',
-          'mobile': '13311111111',
-          'status': 1,
-          'roleIdList': null,
-          'createUserId': 1,
-          'createTime': '2018-03-12 11:30:15'
-        }]
+        'list': dataList
       }
     }
   }
@@ -50,18 +44,7 @@ export function info () {
     data: {
       'msg': 'success',
       'code': 0,
-      'user': {
-        'userId': 1,
-        'username': 'admin',
-        'password': '9ec9750e709431dad22365cabc5c625482e574c74adaebba7dd02f1129e4ce1d',
-        'salt': 'YzcmCZNvbXocrsz9dm8e',
-        'email': 'root@renren.io',
-        'mobile': '13612345678',
-        'status': 1,
-        'roleIdList': null,
-        'createUserId': 1,
-        'createTime': '2016-11-11 11:11:11'
-      }
+      'user': dataList[0]
     }
   }
 }
