@@ -2,8 +2,9 @@
 
 ### 1.2.1
 
-*待定*
+*2018-06-08*
 
+- 修复tabs关闭最后一个tab后，再次打开会保留最后一个tab bug
 - 优化完善mock模拟数据
 - 修复linux系统，引入主题色文件名大小写编译错误bug [#22](https://github.com/daxiongYang/renren-fast-vue/issues/22)
 - 新增echarts图表、ueditor富文本编辑器demo
