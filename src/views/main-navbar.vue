@@ -102,9 +102,8 @@
           }).then(({data}) => {
             if (data && data.code === 0) {
               this.$cookie.delete('token')
-              this.$router.push({ name: 'login' }, () => {
-                location.reload() // 刷新页面, 清空整站临时存储数据
-              })
+              this.$router.options.isAddDynamicMenuRoutes = false
+              this.$router.push({ name: 'login' })
             }
           })
         }).catch(() => {})
