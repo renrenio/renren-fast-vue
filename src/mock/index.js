@@ -1,56 +1,45 @@
 import Mock from 'mockjs'
-import http from '@/utils/httpRequest'
-import merge from 'lodash/merge'
 import * as common from './modules/common'
-import * as user from './modules/user'
-import * as role from './modules/role'
-import * as menu from './modules/menu'
-import * as log from './modules/log'
-import * as config from './modules/config'
+import * as jobSchedule from './modules/job-schedule'
 import * as oss from './modules/oss'
-import * as schedule from './modules/schedule'
-
-console.log('\n%c!<-------------------- 接口拦截, mock模拟数据 s -------------------->', 'color:blue')
+import * as sysConfig from './modules/sys-config'
+import * as sysLog from './modules/sys-log'
+import * as sysMenu from './modules/sys-menu'
+import * as sysRole from './modules/sys-role'
+import * as sysUser from './modules/sys-user'
 
 // tips
-// 1. 关闭[业务模块集]拦截, create方法[第2个参数]设置. (默认开启)
-// 2. 关闭[业务模块对象]拦截, 通过模块返回对象中的[isOpen属性, 默认开启]设置. (默认开启)
-
-fnCreate(common, false)      // 公共
-fnCreate(user, false)        // 管理员管理
-fnCreate(role, false)        // 角色管理
-fnCreate(menu, false)        // 菜单管理
-fnCreate(log, false)         // 系统日志
-fnCreate(config, false)      // 参数管理
-fnCreate(oss, false)         // 文件服务
-fnCreate(schedule, false)    // 定时任务
-
-console.log('%c!<-------------------- 接口拦截, mock模拟数据 e -------------------->\n\n', 'color:blue')
+// 1. 开启/关闭[业务模块]拦截, 通过调用fnCreate方法[isOpen参数]设置.
+// 2. 开启/关闭[业务模块中某个请求]拦截, 通过函数返回对象中的[isOpen属性]设置.
+fnCreate(common, false)
+fnCreate(jobSchedule, false)
+fnCreate(oss, false)
+fnCreate(sysConfig, false)
+fnCreate(sysLog, false)
+fnCreate(sysMenu, false)
+fnCreate(sysRole, false)
+fnCreate(sysUser, false)
 
 /**
  * 创建mock模拟数据
- * @param {*} mods 模块集
+ * @param {*} mod 模块
  * @param {*} isOpen 是否开启?
  */
-function fnCreate (mods, isOpen = true) {
+function fnCreate (mod, isOpen = true) {
   if (isOpen) {
-    for (var key in mods) {
-      var mod = mods[key]() || {}
-      if (mod.isOpen !== false) {
-        // 添加默认[mock]属性, 方便调试
-        mod.data = merge({ 'mock': true }, mod.data)
-
-        // 控制台输出信息
-        console.log('\n')
-        console.log(' url: ', mod.url)
-        console.log('type: ', mod.type)
-        console.log('data: ', mod.data)
-        console.log('\n')
-
-        // 2种url拦截方式
-        Mock.mock(http.adornUrl(mod.url), mod.type, mod.data)
-        Mock.mock(new RegExp(mod.url, 'g'), mod.type, mod.data)
-      }
+    for (var key in mod) {
+      ((res) => {
+        if (res.isOpen !== false) {
+          Mock.mock(new RegExp(res.url), res.type, (opts) => {
+            opts['data'] = opts.body ? JSON.parse(opts.body) : null
+            delete opts.body
+            console.log('\n')
+            console.log('%cmock拦截, 请求: ', 'color:blue', opts)
+            console.log('%cmock拦截, 响应: ', 'color:blue', res.data)
+            return res.data
+          })
+        }
+      })(mod[key]() || {})
     }
   }
 }
