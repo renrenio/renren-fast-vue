@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import { clearLoginInfo } from '@/utils'
   export default {
     data () {
       var validateConfirmPassword = (rule, value, callback) => {
@@ -93,7 +94,7 @@
                     this.visible = false
                     this.$nextTick(() => {
                       this.mainTabs = []
-                      this.$cookie.delete('token')
+                      clearLoginInfo()
                       this.$router.replace({ name: 'login' })
                     })
                   }

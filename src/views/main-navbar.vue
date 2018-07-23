@@ -55,6 +55,7 @@
 
 <script>
   import UpdatePassword from './main-navbar-update-password'
+  import { clearLoginInfo } from '@/utils'
   export default {
     data () {
       return {
@@ -101,8 +102,7 @@
             data: this.$http.adornData()
           }).then(({data}) => {
             if (data && data.code === 0) {
-              this.$cookie.delete('token')
-              this.$router.options.isAddDynamicMenuRoutes = false
+              clearLoginInfo()
               this.$router.push({ name: 'login' })
             }
           })

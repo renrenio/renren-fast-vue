@@ -8,6 +8,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import http from '@/utils/httpRequest'
 import { isURL } from '@/utils/validate'
+import { clearLoginInfo } from '@/utils'
 
 Vue.use(Router)
 
@@ -40,6 +41,7 @@ const mainRoutes = {
   beforeEnter (to, from, next) {
     let token = Vue.cookie.get('token')
     if (!token || !/\S/.test(token)) {
+      clearLoginInfo()
       next({ name: 'login' })
     }
     next()
