@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
   // 添加动态(菜单)路由
   // 1. 已经添加 or 全局路由, 直接访问
   // 2. 获取菜单列表, 添加并保存本地存储
-  if (router.options.isAddDynamicMenuRoutes || fnCurrentRouteType(to) === 'global') {
+  if (router.options.isAddDynamicMenuRoutes || fnCurrentRouteType(to, globalRoutes) === 'global') {
     next()
   } else {
     http({
@@ -89,7 +89,7 @@ router.beforeEach((to, from, next) => {
  * 判断当前路由类型, global: 全局路由, main: 主入口路由
  * @param {*} route 当前路由
  */
-function fnCurrentRouteType (route) {
+function fnCurrentRouteType (route, globalRoutes = []) {
   var temp = []
   for (var i = 0; i < globalRoutes.length; i++) {
     if (route.path === globalRoutes[i].path) {
