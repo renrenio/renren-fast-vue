@@ -79,7 +79,7 @@
       selectedTabHandle (tab) {
         tab = this.mainTabs.filter(item => item.name === tab.name)
         if (tab.length >= 1) {
-          this.$router.push({ name: tab[0].name })
+          this.$router.push({ name: tab[0].name, query: tab[0].query, params: tab[0].params })
         }
       },
       // tabs, 删除tab
