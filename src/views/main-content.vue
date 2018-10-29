@@ -113,10 +113,10 @@
       },
       // tabs, 刷新当前
       tabsRefreshCurrentHandle () {
-        var tempTabName = this.mainTabsActiveName
-        this.removeTabHandle(tempTabName)
+        var tab = this.$route
+        this.removeTabHandle(tab.name)
         this.$nextTick(() => {
-          this.$router.push({ name: tempTabName })
+          this.$router.push({ name: tab.name, query: tab.query, params: tab.params })
         })
       }
     }
