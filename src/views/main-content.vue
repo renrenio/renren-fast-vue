@@ -88,7 +88,8 @@
         if (this.mainTabs.length >= 1) {
           // 当前选中tab被删除
           if (tabName === this.mainTabsActiveName) {
-            this.$router.push({ name: this.mainTabs[this.mainTabs.length - 1].name }, () => {
+            var tab = this.mainTabs[this.mainTabs.length - 1]
+            this.$router.push({ name: tab.name, query: tab.query, params: tab.params }, () => {
               this.mainTabsActiveName = this.$route.name
             })
           }
