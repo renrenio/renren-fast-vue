@@ -97,7 +97,9 @@
               name: route.name,
               title: route.meta.title,
               type: isURL(route.meta.iframeUrl) ? 'iframe' : 'module',
-              iframeUrl: route.meta.iframeUrl || ''
+              iframeUrl: route.meta.iframeUrl || '',
+              params: route.params,
+              query: route.query
             }
             this.mainTabs = this.mainTabs.concat(tab)
           }
