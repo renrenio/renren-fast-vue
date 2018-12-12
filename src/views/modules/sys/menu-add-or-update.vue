@@ -47,15 +47,17 @@
               placement="bottom-start"
               trigger="click"
               popper-class="mod-menu__icon-popover">
-              <div class="mod-menu__icon-list">
-                <el-button
-                  v-for="(item, index) in iconList"
-                  :key="index"
-                  @click="iconActiveHandle(item)"
-                  :class="{ 'is-active': item === dataForm.icon }">
-                  <icon-svg :name="item"></icon-svg>
-                </el-button>
-              </div>
+              <el-scrollbar>
+                <div class="mod-menu__icon-list" >
+                  <el-button
+                    v-for="(item, index) in iconList"
+                    :key="index"
+                    @click="iconActiveHandle(item)"
+                    :class="{ 'is-active': item === dataForm.icon }">
+                    <icon-svg :name="item"></icon-svg>
+                  </el-button>
+                </div>
+              </el-scrollbar>
             </el-popover>
             <el-input v-model="dataForm.icon" v-popover:iconListPopover :readonly="true" placeholder="菜单图标名称" class="icon-list__input"></el-input>
           </el-col>
