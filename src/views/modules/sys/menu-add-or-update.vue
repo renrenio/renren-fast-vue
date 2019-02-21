@@ -47,14 +47,16 @@
               placement="bottom-start"
               trigger="click"
               popper-class="mod-menu__icon-popover">
-              <div class="mod-menu__icon-list">
-                <el-button
-                  v-for="(item, index) in iconList"
-                  :key="index"
-                  @click="iconActiveHandle(item)"
-                  :class="{ 'is-active': item === dataForm.icon }">
-                  <icon-svg :name="item"></icon-svg>
-                </el-button>
+              <div class="mod-menu__icon-inner">
+                <div class="mod-menu__icon-list">
+                  <el-button
+                    v-for="(item, index) in iconList"
+                    :key="index"
+                    @click="iconActiveHandle(item)"
+                    :class="{ 'is-active': item === dataForm.icon }">
+                    <icon-svg :name="item"></icon-svg>
+                  </el-button>
+                </div>
               </div>
             </el-popover>
             <el-input v-model="dataForm.icon" v-popover:iconListPopover :readonly="true" placeholder="菜单图标名称" class="icon-list__input"></el-input>
@@ -223,10 +225,17 @@
       }
     }
     &__icon-popover {
-      max-width: 370px;
+      width: 458px;
+      overflow: hidden;
+    }
+    &__icon-inner {
+      width: 478px;
+      max-height: 258px;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
     &__icon-list {
-      max-height: 180px;
+      width: 458px;
       padding: 0;
       margin: -8px 0 0 -8px;
       > .el-button {
