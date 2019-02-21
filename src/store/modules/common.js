@@ -12,6 +12,8 @@ export default {
     // 侧边栏, 菜单
     menuList: [],
     menuActiveName: '',
+    // 内容, 是否需要刷新
+    contentIsNeedRefresh: false,
     // 主入口标签页
     mainTabs: [],
     mainTabsActiveName: ''
@@ -34,6 +36,9 @@ export default {
     },
     updateMenuActiveName (state, name) {
       state.menuActiveName = name
+    },
+    updateContentIsNeedRefresh (state, status) {
+      state.contentIsNeedRefresh = status
     },
     updateMainTabs (state, tabs) {
       state.mainTabs = tabs

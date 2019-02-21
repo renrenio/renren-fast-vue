@@ -13,7 +13,7 @@
           <el-dropdown-item @click.native="tabsCloseCurrentHandle">关闭当前标签页</el-dropdown-item>
           <el-dropdown-item @click.native="tabsCloseOtherHandle">关闭其它标签页</el-dropdown-item>
           <el-dropdown-item @click.native="tabsCloseAllHandle">关闭全部标签页</el-dropdown-item>
-          <el-dropdown-item @click.native="tabsRefreshCurrentHandle">刷新当前标签页</el-dropdown-item>
+          <el-dropdown-item @click.native="refresh()">刷新当前标签页</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-tab-pane
@@ -45,6 +45,7 @@
 <script>
   import { isURL } from '@/utils/validate'
   export default {
+    inject: ['refresh'],
     data () {
       return {
       }
