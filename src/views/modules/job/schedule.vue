@@ -40,12 +40,6 @@
         label="bean名称">
       </el-table-column>
       <el-table-column
-        prop="methodName"
-        header-align="center"
-        align="center"
-        label="方法名称">
-      </el-table-column>
-      <el-table-column
         prop="params"
         header-align="center"
         align="center"

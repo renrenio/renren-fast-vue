@@ -7,9 +7,6 @@
       <el-form-item label="bean名称" prop="beanName">
         <el-input v-model="dataForm.beanName" placeholder="spring bean名称, 如: testTask"></el-input>
       </el-form-item>
-      <el-form-item label="方法名称" prop="methodName">
-        <el-input v-model="dataForm.methodName" placeholder="方法名称"></el-input>
-      </el-form-item>
       <el-form-item label="参数" prop="params">
         <el-input v-model="dataForm.params" placeholder="参数"></el-input>
       </el-form-item>
@@ -35,7 +32,6 @@
         dataForm: {
           id: 0,
           beanName: '',
-          methodName: '',
           params: '',
           cronExpression: '',
           remark: '',
@@ -44,9 +40,6 @@
         dataRule: {
           beanName: [
             { required: true, message: '用户名不能为空', trigger: 'blur' }
-          ],
-          methodName: [
-            { required: true, message: '方法名称不能为空', trigger: 'blur' }
           ],
           cronExpression: [
             { required: true, message: 'cron表达式不能为空', trigger: 'blur' }
@@ -68,7 +61,6 @@
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.dataForm.beanName = data.schedule.beanName
-                this.dataForm.methodName = data.schedule.methodName
                 this.dataForm.params = data.schedule.params
                 this.dataForm.cronExpression = data.schedule.cronExpression
                 this.dataForm.remark = data.schedule.remark
@@ -88,7 +80,6 @@
               data: this.$http.adornData({
                 'jobId': this.dataForm.id || undefined,
                 'beanName': this.dataForm.beanName,
-                'methodName': this.dataForm.methodName,
                 'params': this.dataForm.params,
                 'cronExpression': this.dataForm.cronExpression,
                 'remark': this.dataForm.remark,
