@@ -8,7 +8,7 @@
       <main-navbar />
       <main-sidebar />
       <div class="site-content__wrapper" :style="{ 'min-height': documentClientHeight + 'px' }">
-        <main-content />
+        <main-content v-if="!$store.state.common.contentIsNeedRefresh" />
       </div>
     </template>
   </div>
@@ -19,6 +19,17 @@
   import MainSidebar from './main-sidebar'
   import MainContent from './main-content'
   export default {
+    provide () {
+      return {
+        // 刷新
+        refresh () {
+          this.$store.commit('common/updateContentIsNeedRefresh', true)
+          this.$nextTick(() => {
+            this.$store.commit('common/updateContentIsNeedRefresh', false)
+          })
+        }
+      }
+    },
     data () {
       return {
         loading: true

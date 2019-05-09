@@ -72,6 +72,7 @@
         var ids = []
         for (var i = 0; i < data.length; i++) {
           if (parentIds.indexOf(data[i][this.parentKey]) !== -1 && parentIds.indexOf(data[i][this.treeKey]) === -1) {
+            data[i]._expanded = false
             ids.push(data.splice(i, 1)[0][this.treeKey])
             i--
           }

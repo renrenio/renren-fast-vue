@@ -13,7 +13,7 @@
           <el-dropdown-item @click.native="tabsCloseCurrentHandle">关闭当前标签页</el-dropdown-item>
           <el-dropdown-item @click.native="tabsCloseOtherHandle">关闭其它标签页</el-dropdown-item>
           <el-dropdown-item @click.native="tabsCloseAllHandle">关闭全部标签页</el-dropdown-item>
-          <el-dropdown-item @click.native="tabsRefreshCurrentHandle">刷新当前标签页</el-dropdown-item>
+          <el-dropdown-item @click.native="refresh()">刷新当前标签页</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
       <el-tab-pane
@@ -45,6 +45,7 @@
 <script>
   import { isURL } from '@/utils/validate'
   export default {
+    inject: ['refresh'],
     data () {
       return {
       }
@@ -79,7 +80,7 @@
       selectedTabHandle (tab) {
         tab = this.mainTabs.filter(item => item.name === tab.name)
         if (tab.length >= 1) {
-          this.$router.push({ name: tab[0].name })
+          this.$router.push({ name: tab[0].name, query: tab[0].query, params: tab[0].params })
         }
       },
       // tabs, 删除tab
@@ -88,7 +89,8 @@
         if (this.mainTabs.length >= 1) {
           // 当前选中tab被删除
           if (tabName === this.mainTabsActiveName) {
-            this.$router.push({ name: this.mainTabs[this.mainTabs.length - 1].name }, () => {
+            var tab = this.mainTabs[this.mainTabs.length - 1]
+            this.$router.push({ name: tab.name, query: tab.query, params: tab.params }, () => {
               this.mainTabsActiveName = this.$route.name
             })
           }
@@ -113,10 +115,10 @@
       },
       // tabs, 刷新当前
       tabsRefreshCurrentHandle () {
-        var tempTabName = this.mainTabsActiveName
-        this.removeTabHandle(tempTabName)
+        var tab = this.$route
+        this.removeTabHandle(tab.name)
         this.$nextTick(() => {
-          this.$router.push({ name: tempTabName })
+          this.$router.push({ name: tab.name, query: tab.query, params: tab.params })
         })
       }
     }
