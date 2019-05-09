@@ -174,7 +174,7 @@ img {
     text-transform: uppercase;
     white-space: nowrap;
     color: #fff;
-    
+
     &-lg,
     &-mini {
       margin: 0 5px;
@@ -355,4 +355,10 @@ img {
       }
     }
   }
+}
+.el-table__expand-icon {
+  display: inline-block;
+  width: 14px;
+  vertical-align: middle;
+  margin-right: 5px;
 }

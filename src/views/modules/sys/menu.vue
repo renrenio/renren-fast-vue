@@ -5,24 +5,18 @@
         <el-button v-if="isAuth('sys:menu:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
       </el-form-item>
     </el-form>
+
     <el-table
       :data="dataList"
+      row-key="menuId"
       border
-      style="width: 100%;">
+      style="width: 100%; ">
       <el-table-column
-        prop="menuId"
-        header-align="center"
-        align="center"
-        width="80"
-        label="ID">
-      </el-table-column>
-      <table-tree-column
         prop="name"
         header-align="center"
-        treeKey="menuId"
-        width="150"
-        label="名称">
-      </table-tree-column>
+        min-width="150"
+        label="名称" >
+      </el-table-column>
       <el-table-column
         prop="parentName"
         header-align="center"
@@ -89,7 +83,6 @@
 </template>
 
 <script>
-  import TableTreeColumn from '@/components/table-tree-column'
   import AddOrUpdate from './menu-add-or-update'
   import { treeDataTranslate } from '@/utils'
   export default {
@@ -102,7 +95,6 @@
       }
     },
     components: {
-      TableTreeColumn,
       AddOrUpdate
     },
     activated () {
