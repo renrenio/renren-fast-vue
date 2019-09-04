@@ -5,7 +5,7 @@
 - 动态菜单，通过菜单管理统一管理访问路由
 - 数据切换，通过mock配置对接口数据／mock模拟数据进行切换
 - 发布时，可动态配置CDN静态资源／切换新旧版本
-- 演示地址：[http://fast.demo.renren.io](http://fast.demo.renren.io) (账号密码：admin/admin)
+- 演示地址：[http://demo.open.renren.io/renren-fast](http://demo.open.renren.io/renren-fast) (账号密码：admin/admin)
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0305/133529_ff15f192_63154.png "01.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0305/133537_7a1b2d85_63154.png "02.png")

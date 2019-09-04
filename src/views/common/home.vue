@@ -8,14 +8,14 @@
       <li>动态菜单，通过菜单管理统一管理访问路由</li>
       <li>数据切换，通过mock配置对接口数据／mock模拟数据进行切换</li>
       <li>发布时，可动态配置CDN静态资源／切换新旧版本</li>
-      <li>演示地址：<a href="http://fast.demo.renren.io" target="_blank">fast.demo.renren.io</a> (账号密码：admin/admin)</li>
+      <li>演示地址：<a href="http://demo.open.renren.io/renren-fast" target="_blank">http://demo.open.renren.io/renren-fast</a> (账号密码：admin/admin)</li>
     </ul>
     <h3>获取帮助</h3>
     <ul>
-      <li>官方社区：<a href="//renren.io" target="_blank">renren.io</a></li>
-      <li>前端Git地址：<a href="//github.com/daxiongYang/renren-fast-vue" target="_blank">github.com/daxiongYang/renren-fast-vue</a></li>
-      <li>后台Git地址：<a href="//git.oschina.net/renrenio/renren-fast" target="_blank">git.oschina.net/renrenio/renren-fast</a></li>
-      <li>代码生成器：<a href="//git.oschina.net/renrenio/renren-generator" target="_blank">git.oschina.net/renrenio/renren-generator</a></li>
+      <li>官方社区：<a href="https://www.renren.io/community" target="_blank">https://www.renren.io/community</a></li>
+      <li>前端Git地址：<a href="https://github.com/renrenio/renren-fast-vue" target="_blank">https://github.com/renrenio/renren-fast-vue</a></li>
+      <li>后台Git地址：<a href="https://gitee.com/renrenio/renren-fast" target="_blank">https://gitee.com/renrenio/renren-fast</a></li>
+      <li>代码生成器：<a href="https://gitee.com/renrenio/renren-generator" target="_blank">https://gitee.com/renrenio/renren-generator</a></li>
       <li>如需关注项目最新动态，请Watch、Star项目，同时也是对项目最好的支持</li>
     </ul>
     <h3>官方QQ群</h3>

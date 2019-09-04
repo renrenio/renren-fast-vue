@@ -28,7 +28,7 @@
     "npm": "^6.9.0",
     "sass-loader": "6.0.6",
     "svg-sprite-loader": "3.7.3",
-    "vue": "2.5.2",
+    "vue": "2.5.16",
     "vue-cookie": "1.1.4",
     "vue-router": "3.0.1",
     "vuex": "3.0.1"
@@ -82,7 +82,7 @@
     "vue-jest": "1.0.2",
     "vue-loader": "13.3.0",
     "vue-style-loader": "3.0.1",
-    "vue-template-compiler": "2.5.2",
+    "vue-template-compiler": "2.5.16",
     "webpack": "3.6.0",
     "webpack-bundle-analyzer": "2.9.0",
     "webpack-dev-server": "2.9.1",
