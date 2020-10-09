@@ -24,7 +24,7 @@
     "gulp-replace": "0.6.1",
     "gulp-shell": "0.6.5",
     "lodash": "4.17.5",
-    "node-sass": "4.9.0",
+    "node-sass": "4.13.1",
     "npm": "^6.9.0",
     "sass-loader": "6.0.6",
     "svg-sprite-loader": "3.7.3",
