@@ -1,3 +1,6 @@
+#### 为了更好的服务国内用户，renren-fast-vue仓库已迁移到Gitee，新的仓库地址 https://gitee.com/renrenio/renren-ui ，以后会在 https://gitee.com/renrenio/renren-ui 里面进行更新维护，感谢支持！ :smiley: 
+<br> 
+
 ## renren-fast-vue
 - renren-fast-vue基于vue、element-ui构建开发，实现[renren-fast](https://gitee.com/renrenio/renren-fast)后台管理前端功能，提供一套更优的前端解决方案
 - 前后端分离，通过token进行数据交互，可独立部署
